@@ -12,7 +12,9 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 * Default random client selection strategy.
 * Callback style and bluebird Promise style APIs.
 * Transparent JSON to nquads data formatting handling.
+* 
 * Fully covered '[mocha](https://github.com/mochajs/mocha) + [chai](https://github.com/chaijs/chai)' test cases.
+* Clearly designed entry-level nquads data: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), [friend_circle_without_label.nq](./test/data/friend_circle_without_label.nq) for getting you in.
 
 ## Basic usages examples
 
