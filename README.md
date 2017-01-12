@@ -2,9 +2,9 @@
 
 This is a Node.js client for open-source graph database [cayley](https://github.com/cayleygraph/cayley).
 
-## Documentation
+# Documentation
 
-### Basic usages examples
+## Basic usages examples
 
 ```
 npm install node-cayley --save
@@ -84,7 +84,7 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
 
   * For all the APIs usages example you can find in the [test folder](./test/apis).
 
-### Configuration
+## Configuration
 
   * Options
 
@@ -157,5 +157,81 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
       ]
     });
     ```
+
+## HTTP APIs
+
+Depends on your `promisify` setting provide `callback style` or `bluebird Promise style`.
+
+#### write([{}, {}, ...], callback)
+
+#### writeFile('pathOfNquadFile', callback)
+
+#### delete([{}, {}, ...], callback)
+
+## Gremlin APIs
+
+Depends on your `promisify` setting provide `callback style` or `bluebird Promise style`.
+
+### Graph object
+
+#### graph.Vertex([nodeId],[nodeId]...)
+
+#### graph.Morphism()
+
+### Path object
+
+#### path.Out([predicatePath], [tags])
+
+#### path.In([predicatePath], [tags])
+
+#### path.Both([predicatePath], [tags])
+
+#### path.Is(node, [node..])
+
+#### path.Has(predicate, object)
+
+#### path.LabelContext([labelPath], [tags])
+
+#### path.Limit(limit)
+
+#### path.Skip(offset)
+
+#### path.InPredicates()
+
+#### path.OutPredicates()
+
+#### path.Tag(tag)
+
+#### path.Back(tag)
+
+#### path.Save(predicate, tag)
+
+#### path.Intersect(query)
+
+#### path.Union(query)
+
+#### path.Except(query)
+
+#### path.Follow(morphism)
+
+#### path.FollowR(morphism)
+
+### Query object
+
+#### query.All(callback)
+
+#### query.GetLimit(size, callback)
+
+#### query.ToArray(callback)
+
+#### query.ToValue(callback)
+
+#### query.TagArray(callback)
+
+#### query.TagValue(callback)
+
+#### query.ForEach(gremlinCallback, callback)
+
+#### query.ForEach(limit, gremlinCallback, callback)
 
 
