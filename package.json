@@ -1,0 +1,21 @@
+{
+  "name": "microservice-cayley",
+  "version": "0.0.1",
+  "description": "This is the Node.js driver for Graph DB [cayley](https://github.com/cayleygraph/cayley).",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --check-leaks --timeout 3000 ./test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/v-cube/microservice-module-cayley-js.git"
+  },
+  "dependencies": {
+    "bluebird": "~3.4.7",
+    "request": "~2.79.0",
+    "winston": "~2.3.0"
+  },
+  "devDependencies": {
+    "chai": "~3.5.0"
+  }
+}

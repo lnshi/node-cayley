@@ -1,0 +1,79 @@
+</user/shortid/23TplPdS> <userId> "23TplPdS" "companyA" .
+</user/shortid/23TplPdS> <userSetId> "XXX_L2" "companyA" .
+</user/shortid/23TplPdS> <realName> "XXX_L3" "companyA" .
+</user/shortid/23TplPdS> <displayName> "XXX_L4" "companyA" .
+</user/shortid/23TplPdS> <gender> "M" "companyA" .
+</user/shortid/23TplPdS> <email> "xxx.l6@xxx.com" "companyA" .
+</user/shortid/23TplPdS> <isEmailVerified> "false" "companyA" .
+</user/shortid/23TplPdS> <mobilePhone> _:l8 "companyA" .
+_:l8 <isVerified> "false" "companyA" .
+_:l8 <alpha3CountryCode> "+65" "companyA" .
+_:l8 <mobilePhoneNoWithCountryCallingCode> "+6586720011" "companyA" .
+
+</user/shortid/46Juzcyx> <userId> "46Juzcyx" "companyA" .
+</user/shortid/46Juzcyx> <userSetId> "XXX_L14" "companyA" .
+</user/shortid/46Juzcyx> <realName> "XXX_L15" "companyA" .
+</user/shortid/46Juzcyx> <displayName> "XXX_L16" "companyA" .
+</user/shortid/46Juzcyx> <gender> "M" "companyA" .
+</user/shortid/46Juzcyx> <email> "xxx.l18@xxx.com" "companyA" .
+</user/shortid/46Juzcyx> <isEmailVerified> "false" "companyA" .
+</user/shortid/46Juzcyx> <mobilePhone> _:l20 "companyA" .
+_:l20 <isVerified> "false" "companyA" .
+_:l20 <alpha3CountryCode> "+65" "companyA" .
+_:l20 <mobilePhoneNoWithCountryCallingCode> "+6586720023" "companyA" .
+
+</user/shortid/hwX6aOr7> <userId> "hwX6aOr7" "companyA" .
+</user/shortid/hwX6aOr7> <userSetId> "XXX_L26" "companyA" .
+</user/shortid/hwX6aOr7> <realName> "XXX_L27" "companyA" .
+</user/shortid/hwX6aOr7> <displayName> "XXX_L28" "companyA" .
+</user/shortid/hwX6aOr7> <gender> "M" "companyA" .
+</user/shortid/hwX6aOr7> <email> "xxx.l30@xxx.com" "companyA" .
+</user/shortid/hwX6aOr7> <isEmailVerified> "false" "companyA" .
+</user/shortid/hwX6aOr7> <mobilePhone> _:l32 "companyA" .
+_:l32 <isVerified> "false" "companyA" .
+_:l32 <alpha3CountryCode> "+65" "companyA" .
+_:l32 <mobilePhoneNoWithCountryCallingCode> "+6586720035" "companyA" .
+
+</user/shortid/46Juzcyx> <follows> </user/shortid/23TplPdS> "companyA" .
+</user/shortid/hwX6aOr7> <follows> </user/shortid/23TplPdS> "companyA" .
+
+</user/guid/b93fb5b5dcef46a38ff239bbcf11f8f0> <userId> "b93fb5b5dcef46a38ff239bbcf11f8f0" "companyB" .
+</user/guid/b93fb5b5dcef46a38ff239bbcf11f8f0> <userSetId> "XXX_L41" "companyB" .
+</user/guid/b93fb5b5dcef46a38ff239bbcf11f8f0> <realName> "XXX_L42" "companyB" .
+</user/guid/b93fb5b5dcef46a38ff239bbcf11f8f0> <displayName> "XXX_L43" "companyB" .
+</user/guid/b93fb5b5dcef46a38ff239bbcf11f8f0> <gender> "M" "companyB" .
+</user/guid/b93fb5b5dcef46a38ff239bbcf11f8f0> <email> "xxx.l45@xxx.com" "companyB" .
+</user/guid/b93fb5b5dcef46a38ff239bbcf11f8f0> <isEmailVerified> "false" "companyB" .
+</user/guid/b93fb5b5dcef46a38ff239bbcf11f8f0> <mobilePhone> _:l47 "companyB" .
+_:l47 <isVerified> "false" "companyB" .
+_:l47 <alpha3CountryCode> "+65" "companyB" .
+_:l47 <mobilePhoneNoWithCountryCallingCode> "+6586720050" "companyB" .
+
+</user/guid/e80c197aebc249799d5620d838186cdf> <userId> "e80c197aebc249799d5620d838186cdf" "companyB" .
+</user/guid/e80c197aebc249799d5620d838186cdf> <userSetId> "XXX_L53" "companyB" .
+</user/guid/e80c197aebc249799d5620d838186cdf> <realName> "XXX_L54" "companyB" .
+</user/guid/e80c197aebc249799d5620d838186cdf> <displayName> "XXX_L55" "companyB" .
+</user/guid/e80c197aebc249799d5620d838186cdf> <gender> "M" "companyB" .
+</user/guid/e80c197aebc249799d5620d838186cdf> <email> "xxx.l57@xxx.com" "companyB" .
+</user/guid/e80c197aebc249799d5620d838186cdf> <isEmailVerified> "false" "companyB" .
+</user/guid/e80c197aebc249799d5620d838186cdf> <mobilePhone> _:l59 "companyB" .
+_:l59 <isVerified> "false" "companyB" .
+_:l59 <alpha3CountryCode> "+65" "companyB" .
+_:l59 <mobilePhoneNoWithCountryCallingCode> "+6586720062" "companyB" .
+
+</user/guid/cc8e59b4f5c742c48a64876f00769a5a> <userId> "cc8e59b4f5c742c48a64876f00769a5a" "companyB" .
+</user/guid/cc8e59b4f5c742c48a64876f00769a5a> <userSetId> "XXX_L65" "companyB" .
+</user/guid/cc8e59b4f5c742c48a64876f00769a5a> <realName> "XXX_L66" "companyB" .
+</user/guid/cc8e59b4f5c742c48a64876f00769a5a> <displayName> "XXX_L67" "companyB" .
+</user/guid/cc8e59b4f5c742c48a64876f00769a5a> <gender> "M" "companyB" .
+</user/guid/cc8e59b4f5c742c48a64876f00769a5a> <email> "xxx.l69@xxx.com" "companyB" .
+</user/guid/cc8e59b4f5c742c48a64876f00769a5a> <isEmailVerified> "false" "companyB" .
+</user/guid/cc8e59b4f5c742c48a64876f00769a5a> <mobilePhone> _:l71 "companyB" .
+_:l71 <isVerified> "false" "companyB" .
+_:l71 <alpha3CountryCode> "+65" "companyB" .
+_:l71 <mobilePhoneNoWithCountryCallingCode> "+6586720074" "companyB" .
+
+</user/guid/e80c197aebc249799d5620d838186cdf> <follows> </user/guid/b93fb5b5dcef46a38ff239bbcf11f8f0> "companyB" .
+</user/guid/cc8e59b4f5c742c48a64876f00769a5a> <follows> </user/guid/b93fb5b5dcef46a38ff239bbcf11f8f0> "companyB" .
+
+
