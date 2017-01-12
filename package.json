@@ -1,6 +1,6 @@
 {
   "name": "node-cayley",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "This is the Node.js driver for Graph DB [cayley](https://github.com/cayleygraph/cayley).",
   "main": "index.js",
   "scripts": {
