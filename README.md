@@ -383,6 +383,7 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
 ### Path Objects
 
 Both `.Morphism()` and `.Vertex()` create path objects, which provide the following traversal methods.
+
 Note that .Vertex() returns a query object, which is a subclass of path object.
 
 #### path.Out([predicatePath], [tags])
