@@ -2,8 +2,6 @@
 
 This is a Node.js client for open-source graph database [cayley](https://github.com/cayleygraph/cayley).
 
-# Documentation
-
 ## Feature list
 
 * ES6 based.
@@ -11,10 +9,12 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 * Multiple cayley hosts supported.
 * Default random client selection strategy.
 * Callback style and bluebird Promise style APIs.
-* Transparent JSON to nquads data formatting handling.
+* Transparent JSON to N-quads data formatting handling.
 * 
 * Fully covered '[mocha](https://github.com/mochajs/mocha) + [chai](https://github.com/chaijs/chai)' test cases.
-* Clearly designed entry-level nquads data: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), [friend_circle_without_label.nq](./test/data/friend_circle_without_label.nq) for getting you in.
+* Clearly designed entry-level N-quads data: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), [friend_circle_without_label.nq](./test/data/friend_circle_without_label.nq) for getting you in.
+
+# Documentation
 
 ## Basic usages examples
 
@@ -28,7 +28,7 @@ npm install node-cayley --save
 
 const cayleyClients = require('node-cayley')('http://localhost:64210');
 ```
-  * Write your JSON object directly to cayley, this lib will handle the JSON to nquad transparently for you.
+  * Write your JSON object directly to cayley, this lib will handle the JSON to N-quads transparently for you.
 
     ```
     # Callback style.
@@ -49,7 +49,7 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
       if (err) {
         // Something went wrong...
       } else {
-        // You get the response body here.
+        // resBody: cayley server response body to this write.
       }
     });
     ```
@@ -70,7 +70,7 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
         }
       }
     ]).then((resBody) => {
-      // You get the response body here.
+      // resBody: cayley server response body to this write.
     }).catch((err) => {
       // Something went wrong...
     });
@@ -88,7 +88,7 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
     ```
     # Bluebird Promise style.
     cayleyClients[0].g.type('query').V().All().then((resBody) => {
-      // You get the response body here.
+      // resBody: cayley server response body to this query.
     }).catch((err) => {
       // Something went wrong...
     });
@@ -196,9 +196,52 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
 
 ## HTTP APIs
 
-Depends on your `promisify` setting provide `callback style` or `bluebird Promise style` API.
+**Depends on your `promisify` setting provide `callback style` or `bluebird Promise style` API.**
 
-#### write([{}, {}, ...], callback)
+#### write(data, callback)
+
+* Description: write your JSON data into cayley as N-quads data transparently.
+
+* Parameters
+  * data
+    * Array of JSON objects
+    * You need to modify each of your object to add the below two fields:
+      * primaryKey: `required`, which will be the **Subject** in the N-quads data.
+      * label: `optional`, which is for organizing the graph into multiple subgraph.
+
+  * callback
+    * Has the below form:
+
+      ```
+      (err, resBody) => {
+        // resBody: cayley server response body to this write.
+      }
+      ```
+
+* Usage example:
+  
+  ```
+  client.write([
+    {
+      primaryKey: '</user/shortid/23TplPdS>',
+      label: 'companyA',
+
+      userId: '23TplPdS',
+      realName: 'XXX_L3',
+      mobilePhone: {
+        isVerified: false,
+        alpha3CountryCode: '+65',
+        mobilePhoneNoWithCountryCallingCode: '+6586720011'
+      }
+    }, ...
+  ], (err, resBody) => {
+    if (err) {
+      // Something went wrong...
+    } else {
+      // resBody: cayley server response body to this write.
+    }
+  });
+  ```
 
 #### writeFile('pathOfNquadFile', callback)
 
@@ -206,7 +249,7 @@ Depends on your `promisify` setting provide `callback style` or `bluebird Promis
 
 ## Gremlin APIs
 
-Depends on your `promisify` setting provide `callback style` or `bluebird Promise style` API.
+**Depends on your `promisify` setting provide `callback style` or `bluebird Promise style` API.**
 
 ### Graph object
 
