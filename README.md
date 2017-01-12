@@ -313,6 +313,10 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
 
 ### Graph object
 
+* Alias: `g`
+
+* This is the only special object in the environment, generates the query objects. Under the hood, they're simple objects that get compiled to a Go iterator tree when executed.
+
 #### **graph.Vertex([nodeId],[nodeId]...)**
 
 #### **graph.Morphism()**
