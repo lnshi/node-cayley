@@ -386,7 +386,8 @@ Both `.Morphism()` and `.Vertex()` create path objects, which provide the follow
 
 Note that .Vertex() returns a query object, which is a subclass of path object.
 
-For the following APIs which belong to the `Path Object` please refer to the upstream project cayley doc <a href="https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md" target="_blank">**here**</a>:
+<a href="https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md" target="_blank">**For the following APIs which belong to the `Path Object` please refer to the upstream project cayley doc by following this link.**</a>:
+
 * path.Out([predicatePath], [tags])
 * path.In([predicatePath], [tags])
 * path.Both([predicatePath], [tags])
@@ -412,21 +413,44 @@ For the following APIs which belong to the `Path Object` please refer to the ups
 
 **Depends on your `promisify` setting provide `callback style` or `bluebird Promise style` API.**
 
-#### query.All(callback)
+<a href="https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md" target="_blank">**For the following APIs which belong to the `Query Object` please refer to the upstream project cayley doc by following this link.**</a>:
 
-#### query.GetLimit(size, callback)
+* query.All(callback)
+* query.GetLimit(size, callback)
+* query.ToArray(callback)
+* query.ToValue(callback)
+* query.TagArray(callback)
+* query.TagValue(callback)
+* query.ForEach(gremlinCallback, callback)
+* query.ForEach(limit, gremlinCallback, callback)
 
-#### query.ToArray(callback)
+**!!!Note:**
+For above seven APIs which belong to `Query Object`, the parameter:
 
-#### query.ToValue(callback)
+  * `callback` is meaning to provide a way for you receiving the error and response body when you choose the **callback style APIs**, just like demonstrate in above **Basic usages examples**:
 
-#### query.TagArray(callback)
+    ```
+    g.V().All((err, resBody) => {
+      // ...
+    })
+    ```
+    , which gremlin doesn't need it.
+    If you set the `promisify` to `true`, then just:
 
-#### query.TagValue(callback)
+    ```
+    g.V().All().then((resBody) => {
+      // ...
+    }).catch((err) => {
+      // ...
+    });
+    ```
 
-#### query.ForEach(gremlinCallback, callback)
-
-#### query.ForEach(limit, gremlinCallback, callback)
+  * `gremlinCallback` is a javascript function which is really needed by Gremlin/Cayley, try to understand the design here, the 'gremlinCallback' should satisfy the following conditions:
+    1. No any reference to anything outside of this function, only pure js code.
+      * Coz this function will be stringified and committed to cayley server, and then get executed there.
+      * ES6 'arrow function' and other advanced features whether can be supported haven't been tested.
+      
+    2. Can use the APIs exposed by this lib belong to 'Path' object.
 
 ## Additional resources
 
