@@ -386,7 +386,7 @@ Both `.Morphism()` and `.Vertex()` create path objects, which provide the follow
 
 Note that .Vertex() returns a query object, which is a subclass of path object.
 
-For the following APIs which belong to the `Path Object` please refer to the upstream project cayley doc **<a href="https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md" target="_blank">here</a>**:
+For the following APIs which belong to the `Path Object` please refer to the upstream project cayley doc <a href="https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md" target="_blank">**here**</a>:
 * path.Out([predicatePath], [tags])
 * path.In([predicatePath], [tags])
 * path.Both([predicatePath], [tags])
