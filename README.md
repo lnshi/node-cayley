@@ -160,7 +160,7 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
 
 ## HTTP APIs
 
-Depends on your `promisify` setting provide `callback style` or `bluebird Promise style`.
+Depends on your `promisify` setting provide `callback style` or `bluebird Promise style` API.
 
 #### write([{}, {}, ...], callback)
 
@@ -170,7 +170,7 @@ Depends on your `promisify` setting provide `callback style` or `bluebird Promis
 
 ## Gremlin APIs
 
-Depends on your `promisify` setting provide `callback style` or `bluebird Promise style`.
+Depends on your `promisify` setting provide `callback style` or `bluebird Promise style` API.
 
 ### Graph object
 
