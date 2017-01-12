@@ -11,6 +11,7 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 * Multiple cayley hosts supported.
 * Default random client selection strategy.
 * Callback style and bluebird Promise style APIs.
+* Transparent JSON to nquads data formatting handling.
 * Fully covered '[mocha](https://github.com/mochajs/mocha) + [chai](https://github.com/chaijs/chai)' test cases.
 
 ## Basic usages examples
