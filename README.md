@@ -207,8 +207,8 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
     * Array of JSON objects
     * You need to modify each of your object to add the below two fields:
       * primaryKey: `required`, which will be the **Subject** in the N-quads data.
+        * You need to define a way to generate the consistent `primaryKey` for same data, the same `primaryKey` is required when you try to delete this N-quads entry.
       * label: `optional`, which is for organizing the graph into multiple subgraph.
-
   * callback
     * Has the below form:
 
@@ -243,7 +243,32 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
   });
   ```
 
-### writeFile('pathOfNquadFile', callback)
+### writeFile('pathOfNquadsFile', callback)
+
+* Description: write your N-quads data file into cayley.
+
+* Parameters
+  * pathOfNquadsFile
+    * Path to your N-quads data file
+  * callback
+    * Has the below form:
+
+      ```
+      (err, resBody) => {
+        // ...
+      }
+      ```
+
+* Usage example:
+
+  ```
+  client.writeFile(
+    path.resolve(__dirname, './test/data/friend_circle_with_label.nq'),
+    (err, resBody) => {
+      // ...
+    }
+  );
+  ```
 
 ### delete([{}, {}, ...], callback)
 
