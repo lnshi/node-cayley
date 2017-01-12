@@ -37,6 +37,7 @@ g.V().All((err, resBody) => {
   // ...
 });
 
+// Use `g.type()` to switch between the 'query' and 'shape'.
 g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagArray().then((resBody) => {
   // ...
 }).catch((err) => {
