@@ -16,6 +16,24 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 
 # Documentation
 
+Table of Contents
+
+* [Basic usages examples](#basic-usages-examples)
+* [Configuration](#configuration)
+* [Default random client selection strategy](#default-random-client-selection-strategy)
+* [HTTP APIs](#http-apis)
+   * [write(data, callback)](#writedata-callback)
+   * [writeFile(pathOfNquadsFile, callback)](#writefilepathofnquadsfile-callback)
+   * [delete(data, callback)](#deletedata-callback)
+* [Gremlin APIs](#gremlin-apis)
+   * [Graph Object](#graph-object)
+      * [<strong>graph.type(type)</strong>](#graphtypetype)
+      * [<strong>graph.Vertex([nodeId],[nodeId]...)</strong>](#graphvertexnodeidnodeid)
+      * [<strong>graph.Morphism()</strong>](#graphmorphism)
+   * [Path Objects](#path-objects)
+   * [Query Objects(finals)](#query-objectsfinals)
+* [Additional resources](#additional-resources)
+
 ## Basic usages examples
 
 ```
