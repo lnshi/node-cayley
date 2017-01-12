@@ -1,7 +1,7 @@
 {
   "name": "node-cayley",
   "version": "0.0.2",
-  "description": "This is the Node.js driver for Graph DB [cayley](https://github.com/cayleygraph/cayley).",
+  "description": "Node.js client for open-source graph database cayley(https://github.com/cayleygraph/cayley).",
   "main": "./index.js",
   "scripts": {
     "test": "mocha --check-leaks --timeout 3000 ./test/index.js"
