@@ -27,74 +27,91 @@ npm install node-cayley --save
 // for more information like the default random client slection strategy, please continue reading this doc.
 
 const cayleyClients = require('node-cayley')('http://localhost:64210');
+
+const client = cayleyClients[0];
+
+const g = graph = client.g;
+// Or: const g = graph = client.graph;
+
+g.V().All((err, resBody) => {
+  // ...
+});
+
+g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagArray().then((resBody) => {
+  // ...
+}).catch((err) => {
+  // ...
+});
+
 ```
-  * Write your JSON object directly to cayley, this lib will handle the JSON to N-quads transparently for you.
 
-    ```
-    # Callback style.
-    cayleyClients[0].write([
-      {
-        primaryKey: '</user/shortid/23TplPdS>',
-        label: 'companyA',
+* Write your JSON object directly to cayley, this lib will handle the JSON to N-quads transparently for you.
 
-        userId: '23TplPdS',
-        realName: 'XXX_L3',
-        mobilePhone: {
-          isVerified: false,
-          alpha3CountryCode: '+65',
-          mobilePhoneNoWithCountryCallingCode: '+6586720011'
-        }
+  ```
+  # Callback style.
+  client.write([
+    {
+      primaryKey: '</user/shortid/23TplPdS>',
+      label: 'companyA',
+
+      userId: '23TplPdS',
+      realName: 'XXX_L3',
+      mobilePhone: {
+        isVerified: false,
+        alpha3CountryCode: '+65',
+        mobilePhoneNoWithCountryCallingCode: '+6586720011'
       }
-    ], (err, resBody) => {
-      if (err) {
-        // Something went wrong...
-      } else {
-        // resBody: cayley server response body to this write.
-      }
-    });
-    ```
-
-    ```
-    # Bluebird Promise style.
-    cayleyClients[0].write([
-      {
-        primaryKey: '</user/shortid/23TplPdS>',
-        label: 'companyA',
-
-        userId: '23TplPdS',
-        realName: 'XXX_L3',
-        mobilePhone: {
-          isVerified: false,
-          alpha3CountryCode: '+65',
-          mobilePhoneNoWithCountryCallingCode: '+6586720011'
-        }
-      }
-    ]).then((resBody) => {
+    }
+  ], (err, resBody) => {
+    if (err) {
+      // Something went wrong...
+    } else {
       // resBody: cayley server response body to this write.
-    }).catch((err) => {
-      // Something went wrong...
-    });
-    ```
+    }
+  });
+  ```
 
-  * Use Gremlin APIs, refer to official [Gremlin APIs doc](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md) for more information.
+  ```
+  # Bluebird Promise style.
+  client.write([
+    {
+      primaryKey: '</user/shortid/23TplPdS>',
+      label: 'companyA',
 
-    ```
-    # Callback style.
-    cayleyClients[0].g.type('query').V().All((err, resBody) => {
-      // Callback body here...
-    });
-    ``` 
+      userId: '23TplPdS',
+      realName: 'XXX_L3',
+      mobilePhone: {
+        isVerified: false,
+        alpha3CountryCode: '+65',
+        mobilePhoneNoWithCountryCallingCode: '+6586720011'
+      }
+    }
+  ]).then((resBody) => {
+    // resBody: cayley server response body to this write.
+  }).catch((err) => {
+    // Something went wrong...
+  });
+  ```
 
-    ```
-    # Bluebird Promise style.
-    cayleyClients[0].g.type('query').V().All().then((resBody) => {
-      // resBody: cayley server response body to this query.
-    }).catch((err) => {
-      // Something went wrong...
-    });
-    ```
+* Use Gremlin APIs, refer to official [Gremlin APIs doc](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md) for more information.
 
-  * For all the APIs usages example you can find in the [test folder](./test/apis).
+  ```
+  # Callback style.
+  client.g.type('query').V().All((err, resBody) => {
+    // Callback body here...
+  });
+  ``` 
+
+  ```
+  # Bluebird Promise style.
+  client.g.type('query').V().All().then((resBody) => {
+    // resBody: cayley server response body to this query.
+  }).catch((err) => {
+    // Something went wrong...
+  });
+  ```
+
+* For all the APIs usages example you can find in the [test folder](./test/apis).
 
 ## Configuration
 
