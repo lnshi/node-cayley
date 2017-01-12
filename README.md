@@ -220,7 +220,7 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
 
 * Description: write your JSON data into cayley as N-quads data transparently.
 
-* Parameters
+* Arguments
   * data
     * Array of JSON objects.
     * You need to modify each of your object to add the below two fields:
@@ -265,7 +265,7 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
 
 * Description: write your N-quads data file into cayley.
 
-* Parameters
+* Arguments
   * pathOfNquadsFile: `string`, path to your N-quads data file.
   * callback
     * Has the below form:
@@ -291,7 +291,7 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
 
 * Description: delete the corresponding N-quads data which are represented by this JSON `data` from cayley transparently.
 
-* Parameters
+* Arguments
   * data
     * Array of JSON objects.
     * You need to modify each of your object to add the below two fields:
@@ -329,7 +329,7 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
 
 **Depends on your `promisify` setting provide `callback style` or `bluebird Promise style` API.**
 
-### Graph object
+### Graph Object
 
 * Alias: `g`
 
@@ -339,20 +339,42 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
 
 * Description: set type: either 'query' or 'shape', and then return a new `Graph` object, will decide the query finally goes to '/query/gremlin' or '/shape/gremlin'.
 
-* Parameters
+* Arguments
   * type: `string`, either 'query' or 'shape'.
 
 * Usage example:
 
   ```
-  g.type('query')
+  g.type('query').V().All().then((resBody) => {
+    // ...
+  }).catch((err) => {
+    // ...
+  });
   ```
 
 #### **graph.Vertex([nodeId],[nodeId]...)**
 
+* Alias: `V`
+
+* Description: starts a query path at the given vertex/vertices, no ids means 'all vertices', return `Query Object`.
+
+* Arguments:
+  * nodeId: `optional`, a string or list of strings representing the starting vertices.
+
+* Usage example:
+
+  ```
+  // Or: g.Vertex('</user/shortid/23TplPdS>', '</user/shortid/46Juzcyx>')
+  g.V('</user/shortid/23TplPdS>', '</user/shortid/46Juzcyx>').All().then((resBody) => {
+    // ...
+  }).catch((err) => {
+    // ...
+  });
+  ```
+
 #### **graph.Morphism()**
 
-### Path object
+### Path Object
 
 #### path.Out([predicatePath], [tags])
 
@@ -390,7 +412,7 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
 
 #### path.FollowR(morphism)
 
-### Query object
+### Query Object
 
 #### query.All(callback)
 
