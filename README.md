@@ -163,7 +163,18 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
   * As you can see above this lib support multiple cayley hosts configuration, the lib also provide a default random client selection strategy, which you can use as this:
 
     ```
-    const cayleyClients = require('node-cayley')('http://localhost:64210');
+    const cayleyClients = require('node-cayley')({
+      servers: [
+        {
+          host: host_0,
+          port: port_0
+        },
+        {
+          host: host_1,
+          port: port_1
+        }
+      ]
+    });
 
     const pickRandomly = cayleyClients.pickRandomly;
 
