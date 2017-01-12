@@ -374,6 +374,14 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
 
 #### **graph.Morphism()**
 
+* Alias: `M`
+
+* Description: creates a morphism path object. Unqueryable on it's own, defines one end of the path. Saving these to variables with is the common use case. See also: `path.Follow(morphism)`, `path.FollowR(morphism)`.
+
+  ```
+  var shorterPath = graph.M().Out('foo').Out('bar');
+  ```
+
 ### Path Object
 
 #### path.Out([predicatePath], [tags])
