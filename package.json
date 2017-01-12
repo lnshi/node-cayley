@@ -1,14 +1,24 @@
 {
-  "name": "microservice-cayley",
+  "name": "node-cayley",
   "version": "0.0.1",
   "description": "This is the Node.js driver for Graph DB [cayley](https://github.com/cayleygraph/cayley).",
   "main": "index.js",
   "scripts": {
     "test": "mocha --check-leaks --timeout 3000 ./test/index.js"
   },
+  "homepage": "https://github.com/lnshi/node-cayley",
+  "bugs": {
+    "url": "https://github.com/lnshi/node-cayley/issues"
+  },
+  "license": "Apache License Version 2.0, January 2004",
+  "author": {
+    "name": "Leonard Shi",
+    "email": "leonard.shi.job@gmail.com",
+    "url": "https://github.com/lnshi"
+  },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/v-cube/microservice-module-cayley-js.git"
+    "url": "git+https://git@github.com/lnshi/node-cayley.git"
   },
   "dependencies": {
     "bluebird": "~3.4.7",
@@ -17,5 +27,7 @@
   },
   "devDependencies": {
     "chai": "~3.5.0"
-  }
+  },
+  "readmeFilename": "README.md",
+  "main": "./index.js"
 }
