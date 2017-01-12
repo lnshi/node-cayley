@@ -327,8 +327,6 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
 
 ## Gremlin APIs
 
-**Depends on your `promisify` setting provide `callback style` or `bluebird Promise style` API.**
-
 ### Graph Object
 
 * Alias: `g`
@@ -382,47 +380,88 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
   var shorterPath = graph.M().Out('foo').Out('bar');
   ```
 
-### Path Object
+### Path Objects
+
+Both `.Morphism()` and `.Vertex()` create path objects, which provide the following traversal methods.
+Note that .Vertex() returns a query object, which is a subclass of path object.
 
 #### path.Out([predicatePath], [tags])
 
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
+
 #### path.In([predicatePath], [tags])
+
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
 
 #### path.Both([predicatePath], [tags])
 
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
+
 #### path.Is(node, [node..])
+
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
 
 #### path.Has(predicate, object)
 
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
+
 #### path.LabelContext([labelPath], [tags])
+
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
 
 #### path.Limit(limit)
 
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
+
 #### path.Skip(offset)
+
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
 
 #### path.InPredicates()
 
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
+
 #### path.OutPredicates()
+
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
 
 #### path.Tag(tag)
 
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
+
 #### path.Back(tag)
+
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
 
 #### path.Save(predicate, tag)
 
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
+
 #### path.Intersect(query)
+
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
 
 #### path.Union(query)
 
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
+
 #### path.Except(query)
+
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
 
 #### path.Follow(morphism)
 
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
+
 #### path.FollowR(morphism)
 
-### Query Object
+* Refer to upstream project cayley doc [here](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md).
+
+### Query Objects(finals)
 
 **Subclass of `Path Object`**
+
+**Depends on your `promisify` setting provide `callback style` or `bluebird Promise style` API.**
 
 #### query.All(callback)
 
