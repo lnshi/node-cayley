@@ -84,4 +84,78 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
 
   * For all the APIs usages example you can find in the [test folder](./test/apis).
 
+### Configuration
+
+  * Options
+
+    * apiVersion: `'v1'`, Set API version.
+
+    * logLevel: `integer`, Set log level, the lib use logger [winston](https://github.com/winstonjs/winston) and npm log levels(winston.config.npm.levels).
+
+    * promisify: `boolean`, Set 'true' to use [bluebird](https://github.com/petkaantonov/bluebird) style APIs, 'false' to use callback style APIs.
+
+    * secure: `boolean`, Set whether your cayley server support TLS, 'true' will coz the lib to use 'https' for all transport.
+
+    * certFile: `string`, Path of your TLS cert file, if above 'secure' was set to true, this must be provided.
+
+    * keyFile: `string`, Path of your TLS key file, if above 'secure' was set to true, this must be provided.
+
+    * caFile: `string`, Path of your TLS root CA file, if above 'secure' was set to true, this must be provided.
+
+    * servers: `Array contains multiple cayley hosts object`, for supporting multiple cayley hosts, you can override the top level 'secure', 'certFile', 'keyFile' and 'caFile' options here.
+
+  * All of the following configuration are valid configuration format.
+
+    ```
+    # Case0.
+    require('node-cayley')('http://localhost:64210');
+
+    # Case1.
+    require('node-cayley')('http://localhost:64210', {
+      logLevel: 5,
+      promisify: true
+    });
+
+    # Case2.
+    require('node-cayley')('host_0:port_0', {
+      logLevel: 5,
+      promisify: true,
+      secure: true,
+      certFile: '',
+      keyFile: '',
+      caFile: '',
+      // The uri('host_0:port_0') will be merged into the below 'servers' with the top level options.
+      servers: [
+        {
+          host: host_1,
+          port: port_1,
+          /*
+           * Options put here will be applied to this specific server and will override the top level options,
+           * like 'secure: false' will coz the lib use 'http' for this specific server.
+           */
+          secure: false
+        }
+      ]
+    });
+
+    # Case3.
+    require('node-cayley')({
+      logLevel: 5,
+      promisify: false,
+      secure: true,
+      certFile: '',
+      keyFile: '',
+      caFile: '',
+      servers: [
+        {
+          host: host_0,
+          port: port_0,
+          certFile: '',
+          keyFile: '',
+          caFile: ''
+        }
+      ]
+    });
+    ```
+
 
