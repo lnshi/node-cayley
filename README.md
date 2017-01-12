@@ -335,6 +335,19 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
 
 * This is the only special object in the environment, generates the query objects. Under the hood, they're simple objects that get compiled to a Go iterator tree when executed.
 
+#### **graph.type(type)**
+
+* Description: set type: either 'query' or 'shape', and then return a new `Graph` object, will decide the query finally goes to '/query/gremlin' or '/shape/gremlin'.
+
+* Parameters
+  * type: `string`, either 'query' or 'shape'.
+
+* Usage example:
+
+  ```
+  g.type('query')
+  ```
+
 #### **graph.Vertex([nodeId],[nodeId]...)**
 
 #### **graph.Morphism()**
