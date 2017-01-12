@@ -198,7 +198,7 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
 
 **Depends on your `promisify` setting provide `callback style` or `bluebird Promise style` API.**
 
-#### write(data, callback)
+### write(data, callback)
 
 * Description: write your JSON data into cayley as N-quads data transparently.
 
@@ -243,9 +243,9 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
   });
   ```
 
-#### writeFile('pathOfNquadFile', callback)
+### writeFile('pathOfNquadFile', callback)
 
-#### delete([{}, {}, ...], callback)
+### delete([{}, {}, ...], callback)
 
 ## Gremlin APIs
 
@@ -253,9 +253,9 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
 
 ### Graph object
 
-#### graph.Vertex([nodeId],[nodeId]...)
+#### **graph.Vertex([nodeId],[nodeId]...)**
 
-#### graph.Morphism()
+#### **graph.Morphism()**
 
 ### Path object
 
