@@ -4,6 +4,15 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 
 # Documentation
 
+## Feature list
+
+* ES6 based.
+* TLS supported.
+* Multiple cayley hosts supported.
+* Default random client selection strategy.
+* Callback style and bluebird Promise style APIs.
+* Fully covered '[mocha](https://github.com/mochajs/mocha) + [chai](https://github.com/chaijs/chai)' test cases.
+
 ## Basic usages examples
 
 ```
@@ -12,7 +21,7 @@ npm install node-cayley --save
 
 ```
 // Watch: here the lib will return a cayley clients array for supporting multiple cayley hosts,
-// for more information like the default client random slection strategy, please continue reading this doc.
+// for more information like the default random client slection strategy, please continue reading this doc.
 
 const cayleyClients = require('node-cayley')('http://localhost:64210');
 ```
@@ -158,7 +167,7 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
     });
     ```
 
-## Default client random selection strategy
+## Default random client selection strategy
 
   * As you can see above this lib support multiple cayley hosts configuration, the lib also provide a default random client selection strategy, which you can use as this:
 
