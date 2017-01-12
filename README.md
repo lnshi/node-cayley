@@ -204,10 +204,10 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
 
 * Parameters
   * data
-    * Array of JSON objects
+    * Array of JSON objects.
     * You need to modify each of your object to add the below two fields:
       * primaryKey: `required`, which will be the **Subject** in the N-quads data.
-        * You need to define a way to generate the consistent `primaryKey` for same data, the same `primaryKey` is required when you try to delete this N-quads entry.
+        * You need to define a way to generate the consistent primaryKey` for same data, the exactly same `primaryKey` is required when you try to delete this N-quads entry.
       * label: `optional`, which is for organizing the graph into multiple subgraph.
   * callback
     * Has the below form:
@@ -243,13 +243,12 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
   });
   ```
 
-### writeFile('pathOfNquadsFile', callback)
+### writeFile(pathOfNquadsFile, callback)
 
 * Description: write your N-quads data file into cayley.
 
 * Parameters
-  * pathOfNquadsFile
-    * Path to your N-quads data file
+  * pathOfNquadsFile: `string`, path to your N-quads data file.
   * callback
     * Has the below form:
 
@@ -270,7 +269,43 @@ const cayleyClients = require('node-cayley')('http://localhost:64210');
   );
   ```
 
-### delete([{}, {}, ...], callback)
+### delete(data, callback)
+
+* Description: delete the corresponding N-quads data which are represented by this JSON `data` from cayley transparently.
+
+* Parameters
+  * data
+    * Array of JSON objects.
+    * You need to modify each of your object to add the below two fields:
+      * primaryKey: `required`, which should be exactly same with the 'primaryKey' when you inserted this data before.
+      * label: if you provided the 'label' when you inserted this data, then for deleting you also need to provide the exactly same value, or else you don't need.
+  * callback
+    * Has the below form:
+
+      ```
+      (err, resBody) => {
+        // resBody: cayley server response body to this write.
+      }
+      ```
+
+* Usage example:
+  
+  ```
+  client.delete([
+    primaryKey: '</user/shortid/23TplPdS>',
+    label: 'companyA',
+
+    userId: '23TplPdS',
+    realName: 'XXX_L3',
+    mobilePhone: {
+      isVerified: false,
+      alpha3CountryCode: '+65',
+      mobilePhoneNoWithCountryCallingCode: '+6586720011'
+    }, ...
+  ], (err, resBody) => {
+    // ...
+  });
+  ```
 
 ## Gremlin APIs
 
