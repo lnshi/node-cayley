@@ -414,6 +414,8 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
 
 ### Query Object
 
+**Subclass of `Path Object`**
+
 #### query.All(callback)
 
 #### query.GetLimit(size, callback)
