@@ -1,4 +1,4 @@
-# Cayley
+# node-cayley
 
 This is a Node.js client for open-source graph database [cayley](https://github.com/cayleygraph/cayley).
 
@@ -9,10 +9,10 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 * Multiple cayley hosts supported.
 * Default random client selection strategy.
 * Callback style and bluebird Promise style APIs.
-* Transparent JSON to N-quads data formatting handling.
+* Transparent JSON to N-Quads data formatting handling.
 * 
 * Fully covered '[mocha](https://github.com/mochajs/mocha) + [chai](https://github.com/chaijs/chai)' test cases.
-* Clearly designed entry-level N-quads data: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), [friend_circle_without_label.nq](./test/data/friend_circle_without_label.nq) for getting you in.
+* Clearly designed entry-level N-Quads data: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), [friend_circle_without_label.nq](./test/data/friend_circle_without_label.nq) for getting you in.
 
 # Documentation
 
@@ -64,7 +64,7 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
 
 ```
 
-* Write your JSON object directly to cayley, this lib will handle the JSON to N-quads transparently for you.
+* Write your JSON object directly to cayley, this lib will handle the JSON to N-Quads transparently for you.
 
   ```
   # Callback style.
@@ -236,14 +236,14 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
 
 ### write(data, callback)
 
-* Description: write your JSON data into cayley as N-quads data transparently.
+* Description: write your JSON data into cayley as N-Quads data transparently.
 
 * Arguments
   * data
     * Array of JSON objects.
     * You need to modify each of your object to add the below two fields:
-      * primaryKey: `required`, which will be the **Subject** in the N-quads data.
-        * You need to define a way to generate the consistent primaryKey` for same data, the exactly same `primaryKey` is required when you try to delete this N-quads entry.
+      * primaryKey: `required`, which will be the **Subject** in the N-Quads data.
+        * You need to define a way to generate the consistent primaryKey` for same data, the exactly same `primaryKey` is required when you try to delete this N-Quads entry.
       * label: `optional`, which is for organizing the graph into multiple subgraph.
   * callback
     * Has the below form:
@@ -281,10 +281,10 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
 
 ### writeFile(pathOfNquadsFile, callback)
 
-* Description: write your N-quads data file into cayley.
+* Description: write your N-Quads data file into cayley.
 
 * Arguments
-  * pathOfNquadsFile: `string`, path to your N-quads data file.
+  * pathOfNquadsFile: `string`, path to your N-Quads data file.
   * callback
     * Has the below form:
 
@@ -307,7 +307,7 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
 
 ### delete(data, callback)
 
-* Description: delete the corresponding N-quads data which are represented by this JSON `data` from cayley transparently.
+* Description: delete the corresponding N-Quads data which are represented by this JSON `data` from cayley transparently.
 
 * Arguments
   * data
