@@ -4,6 +4,8 @@ const CommonImport = require('./lib/util/CommonImport');
 
 const apiVersions = ['v1', 'v2', 'v3', 'v4', 'v5'];
 
+const queryLangs = ['gizmo', 'gremlin'];
+
 module.exports = (uri, opts) => {
 
   /*
@@ -44,8 +46,9 @@ module.exports = (uri, opts) => {
    */
   const _opts = {
     apiVersion: 'v1',
-    secure: false,
+    queryLang: 'gremlin',
     promisify: false,
+    secure: false,
     servers: []
   };
 
@@ -53,6 +56,8 @@ module.exports = (uri, opts) => {
     if (typeof opts === 'object') {
 
       _opts.apiVersion = apiVersions.indexOf(opts.apiVersion) !== -1 ? opts.apiVersion : _opts.apiVersion;
+      _opts.queryLang = queryLangs.indexOf(opts.queryLang) !== -1 ? opts.queryLang : _opts.queryLang;
+
       _opts.promisify = !!opts.promisify;
 
       if (!!opts.secure) {
@@ -93,6 +98,19 @@ module.exports = (uri, opts) => {
                 };
                 if (apiVersions.indexOf(item.apiVersion) !== -1) {
                   tmp.apiVersion = item.apiVersion;
+                } else {
+                  if (item.apiVersion) {
+                    throw new Error("Invalid 'apiVersion', valid values are: 'v1'.");
+                  }
+                  delete item.apiVersion;
+                }
+                if (queryLangs.indexOf(item.queryLang) !== -1) {
+                  tmp.queryLang = item.queryLang;
+                } else {
+                  if (item.queryLang) {
+                    throw new Error("Invalid 'queryLang', valid values are: 'gizmo' or 'gremlin' depends on the version of Cayley server you are using.");
+                  }
+                  delete item.queryLang;
                 }
                 if (secure && item.certFile && item.keyFile && item.caFile) {
                   Object.assign(tmp, {
