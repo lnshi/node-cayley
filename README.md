@@ -23,7 +23,7 @@ Table of Contents
 * [Default random client selection strategy](#default-random-client-selection-strategy)
 * [HTTP APIs](#http-apis)
    * [write(data, callback)](#writedata-callback)
-   * [writeFile(pathOfNquadsFile, callback)](#writefilepathofnquadsfile-callback)
+   * [writeFile(pathOfNQuadsFile, callback)](#writefilepathofnquadsfile-callback)
    * [delete(data, callback)](#deletedata-callback)
 * [Gremlin APIs](#gremlin-apis)
    * [Graph Object](#graph-object)
@@ -279,12 +279,12 @@ g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagA
   });
   ```
 
-### writeFile(pathOfNquadsFile, callback)
+### writeFile(pathOfNQuadsFile, callback)
 
 * Description: write your N-Quads data file into cayley.
 
 * Arguments
-  * pathOfNquadsFile: `string`, path to your N-Quads data file.
+  * pathOfNQuadsFile: `string`, path to your N-Quads data file.
   * callback
     * Has the below form:
 
