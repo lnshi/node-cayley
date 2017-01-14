@@ -126,6 +126,10 @@ module.exports = (uri, opts) => {
 
   const cayleyInstancePool = require('./lib/client')(_opts);
 
+  if (cayleyInstancePool.length === 1) {
+    return cayleyInstancePool[0];
+  }
+
   cayleyInstancePool.pickRandomly = require('./lib/util/Util').pickRandomly;
 
   return cayleyInstancePool;
