@@ -142,16 +142,16 @@ describe('Cayley callback style Gremlin APIs', function() {
   // });
 
   it('query.ToArray(callback)', function(done) {
-    cayleyClient.g.type('query').V().ToArray(function(data) {
-      for (var item in data) {
-        g.Emit(item);
+    cayleyClient.g.type('query').V("</user/shortid/23TplPdS>").Tag("userId").In("<follows>").ToArray(function(data) {
+      for (var idx in data) {
+        g.Emit(data[idx]);
       }
     }, function(err, resBody) {
       if (err) {
         done(err);
       } else {
         try {
-          assert.isArray(resBody.result, 'Refer to: https://github.com/cayleygraph/cayley/issues/171');
+          assert.isArray(resBody.result);
           done();
         } catch (e) {
           done(e);
