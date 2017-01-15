@@ -4,6 +4,6 @@ require('./util/util');
 
 require('./apis/callback');
 
-require('./apis/promise');
+// require('./apis/promise');
 
 
