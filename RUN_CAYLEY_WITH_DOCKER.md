@@ -1,12 +1,5 @@
 # Run Cayley with docker
 
-* Play with it, everything in memory.
-
-  ```
-  docker run -p 64210:64210 -d quay.io/cayleygraph/cayley
-  ```
-  Then you have cayley server running at `localhost:64210`.
-
 * Run with MongoDB
 
   1. `mkdir cayley_config && vim cayley_config/cayley.cfg`, and then write in the following content:
