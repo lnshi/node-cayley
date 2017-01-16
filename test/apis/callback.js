@@ -48,17 +48,9 @@ describe('Cayley callback style HTTP APIs', function() {
           done(err);
         } else {
           try {
-            if (resBody.result) {
-              expect(resBody.result).to.be.a('string');
-              expect(resBody.result).to.include('Successfully');
-              done();
-            } else {
-              // TODO: maintain the data consistence among all test cases.
-              // resBody: {"error" : "add </user/shortid/23TplPdS> -- <userId> -> "23TplPdS": quad exists"}
-              if (resBody.indexOf('exists') !== -1) {
-                done();
-              }
-            }
+            expect(resBody.result).to.be.a('string');
+            expect(resBody.result).to.include('Successfully');
+            done();
           } catch (e) {
             done(e);
           }
@@ -103,50 +95,50 @@ describe('Cayley callback style HTTP APIs', function() {
 
 });
 
-describe('Cayley callback style Gremlin APIs', function() {
+describe('Cayley callback style Gizmo APIs', function() {
 
-  // it("'promisify' was set to false, but no 'callback' provided.", function() {
-  //   assert.throws(function() {
-  //     pickRandomly(pickRandomly(cayleyInstancePools)).g.type('query').V().All();
-  //   }, Error);
-  // });
+  it("'promisify' was set to false, but no 'callback' provided.", function() {
+    assert.throws(function() {
+      cayleyClient.g.type('query').V().All();
+    }, Error);
+  });
 
-  // it("Invalid type for Gremlin, valid types are: 'query' or 'shape'.", function() {
-  //   assert.throws(function() {
-  //     pickRandomly(pickRandomly(cayleyInstancePools)).g.type('lalala').V().All();
-  //   });
-  // });
+  it("Invalid type for Gizmo, valid types are: 'query' or 'shape'.", function() {
+    assert.throws(function() {
+      cayleyClient.g.type('lalala').V().All();
+    });
+  });
 
-  // it('query.All(callback)', function(done) {
-  //   pickRandomly(pickRandomly(cayleyInstancePools)).g.type('query').V().All(function(err, resBody) {
-  //     if (err) {
-  //       done(err);
-  //     } else {
-  //       try {
-  //         assert.isArray(resBody.result);
-  //         done();
-  //       } catch (e) {
-  //         done(e);
-  //       }
-  //     }
-  //   });
-  // });
+  it('query.All(callback)', function(done) {
+    cayleyClient.g.type('query').V().All(function(err, resBody) {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(resBody.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
 
-  // it('query.GetLimit(size, callback)', function(done) {
-  //   pickRandomly(pickRandomly(cayleyInstancePools)).g.type('query').V().GetLimit(1, function(err, resBody) {
-  //     if (err) {
-  //       done(err);
-  //     } else {
-  //       try {
-  //         assert.isArray(resBody.result);
-  //         expect(resBody.result).to.have.length.most(1);
-  //         done();
-  //       } catch (e) {
-  //         done(e);
-  //       }
-  //     }
-  //   });
-  // });
+  it('query.GetLimit(size, callback)', function(done) {
+    cayleyClient.g.type('query').V().GetLimit(1, function(err, resBody) {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(resBody.result);
+          expect(resBody.result).to.have.length.most(1);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
 
   it('query.ToArray(callback)', function(done) {
     cayleyClient.g.type('query').V("</user/shortid/23TplPdS>").Tag("userId").In("<follows>").ToArray(function(data) {
@@ -167,20 +159,24 @@ describe('Cayley callback style Gremlin APIs', function() {
     });
   });
 
-  // it('query.ToValue(callback)', function(done) {
-  //   pickRandomly(pickRandomly(cayleyInstancePools)).g.type('query').V().ToValue(function(err, resBody) {
-  //     if (err) {
-  //       done(err);
-  //     } else {
-  //       try {
-  //         assert.isString(resBody.result, 'Refer to: https://github.com/cayleygraph/cayley/issues/171');
-  //         done();
-  //       } catch (e) {
-  //         done(e);
-  //       }
-  //     }
-  //   });
-  // });
+  it('query.ToValue(callback)', function(done) {
+    cayleyClient.g.type('query').V("</user/shortid/23TplPdS>").Tag("userId").In("<follows>").ToValue(function(data) {
+      for (var idx in data) {
+        g.Emit(data[idx]);
+      }
+    }, function(err, resBody) {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isString(resBody.result, 'Refer to: https://github.com/cayleygraph/cayley/issues/171');
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
 
   // it('query.TagArray(callback)', function(done) {
   //   pickRandomly(pickRandomly(cayleyInstancePools)).g.type('query')
@@ -215,20 +211,20 @@ describe('Cayley callback style Gremlin APIs', function() {
   // });
 
   
-  //  * Watch: try to understand the design here, the 'gremlinCallback' should satisfy the following conditions:
+  //  * Watch: try to understand the design here, the 'gizmoCallback' should satisfy the following conditions:
   //  *   1. No any reference to anything outside of this function, only pure js code.
   //  *     - Coz this function will be stringified and committed to cayley server, and then get executed there.
   //  *     - ES6 'arrow function' and other advanced features whether can be supported haven't been tested.
   //  *   2. Can use the APIs exposed by this lib belong to 'Path' object.
    
-  // it("Missed 'gremlinCallback' function in 'query.ForEach(gremlinCallback, callback)'", function() {
+  // it("Missed 'gizmoCallback' function in 'query.ForEach(gizmoCallback, callback)'", function() {
   //   assert.throws(function() {
   //     pickRandomly(pickRandomly(cayleyInstancePools)).g.type('query')
   //       .V("</user/shortid/23TplPdS>").In().ForEach(function(err, resBody) {});
   //   });
   // });
 
-  // it('query.ForEach(gremlinCallback, callback)', function(done) {
+  // it('query.ForEach(gizmoCallback, callback)', function(done) {
   //   pickRandomly(pickRandomly(cayleyInstancePools)).g.type('query')
   //     .V("</user/shortid/23TplPdS>").In().ForEach(function(data) {
   //       g.Emit(data);
@@ -246,14 +242,14 @@ describe('Cayley callback style Gremlin APIs', function() {
   //     });
   // });
 
-  // it("Missed 'gremlinCallback' function in 'query.ForEach(limit, gremlinCallback, callback)'", function() {
+  // it("Missed 'gizmoCallback' function in 'query.ForEach(limit, gizmoCallback, callback)'", function() {
   //   assert.throws(function() {
   //     pickRandomly(pickRandomly(cayleyInstancePools)).g.type('query')
   //       .V("</user/shortid/23TplPdS>").In().ForEach(1, function(err, resBody) {});
   //   });
   // });
 
-  // it('query.ForEach(limit, gremlinCallback, callback)', function(done) {
+  // it('query.ForEach(limit, gizmoCallback, callback)', function(done) {
   //   pickRandomly(pickRandomly(cayleyInstancePools)).g.type('query')
   //     .V("</user/shortid/23TplPdS>").In().ForEach(1, function(data) {
   //       g.Emit(data);

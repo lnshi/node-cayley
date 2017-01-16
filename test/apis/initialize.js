@@ -93,7 +93,7 @@ describe('Cayley client(Pool) initialization', function() {
     _assertCayleyClient(cayleyClient);
   });
 
-  it("Valid configuration example 2: mix 'uri' and 'opts'.", function() {
+  it("Valid configuration example 3: mix 'uri' and 'opts'.", function() {
     const cayleyClient = cayley(defaultUri, {
       logLevel: 5,
       promisify: true,
