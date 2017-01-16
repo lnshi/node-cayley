@@ -4,7 +4,7 @@
   "description": "Node.js client for open-source graph database cayley(https://github.com/cayleygraph/cayley).",
   "main": "./index.js",
   "scripts": {
-    "test": "mocha --check-leaks --timeout 10000 ./test/index.js"
+    "test": "mocha --check-leaks --timeout 10000 --sort ./test/index.js"
   },
   "homepage": "https://github.com/lnshi/node-cayley",
   "bugs": {
