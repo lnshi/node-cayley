@@ -105,118 +105,125 @@ describe('Cayley callback style HTTP APIs', function() {
 
 describe('Cayley callback style Gizmo APIs', function() {
 
-  // it("'promisify' was set to false, but no 'callback' provided.", function() {
-  //   assert.throws(function() {
-  //     cayleyClient.g.type('query').V().All();
-  //   }, Error);
-  // });
+  it("'promisify' was set to false, but no 'callback' provided.", function() {
+    assert.throws(function() {
+      cayleyClient.g.type('query').V().All();
+    }, Error);
+  });
 
-  // it("Invalid type for Gizmo, valid types are: 'query' or 'shape'.", function() {
-  //   assert.throws(function() {
-  //     cayleyClient.g.type('lalala').V().All();
-  //   });
-  // });
+  it("Invalid type for Gizmo, valid types are: 'query' or 'shape'.", function() {
+    assert.throws(function() {
+      cayleyClient.g.type('lalala').V().All();
+    });
+  });
 
-  // it('query.All(callback)', function(done) {
-  //   cayleyClient.g.type('query').V().All(function(err, resBody) {
-  //     if (err) {
-  //       done(err);
-  //     } else {
-  //       try {
-  //         assert.isArray(resBody.result);
-  //         done();
-  //       } catch (e) {
-  //         done(e);
-  //       }
-  //     }
-  //   });
-  // });
+  it('query.All(callback)', function(done) {
+    cayleyClient.g.type('query').V().All(function(err, resBody) {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(resBody.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
 
-  // it('query.GetLimit(size, callback)', function(done) {
-  //   cayleyClient.g.type('query').V().GetLimit(1, function(err, resBody) {
-  //     if (err) {
-  //       done(err);
-  //     } else {
-  //       try {
-  //         assert.isArray(resBody.result);
-  //         expect(resBody.result).to.have.length.most(1);
-  //         done();
-  //       } catch (e) {
-  //         done(e);
-  //       }
-  //     }
-  //   });
-  // });
+  it('query.GetLimit(size, callback)', function(done) {
+    cayleyClient.g.type('query').V().GetLimit(1, function(err, resBody) {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(resBody.result);
+          expect(resBody.result).to.have.length.most(1);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
 
-  // it('query.ToArray(callback)', function(done) {
-  //   cayleyClient.g.type('query').V("</user/shortid/23TplPdS>").Tag("userId").In("<follows>").ToArray(function(data) {
-  //     for (var idx in data) {
-  //       g.Emit(data[idx]);
-  //     }
-  //   }, function(err, resBody) {
-  //     if (err) {
-  //       done(err);
-  //     } else {
-  //       try {
-  //         assert.isArray(resBody.result);
-  //         done();
-  //       } catch (e) {
-  //         done(e);
-  //       }
-  //     }
-  //   });
-  // });
+  it('query.ToArray(callback)', function(done) {
+    cayleyClient.g.type('query').V("</user/shortid/23TplPdS>").Tag("userId").In("<follows>").ToArray(function(data) {
+      for (var idx in data) {
+        g.Emit(data[idx]);
+      }
+    }, function(err, resBody) {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(resBody.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
 
-  // it('query.ToValue(callback)', function(done) {
-  //   cayleyClient.g.type('query').V("</user/shortid/23TplPdS>").Tag("userId").In("<follows>").ToValue(function(data) {
-  //     for (var idx in data) {
-  //       g.Emit(data[idx]);
-  //     }
-  //   }, function(err, resBody) {
-  //     if (err) {
-  //       done(err);
-  //     } else {
-  //       try {
-  //         assert.isString(resBody.result, 'Refer to: https://github.com/cayleygraph/cayley/issues/171');
-  //         done();
-  //       } catch (e) {
-  //         done(e);
-  //       }
-  //     }
-  //   });
-  // });
+  it('query.ToValue(callback)', function(done) {
+    cayleyClient.g.type('query').V("</user/shortid/23TplPdS>").Tag("userId").In("<follows>").ToValue(function(data) {
+      g.Emit(data);
+    }, function(err, resBody) {
+      console.log(resBody.result);
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isString(resBody.result, 'Refer to: https://github.com/cayleygraph/cayley/issues/171');
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
 
-  // it('query.TagArray(callback)', function(done) {
-  //   pickRandomly(pickRandomly(cayleyInstancePools)).g.type('query')
-  //     .V("</user/shortid/23TplPdS>").Tag("userId").In("<follows>").TagArray(function(err, resBody) {
-  //       if (err) {
-  //         done(err);
-  //       } else {
-  //         try {
-  //           assert.isArray(resBody.result, 'Refer to: https://github.com/cayleygraph/cayley/issues/171');
-  //           done();
-  //         } catch (e) {
-  //           done(e);
-  //         }
-  //       }
-  //     });
-  // });
+  it('query.TagArray(callback)', function(done) {
+    cayleyClient.g.type('query').V("</user/shortid/23TplPdS>").Tag("userId").In("<follows>").TagArray(function(data) {
+      for (var idx in data) {
+        g.Emit(data[idx]);
+      }
+    }, function(err, resBody) {
+      console.log(resBody);
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(resBody.result, 'Refer to: https://github.com/cayleygraph/cayley/issues/171');
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
 
-  // it('query.TagValue(callback)', function(done) {
-  //   pickRandomly(pickRandomly(cayleyInstancePools)).g.type('query')
-  //     .V("</user/shortid/23TplPdS>").Tag("userId").In("<follows>").TagValue(function(err, resBody) {
-  //       if (err) {
-  //         done(err);
-  //       } else {
-  //         try {
-  //           assert.isString(resBody.result, 'Refer to: https://github.com/cayleygraph/cayley/issues/171');
-  //           done();
-  //         } catch (e) {
-  //           done(e);
-  //         }
-  //       }
-  //     });
-  // });
+  it('query.TagValue(callback)', function(done) {
+    cayleyClient.g.type('query').V("</user/shortid/23TplPdS>").Tag("userId").In("<follows>").TagValue(function(data) {
+      for (var idx in data) {
+        g.Emit(data[idx]);
+      }
+    }, function(err, resBody) {
+      console.log(resBody);
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isString(resBody.result, 'Refer to: https://github.com/cayleygraph/cayley/issues/171');
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
 
   
   //  * Watch: try to understand the design here, the 'gizmoCallback' should satisfy the following conditions:
