@@ -108,9 +108,11 @@ g.type('shape').V().All((err, res) => {
 
 ## Default random client selection strategy
 
-  * As you can see above this lib support multiple cayley hosts configuration, the lib also provide a default random client selection strategy, which you can use as this:
+  * If single cayley host is provided, the lib will return one single client directly.
 
-    ```
+  * If multiple cayley hosts are provided, the lib will return a clients array plus a default random client selection strategy which is named as `pickRandomly`, you can just use it as:
+
+    ```javascript
     const cayleyClients = require('node-cayley')({
       servers: [
         {
@@ -124,10 +126,11 @@ g.type('shape').V().All((err, res) => {
       ]
     });
 
-    const pickRandomly = cayleyClients.pickRandomly;
+    const client = cayleyClients.pickRandomly();
 
-    // Then when you need one cayley client, just do:
-    const client = pickRandomly(cayleyClients);
+    const g = graph = client.g;
+
+    client.delete(jsonObjArr).then((res) => {/* ... */}).catch((err) => {});
     ```
 
 ## HTTP APIs
