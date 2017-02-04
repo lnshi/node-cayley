@@ -23,7 +23,7 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 npm install node-cayley --save
 ```
 
-```
+```javascript
 const client = require('node-cayley')('localhost:64210');
 
 const g = graph = client.g; // Or: const g = graph = client.graph;
@@ -49,68 +49,40 @@ g.V().All().then((res) => {
 }).catch((err) => {
   // ...
 });
-```
 
-* For all the APIs usages example you can find in the [test folder](./test/apis).
+// 'type' default to 'query', you can change to 'shape' by calling g.type('shape')
+g.type('shape').V().All((err, res) => {
+  // Callback style.
+});
+```
 
 ## Configuration
 
   * Options
 
-    * apiVersion: `'v1'`, Set API version.
+    * logLevel: `integer`, set log level, this lib use logger winston and npm log levels(winston.config.npm.levels).
 
-    * logLevel: `integer`, Set log level, the lib use logger [winston](https://github.com/winstonjs/winston) and npm log levels(winston.config.npm.levels).
+    * promisify: `boolean`, set true to use bluebird style APIs, false to use callback style APIs.
 
-    * promisify: `boolean`, Set 'true' to use [bluebird](https://github.com/petkaantonov/bluebird) style APIs, 'false' to use callback style APIs.
+    * secure: `boolean`, set whether your cayley server use TLS.
 
-    * secure: `boolean`, Set whether your cayley server support TLS, 'true' will coz the lib to use 'https' for all transport.
+    * certFile: `string`, path of your TLS cert file, if above 'secure' is set to true, this must be provided.
 
-    * certFile: `string`, Path of your TLS cert file, if above 'secure' was set to true, this must be provided.
+    * keyFile: `string`, path of your TLS key file, if above 'secure' is set to true, this must be provided.
 
-    * keyFile: `string`, Path of your TLS key file, if above 'secure' was set to true, this must be provided.
+    * caFile: `string`, path of your TLS root CA file, if above 'secure' is set to true, this must be provided.
 
-    * caFile: `string`, Path of your TLS root CA file, if above 'secure' was set to true, this must be provided.
+    * servers: `Array of multiple cayley hosts object`, options here will override the top level options.
 
-    * servers: `Array contains multiple cayley hosts object`, for supporting multiple cayley hosts, you can override the top level 'secure', 'certFile', 'keyFile' and 'caFile' options here.
+  * Two configuration examples
 
-  * All of the following configuration are valid configuration format.
-
+    ```javascript
+    const client = require('node-cayley')('localhost:64210');
+    const g = graph = client.g;
     ```
-    # Case0.
-    require('node-cayley')('http://localhost:64210');
-
-    # Case1.
-    require('node-cayley')('http://localhost:64210', {
-      logLevel: 5,
-      promisify: true
-    });
-
-    # Case2.
-    require('node-cayley')('host_0:port_0', {
-      logLevel: 5,
+    ```javascript
+    const clients = require('node-cayley')({
       promisify: true,
-      secure: true,
-      certFile: '',
-      keyFile: '',
-      caFile: '',
-      // The uri('host_0:port_0') will be merged into the below 'servers' with the top level options.
-      servers: [
-        {
-          host: host_1,
-          port: port_1,
-          /*
-           * Options put here will be applied to this specific server and will override the top level options,
-           * like 'secure: false' will coz the lib use 'http' for this specific server.
-           */
-          secure: false
-        }
-      ]
-    });
-
-    # Case3.
-    require('node-cayley')({
-      logLevel: 5,
-      promisify: false,
       secure: true,
       certFile: '',
       keyFile: '',
@@ -118,13 +90,20 @@ g.V().All().then((res) => {
       servers: [
         {
           host: host_0,
-          port: port_0,
-          certFile: '',
-          keyFile: '',
-          caFile: ''
+          port: port_0
+        }, {
+          host: host_1,
+          port: port_1,
+          secure: false
         }
       ]
     });
+
+    clients.pickRandomly().read().then((res) => {/* Your data in JSON. */}).catch((err) => {});
+
+    const g = graph = clients.pickRandomly().g;
+
+    g.V().All().then((res) => {/* Your data in JSON. */}).catch((err) => {});
     ```
 
 ## Default random client selection strategy
