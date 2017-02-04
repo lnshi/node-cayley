@@ -2,41 +2,20 @@
 
 This is a Node.js client for open-source graph database [cayley](https://github.com/cayleygraph/cayley).
 
-## Project Status
-
-Wait for Cayley's v0.6.1 release to fix some critical issues.
-
 ## Feature list
 
 * ES6 based.
 * TLS supported.
 * Multiple cayley hosts supported.
 * Default random client selection strategy.
-* Callback style and bluebird Promise style APIs.
-* Transparent JSON to N-Quads data formatting handling.
-* 
-* Fully covered '[mocha](https://github.com/mochajs/mocha) + [chai](https://github.com/chaijs/chai)' test cases.
+* Bluebird Promise style and callback style APIs.
+* Transparent bidirectional JSON <-> N-Quads data formatting handling.
+* Fully covered mocha + chai test cases.
 * Clearly designed entry-level N-Quads data: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), [friend_circle_without_label.nq](./test/data/friend_circle_without_label.nq) for getting you in.
 
 # Documentation
 
-Table of Contents
-
-* [Basic usages examples](#basic-usages-examples)
-* [Configuration](#configuration)
-* [Default random client selection strategy](#default-random-client-selection-strategy)
-* [HTTP APIs](#http-apis)
-   * [write(data, callback)](#writedata-callback)
-   * [writeFile(pathOfNQuadsFile, callback)](#writefilepathofnquadsfile-callback)
-   * [delete(data, callback)](#deletedata-callback)
-* [Gremlin APIs](#gremlin-apis)
-   * [Graph Object](#graph-object)
-      * [<strong>graph.type(type)</strong>](#graphtypetype)
-      * [<strong>graph.Vertex([nodeId],[nodeId]...)</strong>](#graphvertexnodeidnodeid)
-      * [<strong>graph.Morphism()</strong>](#graphmorphism)
-   * [Path Objects](#path-objects)
-   * [Query Objects(finals)](#query-objectsfinals)
-* [Additional resources](#additional-resources)
+## Table of Contents
 
 ## Basic usages examples
 
@@ -45,94 +24,32 @@ npm install node-cayley --save
 ```
 
 ```
-// Watch: here the lib will return a cayley clients array for supporting multiple cayley hosts,
-// for more information like the default random client slection strategy, please continue reading this doc.
+const client = require('node-cayley')('localhost:64210');
 
-const cayleyClients = require('node-cayley')('http://localhost:64210');
+const g = graph = client.g; // Or: const g = graph = client.graph;
 
-const client = cayleyClients[0];
-
-const g = graph = client.g;
-// Or: const g = graph = client.graph;
-
-g.V().All((err, resBody) => {
-  // ...
-});
-
-// Use `g.type()` to switch between the 'query' and 'shape'.
-g.type('query').V('</user/shortid/23TplPdS>').Tag('userId').In('<follows>').TagArray().then((resBody) => {
-  // ...
+client.write(jsonObjArr).then((res) => {
+  // Successfully wrote to cayley.
 }).catch((err) => {
   // ...
 });
 
+client.read().then((res) => {
+  // Your data in JSON.
+}).catch((err) => {
+  // ...
+});
+
+client.delete(jsonObjArr, (err, res) => {
+  // Callback style.
+});
+
+g.V().All().then((res) => {
+  // Your data in JSON.
+}).catch((err) => {
+  // ...
+});
 ```
-
-* Write your JSON object directly to cayley, this lib will handle the JSON to N-Quads transparently for you.
-
-  ```
-  # Callback style.
-  client.write([
-    {
-      primaryKey: '</user/shortid/23TplPdS>',
-      label: 'companyA',
-
-      userId: '23TplPdS',
-      realName: 'XXX_L3',
-      mobilePhone: {
-        isVerified: false,
-        alpha3CountryCode: '+65',
-        mobilePhoneNoWithCountryCallingCode: '+6586720011'
-      }
-    }
-  ], (err, resBody) => {
-    if (err) {
-      // Something went wrong...
-    } else {
-      // resBody: cayley server response body to this write.
-    }
-  });
-  ```
-
-  ```
-  # Bluebird Promise style.
-  client.write([
-    {
-      primaryKey: '</user/shortid/23TplPdS>',
-      label: 'companyA',
-
-      userId: '23TplPdS',
-      realName: 'XXX_L3',
-      mobilePhone: {
-        isVerified: false,
-        alpha3CountryCode: '+65',
-        mobilePhoneNoWithCountryCallingCode: '+6586720011'
-      }
-    }
-  ]).then((resBody) => {
-    // resBody: cayley server response body to this write.
-  }).catch((err) => {
-    // Something went wrong...
-  });
-  ```
-
-* Use Gremlin APIs, refer to official [Gremlin APIs doc](https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md) for more information.
-
-  ```
-  # Callback style.
-  client.g.type('query').V().All((err, resBody) => {
-    // Callback body here...
-  });
-  ``` 
-
-  ```
-  # Bluebird Promise style.
-  client.g.type('query').V().All().then((resBody) => {
-    // resBody: cayley server response body to this query.
-  }).catch((err) => {
-    // Something went wrong...
-  });
-  ```
 
 * For all the APIs usages example you can find in the [test folder](./test/apis).
 

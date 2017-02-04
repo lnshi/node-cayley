@@ -28,6 +28,6 @@
     ```
     docker run -v $PWD/cayley_config/:/data -p 64210:64210 -d quay.io/cayleygraph/cayley
     ```
-    Then you have cayley server running at `localhost:64210`, and data will be actually stored in MongoDB which is specified by `db_path`.
+    Then you have cayley server running at `localhost:64210`, and data will be stored in MongoDB which is specified by `db_path`.
 
 
