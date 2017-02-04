@@ -2,6 +2,10 @@
 
 This is a Node.js client for open-source graph database [cayley](https://github.com/cayleygraph/cayley).
 
+## Project Status
+
+Wait for Cayley's v0.6.1 release to fix some critical issues.
+
 ## Feature list
 
 * ES6 based.
