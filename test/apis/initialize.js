@@ -41,7 +41,7 @@ describe('Cayley client(Pool) initialization', function() {
     assert.isObject(cayleyClient);
   });
 
-  it("If multiple cayley servers are provided, this lib will return a cayley client pool which is an Array of cayley clients, and also will provide a default random client selection strategy which is with form 'pickRandomly(candidatesArr)'.", function() {
+  it("If multiple cayley servers are provided, this lib will return a cayley client pool which is an Array of cayley clients, and also will provide a default random client selection strategy which is named as 'pickRandomly'.", function() {
     const cayleyClientPool = cayley({
       promisify: true,
       secure: false,
@@ -58,6 +58,7 @@ describe('Cayley client(Pool) initialization', function() {
     });
     assert.isArray(cayleyClientPool);
     assert.isFunction(cayleyClientPool.pickRandomly);
+    _assertCayleyClient(cayleyClientPool.pickRandomly());
   });
 
   it("Valid configuration example 0: only provide the 'uri'.", function() {
