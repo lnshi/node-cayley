@@ -129,7 +129,7 @@ g.type('shape').V().All((err, res) => {});
 
 ## HTTP APIs
 
-> `promisify: true`, default, the lib will provide all APIs in bluebird Promise style, or else all APIs will be provided in callback style, for both styles usage examples can be found in the lib [test folder](./test).
+`promisify: true`, default, the lib will provide all APIs in bluebird Promise style, or else all APIs will be provided in callback style, for both styles usage examples can be found in the lib [test folder](./test).
 
 ### write(data, callback)
 
@@ -168,40 +168,36 @@ g.type('shape').V().All((err, res) => {});
 ### read(callback)
 
 * Description: read N-Quads data from cayley, the lib will transparently convert the data to JSON.
-  * Note: response not in JSON yet, will add the functionality soon.
+  > Note: response not in JSON yet, will add the functionality soon.
 
 * **callback(err, res)**
 
 * Usage example:
 
   ```javascript
-  client.read().then((res) => {/* Your data in JSON. */}).catch((err) => {});
+  client.read().then((res) => {
+    // Your data in JSON.
+  }).catch((err) => {
+    // error...
+  });
   ```
 
 ### writeFile(pathOfNQuadsFile, callback)
 
 * Description: write your N-Quads data file into cayley.
 
-* Arguments
-  * pathOfNQuadsFile: `string`, path to your N-Quads data file.
-  * callback
-    * Has the below form:
+* **pathOfNQuadsFile**: path of your N-Quads data file.
 
-      ```
-      (err, resBody) => {
-        // ...
-      }
-      ```
+* **callback(err, res)**
 
 * Usage example:
 
-  ```
-  client.writeFile(
-    path.resolve(__dirname, './test/data/friend_circle_with_label.nq'),
-    (err, resBody) => {
-      // ...
-    }
-  );
+  ```javascript
+  client.writeFile(path.resolve(__dirname, './test/data/test_purpose.nq')).then((res) => {
+    // Successfully wrote to cayley.
+  }).catch((err) => {
+    // error...
+  });
   ```
 
 ### delete(data, callback)
