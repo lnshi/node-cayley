@@ -235,7 +235,7 @@ g.type('shape').V().All((err, res) => {});
 
 > All the below code examples will be based on the test data here: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), which can be visualized as graph in cayley as below:
 
-<img src="./test/data/friend_circle_with_label.nq_visualized.svg" />
+<img src="./test/data/friend_circle_with_label.nq_visualized.png" />
 
 ### graph object
 
