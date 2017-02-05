@@ -31,7 +31,7 @@ const g = graph = client.g; // Or: const g = graph = client.graph;
 client.write(jsonObjArr).then((res) => {
   // Successfully wrote to cayley.
 }).catch((err) => {
-  // ...
+  // Error ...
 });
 
 // Callback style.
@@ -40,7 +40,7 @@ client.delete(jsonObjArr, (err, res) => {});
 g.V().All().then((res) => {
   // Your data in JSON.
 }).catch((err) => {
-  // ...
+  // Error ...
 });
 
 // 'type' default to 'query', you can change to 'shape' by calling g.type('shape')
@@ -178,7 +178,7 @@ g.type('shape').V().All((err, res) => {});
   client.read().then((res) => {
     // Your data in JSON.
   }).catch((err) => {
-    // error...
+    // Error ...
   });
   ```
 
@@ -196,7 +196,7 @@ g.type('shape').V().All((err, res) => {});
   client.writeFile(path.resolve(__dirname, './test/data/test_purpose.nq')).then((res) => {
     // Successfully wrote to cayley.
   }).catch((err) => {
-    // error...
+    // Error ...
   });
   ```
 
@@ -226,52 +226,69 @@ g.type('shape').V().All((err, res) => {});
   ]).then((res) => {
     // Successfully deleted from cayley.
   }).catch((err) => {
-    // error...
+    // Error ...
   });
   ```
 
-## Gremlin APIs
+## Gizmo APIs → graph object
 
-### Graph Object
+> All the below code examples will be based on the test data here: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq).
+
+### graph object
+
+* grpah
+  > const g = client.graph;
 
 * Alias: `g`
+  > const g = client.g;
 
 * This is the only special object in the environment, generates the query objects. Under the hood, they're simple objects that get compiled to a Go iterator tree when executed.
 
-#### **graph.type(type)**
+### graph.type(type)
 
-* Description: set type: either 'query' or 'shape', and then return a new `Graph` object, will decide the query finally goes to '/query/gremlin' or '/shape/gremlin'.
+* Description: set type: either 'query' or 'shape', and then return a new `graph` object, will decide the query finally goes to `/query/gizmo` or '/shape/gizmo'.
 
-* Arguments
-  * type: `string`, either 'query' or 'shape'.
+* **type**: either `query` or `shape`.
 
 * Usage example:
 
-  ```
-  g.type('query').V().All().then((resBody) => {
-    // ...
+  ```javascript
+  // Default to 'query'.
+  g.V().All().then((res) => {
+    // Your data in JSON.
   }).catch((err) => {
-    // ...
+    // Error ...
+  });
+
+  // Change to 'shape'
+  g.type('shape').V().All().then((res) => {
+    // Your data in JSON.
+  }).catch((err) => {
+    // Error ...
   });
   ```
 
-#### **graph.Vertex([nodeId],[nodeId]...)**
+### graph.Vertex([nodeId], [nodeId], ...)
 
 * Alias: `V`
 
 * Description: starts a query path at the given vertex/vertices, no ids means 'all vertices', return `Query Object`.
 
-* Arguments:
-  * nodeId: `optional`, a string or list of strings representing the starting vertices.
+* **nodeId**: `optional`, a string or a list of strings represent the starting vertices.
 
 * Usage example:
 
-  ```
-  // Or: g.Vertex('</user/shortid/23TplPdS>', '</user/shortid/46Juzcyx>')
-  g.V('</user/shortid/23TplPdS>', '</user/shortid/46Juzcyx>').All().then((resBody) => {
-    // ...
+  ```javascript
+  g.V('</user/shortid/23TplPdS>', '</user/shortid/46Juzcyx>').All().then((res) => {
+    // res will be: {result:[{id:'</user/shortid/23TplPdS>'},{id:'</user/shortid/46Juzcyx>'}]}
   }).catch((err) => {
-    // ...
+    // Error ...
+  });
+
+  g.type('shape').V('</user/shortid/23TplPdS>', '</user/shortid/46Juzcyx>').All().then((res) => {
+    // res will be: {result:[{id:'</user/shortid/23TplPdS>'},{id:'</user/shortid/46Juzcyx>'}]}
+  }).catch((err) => {
+    // Error ...
   });
   ```
 
