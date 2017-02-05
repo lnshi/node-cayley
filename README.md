@@ -34,15 +34,8 @@ client.write(jsonObjArr).then((res) => {
   // ...
 });
 
-client.read().then((res) => {
-  // Your data in JSON.
-}).catch((err) => {
-  // ...
-});
-
-client.delete(jsonObjArr, (err, res) => {
-  // Callback style.
-});
+// Callback style.
+client.delete(jsonObjArr, (err, res) => {});
 
 g.V().All().then((res) => {
   // Your data in JSON.
@@ -50,7 +43,6 @@ g.V().All().then((res) => {
   // ...
 });
 
-// Callback style.
 // 'type' default to 'query', you can change to 'shape' by calling g.type('shape')
 g.type('shape').V().All((err, res) => {});
 ```
