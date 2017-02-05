@@ -1,4 +1,4 @@
-# node-cayley
+# node-cayley (Test Travis CI)
 
 This is a Node.js client for open-source graph database [cayley](https://github.com/cayleygraph/cayley).
 
