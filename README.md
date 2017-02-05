@@ -143,7 +143,7 @@ g.type('shape').V().All((err, res) => {});
 
 > Description: write your JSON data into cayley as N-Quads data transparently.
 
-* **`data`**: Array of JSON objects, you need to add the below two extra fields to each object:
+* **data**: Array of JSON objects, you need to add the below two extra fields to each object:
 
   * **primaryKey**: `required`, which will be the **Subject** in the N-Quads data.
 
@@ -151,7 +151,7 @@ g.type('shape').V().All((err, res) => {});
 
   * **label**: `optional`, which is for cayley subgraph organizing.
 
-* **`callback(err, res)`**
+* **callback(err, res)**
 
 * Usage example:
   
@@ -171,6 +171,19 @@ g.type('shape').V().All((err, res) => {});
       // resBody: cayley server response body to this write.
     }
   });
+  ```
+
+### read(callback)
+
+> Description: read N-Quads data from cayley, the lib will transparently convert the data to JSON.
+> Note: response not in JSON yet, will add the functionality soon.
+
+* **callback(err, res)**
+
+* Usage example:
+
+  ```javascript
+  client.read().then((res) => {/* Your data in JSON. */}).catch((err) => {});
   ```
 
 ### writeFile(pathOfNQuadsFile, callback)
