@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+
+  mongo:
+    image: mongo
+
+  cayley:
+    image: quay.io/cayleygraph/cayley
+    volumes:
+      - ./cayley_config:/data
+    ports:
+      - '64210:64210'
+
+
+      
