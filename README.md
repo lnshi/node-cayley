@@ -137,45 +137,34 @@ g.type('shape').V().All((err, res) => {});
 
 ## HTTP APIs
 
-**Depends on your `promisify` setting provide `callback style` or `bluebird Promise style` API.**
+`promisify: true`, default, the lib will provide all APIs in bluebird Promise style, or else all APIs will be provided in callback style, for both styles usage examples can be found in the lib [test folder](./test).
 
 ### write(data, callback)
 
 * Description: write your JSON data into cayley as N-Quads data transparently.
 
-* Arguments
-  * data
-    * Array of JSON objects.
-    * You need to modify each of your object to add the below two fields:
-      * primaryKey: `required`, which will be the **Subject** in the N-Quads data.
-        * You need to define a way to generate the consistent primaryKey` for same data, the exactly same `primaryKey` is required when you try to delete this N-Quads entry.
-      * label: `optional`, which is for organizing the graph into multiple subgraph.
-  * callback
-    * Has the below form:
+* **`data`**: Array of JSON objects, you need to add the below two extra fields to each object:
 
-      ```
-      (err, resBody) => {
-        // resBody: cayley server response body to this write.
-      }
-      ```
+  * **primaryKey**: `required`, which will be the **Subject** in the N-Quads data.
+
+    > Note: you need to define a way to generate consistent `primaryKey` for same data, the exactly same `primaryKey`(Subject) is required when in the future you try to delete this N-Quads entry.
+
+  * **label**: `optional`, which is for cayley subgraph organizing.
+
+* **`callback(err, res)`**
 
 * Usage example:
   
-  ```
+  ```javascript
   client.write([
     {
       primaryKey: '</user/shortid/23TplPdS>',
       label: 'companyA',
 
       userId: '23TplPdS',
-      realName: 'XXX_L3',
-      mobilePhone: {
-        isVerified: false,
-        alpha3CountryCode: '+65',
-        mobilePhoneNoWithCountryCallingCode: '+6586720011'
-      }
-    }, ...
-  ], (err, resBody) => {
+      realName: 'XXX_L3'
+    }, {}, {},
+  ], (err, res) => {
     if (err) {
       // Something went wrong...
     } else {
