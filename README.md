@@ -50,10 +50,9 @@ g.V().All().then((res) => {
   // ...
 });
 
+// Callback style.
 // 'type' default to 'query', you can change to 'shape' by calling g.type('shape')
-g.type('shape').V().All((err, res) => {
-  // Callback style.
-});
+g.type('shape').V().All((err, res) => {});
 ```
 
 ## Configuration
@@ -77,7 +76,10 @@ g.type('shape').V().All((err, res) => {
   * Two configuration examples
 
     ```javascript
-    const client = require('node-cayley')('localhost:64210');
+    const client = require('node-cayley')('localhost:64210', {
+      promisify: true
+    });
+
     const g = graph = client.g;
     ```
     ```javascript
