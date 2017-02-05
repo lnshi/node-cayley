@@ -12,7 +12,7 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 * Transparent bidirectional JSON <-> N-Quads data formatting handling.
 * Travis CI.
 * Fully covered mocha + chai test cases.
-* Clearly designed entry-level N-Quads data: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), [friend_circle_without_label.nq](./test/data/friend_circle_without_label.nq) for getting you in.
+* Clearly designed entry-level N-Quads data: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq) for getting you in.
 
 # Documentation
 
@@ -233,7 +233,9 @@ g.type('shape').V().All((err, res) => {});
 
 ## Gizmo APIs → graph object
 
-> All the below code examples will be based on the test data here: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq).
+> All the below code examples will be based on the test data here: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), which can be visualized as graph in cayley as below:
+
+<img src="./test/data/friend_circle_with_label.nq_visualized.svg" />
 
 ### graph object
 
