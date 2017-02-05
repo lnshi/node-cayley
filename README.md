@@ -141,7 +141,7 @@ g.type('shape').V().All((err, res) => {});
 
 ### write(data, callback)
 
-> Description: write your JSON data into cayley as N-Quads data transparently.
+* Description: write your JSON data into cayley as N-Quads data transparently.
 
 * **data**: Array of JSON objects, you need to add the below two extra fields to each object:
 
@@ -175,8 +175,8 @@ g.type('shape').V().All((err, res) => {});
 
 ### read(callback)
 
-> Description: read N-Quads data from cayley, the lib will transparently convert the data to JSON.
-> Note: response not in JSON yet, will add the functionality soon.
+* Description: read N-Quads data from cayley, the lib will transparently convert the data to JSON.
+  * Note: response not in JSON yet, will add the functionality soon.
 
 * **callback(err, res)**
 
