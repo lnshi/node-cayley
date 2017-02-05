@@ -137,11 +137,11 @@ g.type('shape').V().All((err, res) => {});
 
 ## HTTP APIs
 
-`promisify: true`, default, the lib will provide all APIs in bluebird Promise style, or else all APIs will be provided in callback style, for both styles usage examples can be found in the lib [test folder](./test).
+> `promisify: true`, default, the lib will provide all APIs in bluebird Promise style, or else all APIs will be provided in callback style, for both styles usage examples can be found in the lib [test folder](./test).
 
 ### write(data, callback)
 
-* Description: write your JSON data into cayley as N-Quads data transparently.
+> Description: write your JSON data into cayley as N-Quads data transparently.
 
 * **`data`**: Array of JSON objects, you need to add the below two extra fields to each object:
 
