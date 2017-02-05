@@ -155,7 +155,7 @@ g.type('shape').V().All((err, res) => {});
 
       userId: '23TplPdS',
       realName: 'XXX_L3'
-    }, {}, {},
+    }
   ], (err, res) => {
     if (err) {
       // Something went wrong...
@@ -202,39 +202,31 @@ g.type('shape').V().All((err, res) => {});
 
 ### delete(data, callback)
 
-* Description: delete the corresponding N-Quads data which are represented by this JSON `data` from cayley transparently.
+* Description: delete the corresponding N-Quads data which are represented by this JSON data from cayley transparently.
 
-* Arguments
-  * data
-    * Array of JSON objects.
-    * You need to modify each of your object to add the below two fields:
-      * primaryKey: `required`, which should be exactly same with the 'primaryKey' when you inserted this data before.
-      * label: if you provided the 'label' when you inserted this data, then for deleting you also need to provide the exactly same value, or else you don't need.
-  * callback
-    * Has the below form:
+* **data**: Array of JSON objects, for each object you need to provide the values for the below two extra fields:
 
-      ```
-      (err, resBody) => {
-        // resBody: cayley server response body to this write.
-      }
-      ```
+  * **primaryKey**: `required`, which should be exactly same with the 'primaryKey' when you inserted this data.
+
+  * **label**: if you provided the `label` when you inserted this data, then for deleting you must also need to provide the exactly same value.
+
+* **callback(err, res)**
 
 * Usage example:
   
-  ```
+  ```javascript
   client.delete([
-    primaryKey: '</user/shortid/23TplPdS>',
-    label: 'companyA',
+    {
+      primaryKey: '</user/shortid/23TplPdS>',
+      label: 'companyA',
 
-    userId: '23TplPdS',
-    realName: 'XXX_L3',
-    mobilePhone: {
-      isVerified: false,
-      alpha3CountryCode: '+65',
-      mobilePhoneNoWithCountryCallingCode: '+6586720011'
-    }, ...
-  ], (err, resBody) => {
-    // ...
+      userId: '23TplPdS',
+      realName: 'XXX_L3'
+    }
+  ]).then((res) => {
+    // Successfully deleted from cayley.
+  }).catch((err) => {
+    // error...
   });
   ```
 
