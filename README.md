@@ -10,6 +10,7 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 * Default random client selection strategy.
 * Bluebird Promise style and callback style APIs.
 * Transparent bidirectional JSON <-> N-Quads data formatting handling.
+* Travis CI.
 * Fully covered mocha + chai test cases.
 * Clearly designed entry-level N-Quads data: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), [friend_circle_without_label.nq](./test/data/friend_circle_without_label.nq) for getting you in.
 
