@@ -319,7 +319,7 @@ g.type('shape').V().All((err, res) => {});
 
     ```javascript
     // Then we can reuse this path set later.
-    const popularQuery = g.M().Out('<follows>').In('<follows>').Has('<gender>', 'F').Out('<email>', '<mobilePhone>']);
+    const popularQuery = g.M().Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
 
     g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
       // res will be exactly same with above query.
