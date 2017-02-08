@@ -301,6 +301,23 @@ describe('Cayley callback style Gizmo APIs', function() {
     });
   });
 
+  it('graph.Morphism()', function(done) {
+    cayleyClient.g.V('</user/shortid/46Juzcyx>')
+      .Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>'])
+      .All((err, res) => {
+        if (err) {
+          done(err);
+        } else {
+          try {
+            assert.isArray(res.result);
+            done();
+          } catch (e) {
+            done(e);
+          } 
+        }
+      });
+  });
+
   // it('query.GetLimit(size, callback)', function(done) {
   //   cayleyClient.g.type('query').V().GetLimit(1, function(err, res) {
   //     if (err) {

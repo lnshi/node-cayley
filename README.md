@@ -295,15 +295,39 @@ g.type('shape').V().All((err, res) => {});
   });
   ```
 
-#### **graph.Morphism()**
+### graph.Morphism()
 
 * Alias: `M`
 
-* Description: creates a morphism path object. Unqueryable on it's own, defines one end of the path. Saving these to variables with is the common use case. See also: `path.Follow(morphism)`, `path.FollowR(morphism)`.
+* Description: creates a morphism `Path` object, unqueryable on it's own, defines one path set in the graph, saving it into a variable then in the future reuse it by using the below `path.Follow(morphism)` and `path.FollowR(morphism)` APIs is the common use case.
 
-  ```
-  var shorterPath = graph.M().Out('foo').Out('bar');
-  ```
+* Lets make it more clear by going through the below examples:
+
+  * Lets say we have a query which is getting the `email` and `mobilePhone` of those female followers who follows the one I am following, then we can simply fulfill this requirement by using the below code:
+
+    ```javascript
+    g.V('</user/shortid/46Juzcyx>')
+      .Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>'])
+      .All().then((res) => {
+        // res will be:
+      }).catch((err) => {
+        // Error ...
+      });
+    ```
+
+  * But because of this query is highly required, we need this piece of query in a lot of other functionalities, we don't want to and shouldn't repeat the code again and again, then we can use `graph.Morphism()` to store this path set into one variable, then at the places we need it we just reuse it by using the `path.Follow(morphism)` and `path.FollowR(morphism)` APIs, like below:
+
+    ```javascript
+    // Then we can reuse this path set later.
+    const popularQuery = g.M().Out('<follows>').In('<follows>').Has('<gender>', 'F').Out('<email>', '<mobilePhone>']);
+
+    g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
+      // res will be exactly same with above query.
+      // res will be:
+    }).catch((err) => {
+      // Error ...
+    });
+    ```
 
 ### Path Objects
 
