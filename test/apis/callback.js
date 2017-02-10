@@ -317,20 +317,64 @@ describe('Cayley callback style Gizmo APIs', function() {
   });
 
   it('graph.Morphism()', function(done) {
-    const popularQuery = cayleyClient.g.M().Out(['<follows>']).In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
-    cayleyClient.g.V('</user/shortid/46Juzcyx>').Follow(popularQuery)
-      .All((err, res) => {
-        if (err) {
-          done(err);
-        } else {
-          try {
-            assert.isArray(res.result);
-            done();
-          } catch (e) {
-            done(e);
-          } 
+    const popularQuery = cayleyClient.g.M().Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
         }
-      });
+      }
+    });
+  });
+
+  it('path.Out(predicatePath, tag)', function(done) {
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Out('<follows>', 'predicate').All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      } 
+    });
+  });
+
+  it('path.Out(predicatePath, [tag, ...])', function(done) {
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Out('<follows>', ['predicate', 'ifExtraTag?']).All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      } 
+    });
+  });
+
+  it('path.Out([predicatePath, ...], [tag, ...])', function(done) {
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Out(['<follows>', '<userId>'], ['predicate', 'extraTag']).All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      } 
+    });
   });
 
   // it('query.GetLimit(size, callback)', function(done) {

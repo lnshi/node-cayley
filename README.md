@@ -253,7 +253,7 @@ g.type('shape').V().All((err, res) => {});
 
 * **type**: either `query` or `shape`.
 
-* Usage example:
+* Usage examples:
 
   ```javascript
   // Default to 'query'.
@@ -279,7 +279,7 @@ g.type('shape').V().All((err, res) => {});
 
 * **nodeId || [nodeId, ...]**: `optional`, a single string `nodeId` or an array of string `nodeId` represents the starting vertices.
 
-* Usage example:
+* Usage examples:
 
   ```javascript
   g.V('</user/shortid/23TplPdS>').All().then((res) => {
@@ -309,7 +309,7 @@ g.type('shape').V().All((err, res) => {});
     g.V('</user/shortid/46Juzcyx>')
       .Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>'])
       .All().then((res) => {
-        // res will be:
+        // res will be: {result:[{id:'xxx.l30@xxx.com'},{id:'_:l32'}]}
       }).catch((err) => {
         // Error ...
       });
@@ -329,15 +329,54 @@ g.type('shape').V().All((err, res) => {});
     });
     ```
 
-### Path Objects
+## Gizmo APIs → Path Object
 
-Both `.Morphism()` and `.Vertex()` create path objects, which provide the following traversal methods.
+> Both `.Morphism()/.M()` and `.Vertex()/.V()` create `Path` object, which provides the following traversal methods.
 
-Note that .Vertex() returns a query object, which is a subclass of path object.
+> Note: that `.Vertex()/.V()` returns a `Query` object, which is a subclass of `Path` object.
 
-<a href="https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md" target="_blank">**For the following APIs which belong to the `Path Object` please refer to the upstream project cayley doc by following this link.**</a>:
+### path.Out([predicatePath], [tags])
 
-* path.Out([predicatePath], [tags])
+* Description: `Out` is the work-a-day way to get between nodes, in the forward direction. Starting with the nodes in path on the subject, follow the quads with predicates defined by **predicatePath** to their objects.
+
+* **predicatePath** `optional`, one of:
+
+  * null or undefined: All predicates pointing out from this node.
+  * a string: The predicate name to follow out from this node.
+  * an array of strings: The predicates to follow out from this node.
+  * a query path object: The target of which is a set of predicates to follow.
+
+* **tags** `optional`, one of:
+
+  * null or undefined: No tags.
+  * a string: A single tag to add the predicate used to the output set.
+  * an array of strings: Multiple tags to use as keys to save the predicate used to the output set.
+
+* Usage examples:
+
+  ```javascript
+  g.V('</user/shortid/46Juzcyx>').Out('<follows>', 'predicate').All().then((res) => {
+    // res will be: {result:[{id:'</user/shortid/23TplPdS>',predicate:'<follows>'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+
+  // If we pass in one 'predicatePath', but two tags, what the result will look like?
+  // As you can see the below result, that indicates: 
+  //   every 'predicatePath' just own all the 'tags' you passed in.
+  g.V('</user/shortid/46Juzcyx>').Out('<follows>', ['predicate', 'ifExtraTag?']).All().then((res) => {
+    // res will be: {result:[{id:'</user/shortid/23TplPdS>','ifExtraTag?':'<follows>',predicate:'<follows>'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+
+  g.V('</user/shortid/46Juzcyx>').Out(['<follows>', '<userId>'], ['predicate', 'extraTag']).All((res) => {
+    // res will be: {result:[{extraTag:'<follows>',id:'</user/shortid/23TplPdS>',predicate:'<follows>'},{extraTag:'<userId>',id:'46Juzcyx',predicate:'<userId>'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
+
 * path.In([predicatePath], [tags])
 * path.Both([predicatePath], [tags])
 * path.Is(node, [node..])
