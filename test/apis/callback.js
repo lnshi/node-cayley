@@ -377,6 +377,124 @@ describe('Cayley callback style Gizmo APIs', function() {
     });
   });
 
+  it('path.Out([predicatePath, ...], tag)', function(done) {
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Out(
+      cayleyClient.g.V(['<userId>', '<userSetId>']), 'predicate'
+    ).All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      } 
+    });
+  });
+
+  it('path.Out([predicatePath, ...], [tag, ...])', function(done) {
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Out(
+      cayleyClient.g.V(['<userId>', '<userSetId>']), ['predicate', 'extraTag']
+    ).All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      } 
+    });
+  });
+
+
+
+
+
+
+  it('path.In(predicatePath, tag)', function(done) {
+    cayleyClient.g.V('false').In('<isEmailVerified>', 'predicate').All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      } 
+    });
+  });
+
+  it('path.In(predicatePath, [tag, ...])', function(done) {
+    cayleyClient.g.V('false').In('<isEmailVerified>', ['predicate', 'ifExtraTag?']).All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      } 
+    });
+  });
+
+  it('path.In([predicatePath, ...], [tag, ...])', function(done) {
+    cayleyClient.g.V('false').In(['<isEmailVerified>', '<isVerified>'], ['predicate', 'extraTag']).All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      } 
+    });
+  });
+
+  it('path.In([predicatePath, ...], tag)', function(done) {
+    cayleyClient.g.V('false').In(
+      cayleyClient.g.V(['<isEmailVerified>', '<isVerified>']), 'predicate'
+    ).All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      } 
+    });
+  });
+
+  it('path.In([predicatePath, ...], [tag, ...])', function(done) {
+    cayleyClient.g.V('false').In(
+      cayleyClient.g.V(['<isEmailVerified>', '<isVerified>']), ['predicate', 'extraTag']
+    ).All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      } 
+    });
+  });
+
   // it('query.GetLimit(size, callback)', function(done) {
   //   cayleyClient.g.type('query').V().GetLimit(1, function(err, res) {
   //     if (err) {

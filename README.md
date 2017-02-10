@@ -66,7 +66,7 @@ g.type('shape').V().All((err, res) => {});
 
     * servers: `Array of multiple cayley hosts object`, options here will override the top level options.
 
-  * Two configuration examples
+  * Two configuration examples:
 
     ```javascript
     const client = require('node-cayley')('localhost:64210', {
@@ -370,14 +370,65 @@ g.type('shape').V().All((err, res) => {});
     // Error ...
   });
 
-  g.V('</user/shortid/46Juzcyx>').Out(['<follows>', '<userId>'], ['predicate', 'extraTag']).All((res) => {
+  g.V('</user/shortid/46Juzcyx>').Out(['<follows>', '<userId>'], ['predicate', 'extraTag']).All().then((res) => {
     // res will be: {result:[{extraTag:'<follows>',id:'</user/shortid/23TplPdS>',predicate:'<follows>'},{extraTag:'<userId>',id:'46Juzcyx',predicate:'<userId>'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+
+  // Haven't found out one very useful use case here, I mean by passing in a query.
+  g.V('</user/shortid/46Juzcyx>').Out(
+    g.V(['<userId>', '<userSetId>']),
+    'predicate'
+  ).All().then((res) => {
+    // res will be: {result:[{id:'46Juzcyx',predicate:'<userId>'},{id:'XXX_L14',predicate:'<userSetId>'}]}
   }).catch((err) => {
     // Error ...
   });
   ```
 
-* path.In([predicatePath], [tags])
+### path.In([predicatePath], [tags])
+
+* Description: same as `Out`, but in the other direction. Starting with the nodes in path on the object, follow the quads with predicates defined by **predicatePath** to their subjects.
+
+* **predicatePath** `optional`, one of:
+
+  * null or undefined: All predicates pointing into this node.
+  * a string: The predicate name to follow into this node.
+  * an array of strings: The predicates to follow into this node.
+  * a query path object: The target of which is a set of predicates to follow.
+
+* **tags** `optional`, one of:
+
+  * null or undefined: No tags.
+  * a string: A single tag to add the predicate used to the output set.
+  * an array of strings: Multiple tags to use as keys to save the predicate used to the output set.
+
+* Usage examples:
+
+  ```javascript
+  g.V('false').In('<isEmailVerified>', 'predicate').All().then((res) => {
+    // res will be: {result:[{id:'</user/shortid/46Juzcyx>',predicate:'<isEmailVerified>'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+
+  g.V('false').In(['<isEmailVerified>', '<isVerified>'], ['predicate', 'extraTag']).All().then((res) => {
+    // res will be: {result:[{extraTag:'<isEmailVerified>',id:'</user/shortid/46Juzcyx>',predicate:'<isEmailVerified>'},{extraTag:'<isVerified>',id:'_:l8',predicate:'<isVerified>'},{extraTag:'<isVerified>',id:'_:l20',predicate:'<isVerified>'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+
+  g.V('false').In(
+    g.V(['<isEmailVerified>', '<isVerified>']),
+    'predicate'
+  ).All().then((res) => {
+    // res will be: {result:[{extraTag:'<isEmailVerified>',id:'</user/shortid/46Juzcyx>',predicate:'<isEmailVerified>'},{extraTag:'<isVerified>',id:'_:l8',predicate:'<isVerified>'},{extraTag:'<isVerified>',id:'_:l20',predicate:'<isVerified>'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
+
 * path.Both([predicatePath], [tags])
 * path.Is(node, [node..])
 * path.Has(predicate, object)
