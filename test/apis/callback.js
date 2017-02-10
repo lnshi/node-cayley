@@ -411,11 +411,6 @@ describe('Cayley callback style Gizmo APIs', function() {
     });
   });
 
-
-
-
-
-
   it('path.In(predicatePath, tag)', function(done) {
     cayleyClient.g.V('false').In('<isEmailVerified>', 'predicate').All((err, res) => {
       if (err) {
