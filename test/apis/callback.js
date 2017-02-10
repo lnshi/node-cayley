@@ -501,7 +501,68 @@ describe('Cayley callback style Gizmo APIs', function() {
         } catch (e) {
           done(e);
         }
-      } 
+      }
+    });
+  });
+
+  it('path.Is(node)', function(done) {
+    cayleyClient.g.V('</user/shortid/23TplPdS>').In('<follows>').Is('</user/shortid/46Juzcyx>').All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('path.Is([node, ...])', function(done) {
+    cayleyClient.g.V('</user/shortid/23TplPdS>').In('<follows>')
+      .Is(['</user/shortid/46Juzcyx>', '</user/shortid/hwX6aOr7>', '</user/fake/value>']).All((err, res) => {
+        if (err) {
+          done(err);
+        } else {
+          try {
+            assert.isArray(res.result);
+            done();
+          } catch (e) {
+            done(e);
+          }
+      }
+    });
+  });
+
+  it('path.Is(node), and not match', function(done) {
+    cayleyClient.g.V('</user/shortid/23TplPdS>').In('<follows>').Is('</user/fake/value>').All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isNull(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('path.Is(node), pass in nothing', function(done) {
+    cayleyClient.g.V('</user/shortid/23TplPdS>').In('<follows>').Is().All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isNull(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
     });
   });
 

@@ -460,7 +460,32 @@ g.type('shape').V().All((err, res) => {});
   });
   ```
 
-* path.Is(node, [node..])
+### path.Is(node || [node, ...])
+
+* Description: filter all paths to ones, which at this point, are on the given node.
+
+* **node || [node, ...]**: `required`, a single string `node` or an array of string `node`.
+
+* Usage examples:
+
+  ```javascript
+  g.V('</user/shortid/23TplPdS>').In('<follows>').Is('</user/shortid/46Juzcyx>').All().then((res) => {
+    // res will be: {result:[{id:'</user/shortid/46Juzcyx>'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+
+  g.V('</user/shortid/23TplPdS>').In('<follows>')
+    .Is(['</user/shortid/46Juzcyx>', '</user/shortid/hwX6aOr7>', '</user/fake/value>'])
+    .All().then((res) => {
+      // res will be: {result:[{id:'</user/shortid/46Juzcyx>'},{id:'</user/shortid/hwX6aOr7>'}]}
+    }).catch((err) => {
+      // Error ...
+    });
+  ```
+
+
+
 * path.Has(predicate, object)
 * path.LabelContext([labelPath], [tags])
 * path.Limit(limit)
