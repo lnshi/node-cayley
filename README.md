@@ -429,7 +429,37 @@ g.type('shape').V().All((err, res) => {});
   });
   ```
 
-* path.Both([predicatePath], [tags])
+### path.Both([predicatePath], [tags])
+
+> Note: less efficient, for the moment, as it's implemented with an Or, but useful where necessary.
+
+* Description: same as `In` and `Out`, but follow the predicate in either direction(into and out) from the node.
+
+* **predicatePath** `optional`, one of:
+
+  * null or undefined: All predicates pointing both into and out from this node.
+  * a string: The predicate name to follow both into and out from this node.
+  * an array of strings: The predicates to follow both into and out from this node.
+  * a query path object: The target of which is a set of predicates to follow.
+
+* **tags** `optional`, one of:
+
+  * null or undefined: No tags.
+  * a string: A single tag to add the predicate used to the output set.
+  * an array of strings: Multiple tags to use as keys to save the predicate used to the output set.
+
+* Usage examples:
+
+  ```javascript
+  g.V('</user/shortid/46Juzcyx>').Both('<follows>', 'predicate').All().then((res) => {
+    // It seems 'tags' doesn't work properly for 'Both'.
+    //   see here: https://github.com/cayleygraph/cayley/issues/532
+    // res will be: {result:[{id:'</user/shortid/23TplPdS>'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
+
 * path.Is(node, [node..])
 * path.Has(predicate, object)
 * path.LabelContext([labelPath], [tags])
