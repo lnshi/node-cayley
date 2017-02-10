@@ -271,24 +271,24 @@ g.type('shape').V().All((err, res) => {});
   });
   ```
 
-### graph.Vertex([nodeId], [nodeId], ...)
+### graph.Vertex(nodeId || [nodeId, ...])
 
 * Alias: `V`
 
 * Description: starts a query path at the given vertex/vertices, no ids means 'all vertices', return `Query Object`.
 
-* **nodeId**: `optional`, a string or a list of strings represent the starting vertices.
+* **nodeId || [nodeId, ...]**: `optional`, a single string `nodeId` or an array of string `nodeId` represents the starting vertices.
 
 * Usage example:
 
   ```javascript
-  g.V('</user/shortid/23TplPdS>', '</user/shortid/46Juzcyx>').All().then((res) => {
-    // res will be: {result:[{id:'</user/shortid/23TplPdS>'},{id:'</user/shortid/46Juzcyx>'}]}
+  g.V('</user/shortid/23TplPdS>').All().then((res) => {
+    // res will be: {result:[{id:'</user/shortid/23TplPdS>'}]}
   }).catch((err) => {
     // Error ...
   });
 
-  g.type('shape').V('</user/shortid/23TplPdS>', '</user/shortid/46Juzcyx>').All().then((res) => {
+  g.type('shape').V(['</user/shortid/23TplPdS>', '</user/shortid/46Juzcyx>']).All().then((res) => {
     // res will be: {result:[{id:'</user/shortid/23TplPdS>'},{id:'</user/shortid/46Juzcyx>'}]}
   }).catch((err) => {
     // Error ...
@@ -315,7 +315,7 @@ g.type('shape').V().All((err, res) => {});
       });
     ```
 
-  * But because of this query is highly required, we need this piece of query in a lot of other functionalities, we don't want to and shouldn't repeat the code again and again, then we can use `graph.Morphism()` to store this path set into one variable, then at the places we need it we just reuse it by using the `path.Follow(morphism)` and `path.FollowR(morphism)` APIs, like below:
+  * But because of this query is highly required, we need this piece of query in a lot of other functionalities, we don't want to and shouldn't repeat the code again and again, then we can use `graph.Morphism()` to store this path set into one variable, then at the places we need it, we just reuse it by using the `path.Follow(morphism)` and `path.FollowR(morphism)` APIs, like below:
 
     ```javascript
     // Then we can reuse this path set later.
@@ -323,7 +323,7 @@ g.type('shape').V().All((err, res) => {});
 
     g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
       // res will be exactly same with above query.
-      // res will be:
+      // res will be: {result:[{id:'xxx.l30@xxx.com'},{id:'_:l32'}]}
     }).catch((err) => {
       // Error ...
     });

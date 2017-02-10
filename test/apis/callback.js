@@ -286,8 +286,23 @@ describe('Cayley callback style Gizmo APIs', function() {
     });
   });
 
-  it('query.All(callback)', function(done) {
-    cayleyClient.g.V('</user/shortid/23TplPdS>', '</user/shortid/46Juzcyx>').All(function(err, res) {
+  it('graph.Vertex(nodeId)', function(done) {
+    cayleyClient.g.V('</user/shortid/23TplPdS>').All(function(err, res) {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('graph.Vertex([nodeId, ...])', function(done) {
+    cayleyClient.g.type('shape').V(['</user/shortid/23TplPdS>', '</user/shortid/46Juzcyx>']).All(function(err, res) {
       if (err) {
         done(err);
       } else {
@@ -302,8 +317,8 @@ describe('Cayley callback style Gizmo APIs', function() {
   });
 
   it('graph.Morphism()', function(done) {
-    cayleyClient.g.V('</user/shortid/46Juzcyx>')
-      .Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>'])
+    const popularQuery = cayleyClient.g.M().Out(['<follows>']).In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Follow(popularQuery)
       .All((err, res) => {
         if (err) {
           done(err);
