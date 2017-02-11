@@ -568,7 +568,31 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
-* path.Skip(offset)
+### path.Skip(offset)
+
+* Description: skips a number of nodes for current path.
+
+* **offset**: `required` `Integer`, a number of nodes to skip.
+
+* Usage examples:
+
+  ```javascript
+  // Skip 0.
+  g.V().Has('<alpha3CountryCode>', 'SGP').Skip(0).All().then((res) => {
+    // res will be: {result:[{id:'_:l8'},{id:'_:l20'},{id:'_:l32'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+
+  // Skip 2.
+  g.V().Has('<alpha3CountryCode>', 'SGP').Skip(2).All().then((res) => {
+    // res will be: {result:[{id:'_:l32'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
+
+
 * path.InPredicates()
 * path.OutPredicates()
 * path.Tag(tag)

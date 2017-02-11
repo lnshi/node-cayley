@@ -657,8 +657,55 @@ describe('Cayley callback style Gizmo APIs', function() {
     });
   });
 
-  it('path.Limit()', function(done) {
+  it('path.Limit(), missing required parameter, expect error', function(done) {
     cayleyClient.g.V('M').In('<gender>').Limit().All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isNotNull(res.error);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('path.Skip(offset), skip 0', function(done) {
+    cayleyClient.g.V().Has('<alpha3CountryCode>', 'SGP').Skip(0).All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          assert.equal(res.result.length, 3);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('path.Skip(offset), skip 2', function(done) {
+    cayleyClient.g.V().Has('<alpha3CountryCode>', 'SGP').Skip(2).All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          assert.equal(res.result.length, 1);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('path.Skip(), missing required parameter, expect error', function(done) {
+    cayleyClient.g.V().Has('<alpha3CountryCode>', 'SGP').Skip().All((err, res) => {
       if (err) {
         done(err);
       } else {
