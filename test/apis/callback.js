@@ -557,7 +557,22 @@ describe('Cayley callback style Gizmo APIs', function() {
         done(err);
       } else {
         try {
-          assert.isNull(res.result);
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('path.Has(predicatePath, node)', function(done) {
+    cayleyClient.g.V().Has('<gender>', 'F').All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
           done();
         } catch (e) {
           done(e);

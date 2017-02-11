@@ -22,7 +22,7 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 
 > **Note:**
 
-> All the code examples in this README guidebook will be based on the test data here: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), which can be visualized as the below graph in cayley:
+> All the code examples in this README guidebook are based on the test data here: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), which can be visualized as the below graph in cayley:
 
 <img src="https://github.com/lnshi/node-cayley/blob/master/test/data/friend_circle_with_label.nq_1_visualized.png" />
 
@@ -55,7 +55,6 @@ g.V('</user/shortid/46Juzcyx>').Out('<follows>', 'predicate').All().then((res) =
 // 'type' default to 'query', you can change to 'shape' by calling g.type('shape')
 g.type('shape').V().All((err, res) => {});
 
-
 const popularQuery = g.M().Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
 g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   // res will be: {result:[{id:'xxx.l30@xxx.com'},{id:'_:l32'}]}
@@ -68,9 +67,9 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
   * Options
 
-    * logLevel: `integer`, set log level, this lib use logger winston and npm log levels(winston.config.npm.levels).
+    * promisify: `boolean`, default to true, set true to use bluebird style APIs, false to use callback style APIs.
 
-    * promisify: `boolean`, set true to use bluebird style APIs, false to use callback style APIs.
+    * logLevel: `integer`, set log level, this lib use logger winston and npm log levels(winston.config.npm.levels).
 
     * secure: `boolean`, set whether your cayley server use TLS.
 
@@ -146,7 +145,7 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ## HTTP APIs
 
-`promisify: true`, default, the lib will provide all APIs in bluebird Promise style, or else all APIs will be provided in callback style, for both styles usage examples can be found in the lib [test folder](./test).
+`promisify: true`, default, the lib will provide all APIs in bluebird Promise style, or else all APIs will be provided in callback style, for both styles usages examples can be found in the lib [test folder](./test).
 
 ### write(data, callback)
 
@@ -476,7 +475,7 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 * Description: filter all paths to ones, which at this point, are on the given node.
 
-* **node || [node, ...]**: `required`, a single string `node` or an array of string `node`.
+* **node || [node, ...]**: `required`, a single string represents a node or an array of string represents a node array.
 
 * Usage examples:
 
@@ -494,6 +493,27 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     }).catch((err) => {
       // Error ...
     });
+  ```
+
+### path.Has(predicatePath, node)
+
+* Description: 
+
+  * Filter all paths which are, at this point, on the subject for the given predicate and object, but do not follow the path, merely filter the possible paths.
+  * Usually useful for starting with all nodes, or limiting to a subset depending on some predicate/value pair.
+
+* **predicatePath**: `required`, a string predicate path.
+
+* **node**: `required`, a string represents a node.
+
+* Usage example:
+
+  ```javascript
+  g.V().Has('<gender>', 'F').All().then((res) => {
+    // res will be: {result:[{id:'</user/shortid/hwX6aOr7>'}]}
+  }).catch((err) => {
+    // Error ...
+  });
   ```
 
 
