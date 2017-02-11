@@ -764,6 +764,36 @@ describe('Cayley callback style Gizmo APIs', function() {
     });
   });
 
+  it('path.Tag(tag)', function(done) {
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Tag('step_0').Out('<follows>').Tag('step_1').In('<follows>').Tag('step_2').All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('path.Tag([tag, ...])', function(done) {
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Tag(['step_0', 'extraTag']).Out('<follows>').Tag('step_1').In('<follows>').Tag('step_2').All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
   // it('query.GetLimit(size, callback)', function(done) {
   //   cayleyClient.g.type('query').V().GetLimit(1, function(err, res) {
   //     if (err) {

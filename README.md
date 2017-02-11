@@ -626,6 +626,24 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+### path.Tag([tags])
+
+* Alias: `path.As`
+
+* Description: in order to save your work or learn more about how a path got to the end, you can use this API. The simplest thing to do is to add a tag anywhere you'd like to put each node in the result set.
+
+* **tags**: `required`, a string or an array of strings to act as a result key. The value for tag was the vertex the path was on at the time it reached `Tag([tags])`.
+
+* Usage example:
+
+  ```javascript
+  // Find out who is following the peoples I am following.
+  g.V('</user/shortid/46Juzcyx>').Tag('step_0').Out('<follows>').Tag('step_1').In('<follows>').Tag('step_2').All((err, res) => {
+    // res will be: {result:[{id:'</user/shortid/46Juzcyx>',step_0:'</user/shortid/46Juzcyx>',step_1:'</user/shortid/23TplPdS>',step_2:'</user/shortid/46Juzcyx>'},{id:'</user/shortid/hwX6aOr7>',step_0:'</user/shortid/46Juzcyx>',step_1:'</user/shortid/23TplPdS>',step_2:'</user/shortid/hwX6aOr7>'},{id:'</user/shortid/23TplPdS>',step_0:'</user/shortid/46Juzcyx>',step_1:'</user/shortid/BJg4Kj2HOe>',step_2:'</user/shortid/23TplPdS>'},{id:'</user/shortid/46Juzcyx>',step_0:'</user/shortid/46Juzcyx>',step_1:'</user/shortid/BJg4Kj2HOe>',step_2:'</user/shortid/46Juzcyx>'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
 
 * path.Tag(tag)
 * path.Back(tag)
