@@ -1,6 +1,6 @@
 {
   "name": "node-cayley",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Node.js client for open-source graph database cayley(https://github.com/cayleygraph/cayley).",
   "main": "./index.js",
   "scripts": {
