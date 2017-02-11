@@ -18,6 +18,12 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 
 ## Table of Contents
 
+## Visualized graph
+
+> All the code examples in this README guidebook will be based on the test data here: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), which can be visualized as the below graph in cayley:
+
+<img src="https://github.com/lnshi/node-cayley/blob/master/test/data/friend_circle_with_label.nq_1_visualized.png" />
+
 ## Basic usages examples
 
 ```
@@ -38,14 +44,22 @@ client.write(jsonObjArr).then((res) => {
 // Callback style.
 client.delete(jsonObjArr, (err, res) => {});
 
-g.V().All().then((res) => {
-  // Your data in JSON.
+g.V('</user/shortid/46Juzcyx>').Out('<follows>', 'predicate').All().then((res) => {
+  // res will be: {result:[{id:'</user/shortid/23TplPdS>',predicate:'<follows>'}]}
 }).catch((err) => {
   // Error ...
 });
 
 // 'type' default to 'query', you can change to 'shape' by calling g.type('shape')
 g.type('shape').V().All((err, res) => {});
+
+
+const popularQuery = g.M().Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
+g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
+  // res will be: {result:[{id:'xxx.l30@xxx.com'},{id:'_:l32'}]}
+}).catch((err) => {
+  // Error ...
+});
 ```
 
 ## Configuration
@@ -232,10 +246,6 @@ g.type('shape').V().All((err, res) => {});
   ```
 
 ## Gizmo APIs → graph object
-
-> All the below code examples will be based on the test data here: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), which can be visualized as graph in cayley as below:
-
-<img src="https://github.com/lnshi/node-cayley/blob/master/test/data/friend_circle_with_label.nq_1_visualized.png" />
 
 ### graph object
 
