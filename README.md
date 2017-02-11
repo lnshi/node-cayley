@@ -552,8 +552,22 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+### path.Limit(limit)
 
-* path.Limit(limit)
+* Description: limits a number of nodes for current path.
+
+* **limit**: `required` `Integer`, a number of nodes to limit results to.
+
+* Usage examples:
+
+  ```javascript
+  g.V('M').In('<gender>').Limit(1).All().then((res) => {
+    // res will be: {result:[{id:'</user/shortid/23TplPdS>'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
+
 * path.Skip(offset)
 * path.InPredicates()
 * path.OutPredicates()
