@@ -20,7 +20,7 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 
 ## Visualized graph
 
-> All the code examples in this README guidebook will be based on the test data here: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), which can be visualized as the below graph in cayley:
+> **All the code examples in this README guidebook will be based on the test data here: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), which can be visualized as the below graph in cayley:**
 
 <img src="https://github.com/lnshi/node-cayley/blob/master/test/data/friend_circle_with_label.nq_1_visualized.png" />
 
