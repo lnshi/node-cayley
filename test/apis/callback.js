@@ -719,6 +719,51 @@ describe('Cayley callback style Gizmo APIs', function() {
     });
   });
 
+  it('path.InPredicates()', function(done) {
+    cayleyClient.g.V('</user/shortid/BJg4Kj2HOe>').InPredicates().All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('path.InPredicates()', function(done) {
+    cayleyClient.g.V('true').InPredicates().All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('path.OutPredicates()', function(done) {
+    cayleyClient.g.V('</user/shortid/BJg4Kj2HOe>').OutPredicates().All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
   // it('query.GetLimit(size, callback)', function(done) {
   //   cayleyClient.g.type('query').V().GetLimit(1, function(err, res) {
   //     if (err) {

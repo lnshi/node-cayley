@@ -518,7 +518,7 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ### path.LabelContext([labelPath], [tags])
 
-> Note: the subgraph label of the N-Quads item should always be set to the same value with the the node which it is pointing out.
+> Note: the subgraph label of the N-Quads item should always be set to the same value with the the node which it is pointing out from.
 
 * Description: sets (or removes) the subgraph context to consider in the succedent traversals. Affects all `In()`, `Out()`, and `Both()` calls that follow it.
 
@@ -592,9 +592,41 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+### path.InPredicates()
 
-* path.InPredicates()
-* path.OutPredicates()
+* Description: get the list of predicates that are pointing into a node.
+
+* Usage examples:
+
+  ```javascript
+  g.V('</user/shortid/BJg4Kj2HOe>').InPredicates().All().then((res) => {
+    // res will be: { result: [ { id: '<follows>' } ] }
+  }).catch((err) => {
+    // Error ...
+  });
+
+  g.V('true').InPredicates().All().then((res) => {
+    // res will be: { result: [ { id: '<isEmailVerified>' }, { id: '<isVerified>' } ] }
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
+
+### path.OutPredicates()
+
+* Description: get the list of predicates that are pointing out from a node.
+
+* Usage example:
+
+  ```javascript
+  g.V('</user/shortid/BJg4Kj2HOe>').OutPredicates().All().then((res) => {
+    // res will be: {result:[{id:'<userId>'},{id:'<realName>'},{id:'<email>'},{id:'<follows>'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
+
+
 * path.Tag(tag)
 * path.Back(tag)
 * path.Save(predicate, tag)
