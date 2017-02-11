@@ -282,13 +282,13 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
-### graph.Vertex(nodeId || [nodeId, ...])
+### graph.Vertex([nodeId])
 
 * Alias: `V`
 
 * Description: starts a query path at the given vertex/vertices, no ids means 'all vertices', return `Query Object`.
 
-* **nodeId || [nodeId, ...]**: `optional`, a single string `nodeId` or an array of string `nodeId` represents the starting vertices.
+* **nodeId**: `optional`, a single string `nodeId` or an array of string `nodeId` represents the starting vertices.
 
 * Usage examples:
 
@@ -346,18 +346,18 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 > Note: that `.Vertex()/.V()` returns a `Query` object, which is a subclass of `Path` object.
 
-### path.Out([predicatePath], [tags])
+### path.Out([predicatePath], [tag])
 
 * Description: `Out()` is the work-a-day way to get between nodes, in the forward direction. Starting with the nodes in path on the subject, follow the quads with predicates defined by **predicatePath** to their objects.
 
-* **predicatePath** `optional`, one of:
+* **predicatePath**: `optional`, one of:
 
   * null or undefined: All predicates pointing out from this node.
   * a string: The predicate name to follow out from this node.
   * an array of strings: The predicates to follow out from this node.
   * a query path object: The target of which is a set of predicates to follow.
 
-* **tags** `optional`, one of:
+* **tag**: `optional`, one of:
 
   * null or undefined: No tags.
   * a string: A single tag to add the predicate used to the output set.
@@ -398,18 +398,18 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
-### path.In([predicatePath], [tags])
+### path.In([predicatePath], [tag])
 
 * Description: same as `Out()`, but in the other direction. Starting with the nodes in path on the object, follow the quads with predicates defined by **predicatePath** to their subjects.
 
-* **predicatePath** `optional`, one of:
+* **predicatePath**: `optional`, one of:
 
   * null or undefined: All predicates pointing into this node.
   * a string: The predicate name to follow into this node.
   * an array of strings: The predicates to follow into this node.
   * a query path object: The target of which is a set of predicates to follow.
 
-* **tags** `optional`, one of:
+* **tag**: `optional`, one of:
 
   * null or undefined: No tags.
   * a string: A single tag to add the predicate used to the output set.
@@ -440,20 +440,20 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
-### path.Both([predicatePath], [tags])
+### path.Both([predicatePath], [tag])
 
 > Note: less efficient, for the moment, as it's implemented with an Or, but useful where necessary.
 
 * Description: same as `In()` and `Out()`, but follow the predicate in either direction(into and out) from the node.
 
-* **predicatePath** `optional`, one of:
+* **predicatePath**: `optional`, one of:
 
   * null or undefined: All predicates pointing both into and out from this node.
   * a string: The predicate name to follow both into and out from this node.
   * an array of strings: The predicates to follow both into and out from this node.
   * a query path object: The target of which is a set of predicates to follow.
 
-* **tags** `optional`, one of:
+* **tag**: `optional`, one of:
 
   * null or undefined: No tags.
   * a string: A single tag to add the predicate used to the output set.
@@ -471,11 +471,11 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
-### path.Is(node || [node, ...])
+### path.Is([node])
 
 * Description: filter all paths to ones, which at this point, are on the given node.
 
-* **node || [node, ...]**: `required`, a single string represents a node or an array of string represents a node array.
+* **node**: `required`, a single string represents a node or an array of string represents a node array.
 
 * Usage examples:
 
@@ -516,20 +516,20 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
-### path.LabelContext([labelPath], [tags])
+### path.LabelContext([labelPath], [tag])
 
 > Note: the subgraph label of the N-Quads item should always be set to the same value with the the node which it is pointing out from.
 
 * Description: sets (or removes) the subgraph context to consider in the succedent traversals. Affects all `In()`, `Out()`, and `Both()` calls that follow it.
 
-* **labelPath** `optional`, one of:
+* **labelPath**: `optional`, one of:
 
   * null or undefined: In future traversals, consider all edges, regardless of subgraph.
   * a string: The name of the subgraph to restrict traversals to.
   * an array of strings: A set of subgraphs to restrict traversals to.
   * a query path object: The target of which is a set of subgraphs.
 
-* **tags** `optional`, one of:
+* **tag**: `optional`, one of:
 
   * null or undefined: No tags.
   * a string: A single tag to add the last traversed label to the output set.
@@ -556,7 +556,7 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 * Description: limits a number of nodes for current path.
 
-* **limit**: `required` `Integer`, a number of nodes to limit results to.
+* **limit**: `required`, `Integer`, a number of nodes to limit results to.
 
 * Usage examples:
 
@@ -572,7 +572,7 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 * Description: skips a number of nodes for current path.
 
-* **offset**: `required` `Integer`, a number of nodes to skip.
+* **offset**: `required`, `Integer`, a number of nodes to skip.
 
 * Usage examples:
 
@@ -626,13 +626,13 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
-### path.Tag([tags])
+### path.Tag([tag])
 
 * Alias: `path.As`
 
 * Description: in order to save your work or learn more about how a path got to the end, you can use this API. The simplest thing to do is to add a tag anywhere you'd like to put each node in the result set.
 
-* **tags**: `required`, a string or an array of strings to act as a result key. The value for tag was the vertex the path was on at the time it reached `Tag([tags])`.
+* **tag**: `required`, a string or an array of strings to act as a result key. The value for tag was the vertex the path was on at the time it reached `Tag([tags])`.
 
 * Usage example:
 
@@ -645,7 +645,7 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
-* path.Tag(tag)
+
 * path.Back(tag)
 * path.Save(predicate, tag)
 * path.Intersect(query)
