@@ -348,7 +348,7 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ### path.Out([predicatePath], [tags])
 
-* Description: `Out` is the work-a-day way to get between nodes, in the forward direction. Starting with the nodes in path on the subject, follow the quads with predicates defined by **predicatePath** to their objects.
+* Description: `Out()` is the work-a-day way to get between nodes, in the forward direction. Starting with the nodes in path on the subject, follow the quads with predicates defined by **predicatePath** to their objects.
 
 * **predicatePath** `optional`, one of:
 
@@ -400,7 +400,7 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ### path.In([predicatePath], [tags])
 
-* Description: same as `Out`, but in the other direction. Starting with the nodes in path on the object, follow the quads with predicates defined by **predicatePath** to their subjects.
+* Description: same as `Out()`, but in the other direction. Starting with the nodes in path on the object, follow the quads with predicates defined by **predicatePath** to their subjects.
 
 * **predicatePath** `optional`, one of:
 
@@ -444,7 +444,7 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 > Note: less efficient, for the moment, as it's implemented with an Or, but useful where necessary.
 
-* Description: same as `In` and `Out`, but follow the predicate in either direction(into and out) from the node.
+* Description: same as `In()` and `Out()`, but follow the predicate in either direction(into and out) from the node.
 
 * **predicatePath** `optional`, one of:
 
@@ -516,9 +516,43 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+### path.LabelContext([labelPath], [tags])
+
+> Note: the subgraph label of the N-Quads item should always be set to the same value with the the node which it is pointing out.
+
+* Description: sets (or removes) the subgraph context to consider in the succedent traversals. Affects all `In()`, `Out()`, and `Both()` calls that follow it.
+
+* **labelPath** `optional`, one of:
+
+  * null or undefined: In future traversals, consider all edges, regardless of subgraph.
+  * a string: The name of the subgraph to restrict traversals to.
+  * an array of strings: A set of subgraphs to restrict traversals to.
+  * a query path object: The target of which is a set of subgraphs.
+
+* **tags** `optional`, one of:
+
+  * null or undefined: No tags.
+  * a string: A single tag to add the last traversed label to the output set.
+  * an array of strings: Multiple tags to use as keys to save the label used to the output set.
+
+* Usage examples:
+
+  ```javascript
+  g.V('</user/shortid/BJg4Kj2HOe>').LabelContext('companyA', 'label').In('<follows>').All().then((res) => {
+    // res will be: {result:[{id:'</user/shortid/23TplPdS>',label:'companyA'},{id:'</user/shortid/46Juzcyx>',label:'companyA'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+
+  // Then restrict the traversals only to 'companyB' subgraph.
+  g.V('</user/shortid/BJg4Kj2HOe>').LabelContext('companyB', 'label').In('<follows>').All().then((res) => {
+    // res will be: {result:null}
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
 
 
-* path.LabelContext([labelPath], [tags])
 * path.Limit(limit)
 * path.Skip(offset)
 * path.InPredicates()
