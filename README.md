@@ -24,7 +24,7 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 
 > All the code examples in this README guidebook are based on the test data here: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), which can be visualized as the below graph in cayley:
 
-<img src="https://github.com/lnshi/node-cayley/blob/master/test/data/friend_circle_with_label.nq_1_visualized.png" />
+<img src="https://github.com/lnshi/node-cayley/blob/master/test/data/friend_circle_with_label.nq_0_visualized.png" />
 
 ## Basic usages examples
 
@@ -518,7 +518,6 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 
 
-* path.Has(predicate, object)
 * path.LabelContext([labelPath], [tags])
 * path.Limit(limit)
 * path.Skip(offset)

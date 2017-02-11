@@ -34,8 +34,18 @@ _:l32 <isVerified> "true" "companyA" .
 _:l32 <alpha3CountryCode> "SGP" "companyA" .
 _:l32 <mobilePhoneNoWithCountryCallingCode> "+6586720033" "companyA" .
 
+</user/shortid/BJg4Kj2HOe> <userId> "BJg4Kj2HOe" "companyB" .
+</user/shortid/BJg4Kj2HOe> <realName> "XXX_L38" "companyB" .
+</user/shortid/BJg4Kj2HOe> <email> "xxx.l39@xxx.com" "companyB" .
+
+
+
 </user/shortid/46Juzcyx> <follows> </user/shortid/23TplPdS> "companyA" .
 </user/shortid/hwX6aOr7> <follows> </user/shortid/23TplPdS> "companyA" .
 </user/shortid/23TplPdS> <follows> </user/shortid/46Juzcyx> "companyA" .
+
+</user/shortid/23TplPdS> <follows> </user/shortid/BJg4Kj2HOe> "companyA" .
+</user/shortid/46Juzcyx> <follows> </user/shortid/BJg4Kj2HOe> "companyB" .
+</user/shortid/BJg4Kj2HOe> <follows> </user/shortid/46Juzcyx> "companyB" .
 
 
