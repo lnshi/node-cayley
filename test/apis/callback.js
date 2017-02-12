@@ -24,7 +24,7 @@ describe('Cayley callback style HTTP APIs', function() {
         isEmailVerified: false,
         mobilePhone: {
           isVerified: false,
-          alpha3CountryCode: '+65',
+          alpha3CountryCode: 'SGP',
           mobilePhoneNoWithCountryCallingCode: '+6586720011'
         }
       }
@@ -65,7 +65,7 @@ describe('Cayley callback style HTTP APIs', function() {
                     isEmailVerified: false,
                     mobilePhone: {
                       isVerified: false,
-                      alpha3CountryCode: '+65',
+                      alpha3CountryCode: 'SGP',
                       mobilePhoneNoWithCountryCallingCode: '+6586720011'
                     }
                   }
@@ -118,7 +118,7 @@ describe('Cayley callback style HTTP APIs', function() {
         isEmailVerified: false,
         mobilePhone: {
           isVerified: false,
-          alpha3CountryCode: '+65',
+          alpha3CountryCode: 'SGP',
           mobilePhoneNoWithCountryCallingCode: '+6586720011'
         }
       }
@@ -146,7 +146,7 @@ describe('Cayley callback style HTTP APIs', function() {
               isEmailVerified: false,
               mobilePhone: {
                 isVerified: false,
-                alpha3CountryCode: '+65',
+                alpha3CountryCode: 'SGP',
                 mobilePhoneNoWithCountryCallingCode: '+6586720011'
               }
             }
@@ -175,7 +175,7 @@ describe('Cayley callback style HTTP APIs', function() {
                   isEmailVerified: false,
                   mobilePhone: {
                     isVerified: false,
-                    alpha3CountryCode: '+65',
+                    alpha3CountryCode: 'SGP',
                     mobilePhoneNoWithCountryCallingCode: '+6586720011'
                   }
                 }
@@ -209,7 +209,7 @@ describe('Cayley callback style HTTP APIs', function() {
 
   it('/v1/write/file/nquad', function(done) {
     cayleyClient.writeFile(
-      path.resolve(__dirname, '../data/test_purpose.nq'),
+      path.resolve(__dirname, '../data/test_api_writeFile_purpose.nq'),
       function(err, res) {
         if (err) {
           done(err);
@@ -221,21 +221,15 @@ describe('Cayley callback style HTTP APIs', function() {
             /*
              * Delete the inserted data correctly.
              */
-            cayleyClient.delete([
+            cayleyClient.deleteV1([
               {
                 primaryKey: '</user/shortid/23TplPLs>',
                 label: 'companyA',
 
                 userId: '23TplPLs',
-                userSetId: 'XXX_L2',
-                realName: 'XXX_L3',
-                displayName: 'XXX_L4',
-                gender: 'M',
-                email: 'xxx.l6@xxx.com',
-                isEmailVerified: false,
                 mobilePhone: {
                   isVerified: false,
-                  alpha3CountryCode: '+65',
+                  alpha3CountryCode: 'SGP',
                   mobilePhoneNoWithCountryCallingCode: '+6586720011'
                 }
               }
@@ -246,7 +240,6 @@ describe('Cayley callback style HTTP APIs', function() {
                 try {
                   expect(deleteResBody.result).to.be.a('string');
                   expect(deleteResBody.result).to.include('Successfully');
-                  expect(res.result).to.include(deleteResBody.count);
                   done();
                 } catch (e) {
                   done(e);
