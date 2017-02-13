@@ -55,7 +55,9 @@ g.V('</user/shortid/46Juzcyx>').Out('<follows>', 'predicate').All().then((res) =
 // 'type' default to 'query', you can change to 'shape' by calling g.type('shape')
 g.type('shape').V().All((err, res) => {});
 
-const popularQuery = g.M().Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
+const popularQuery = g.M().Out('<follows>').In('<follows>')
+                      .Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
+
 g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   // res will be: {result:[{id:'xxx.l30@xxx.com'},{id:'_:l32'}]}
 }).catch((err) => {
@@ -330,7 +332,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
     ```javascript
     // Then we can reuse this path set later.
-    const popularQuery = g.M().Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
+    const popularQuery = g.M().Out('<follows>').In('<follows>')
+                          .Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
 
     g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
       // res will be exactly same with above query.
@@ -538,18 +541,21 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 * Usage examples:
 
   ```javascript
-  g.V('</user/shortid/BJg4Kj2HOe>').LabelContext('companyA', 'label').In('<follows>').All().then((res) => {
-    // res will be: {result:[{id:'</user/shortid/23TplPdS>',label:'companyA'},{id:'</user/shortid/46Juzcyx>',label:'companyA'}]}
-  }).catch((err) => {
-    // Error ...
-  });
+  g.V('</user/shortid/BJg4Kj2HOe>').LabelContext('companyA', 'label').In('<follows>')
+    .All().then((res) => {
+      // res will be:
+      //   {result:[{id:'</user/shortid/23TplPdS>',label:'companyA'},{id:'</user/shortid/46Juzcyx>',label:'companyA'}]}
+    }).catch((err) => {
+      // Error ...
+    });
 
   // Then restrict the traversals only to 'companyB' subgraph.
-  g.V('</user/shortid/BJg4Kj2HOe>').LabelContext('companyB', 'label').In('<follows>').All().then((res) => {
-    // res will be: {result:null}
-  }).catch((err) => {
-    // Error ...
-  });
+  g.V('</user/shortid/BJg4Kj2HOe>').LabelContext('companyB', 'label').In('<follows>')
+    .All().then((res) => {
+      // res will be: {result:null}
+    }).catch((err) => {
+      // Error ...
+    });
   ```
 
 ### path.Limit(limit)
@@ -638,11 +644,12 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
   ```javascript
   // Find out who is following the peoples I am following.
-  g.V('</user/shortid/46Juzcyx>').Tag('step_0').Out('<follows>').Tag('step_1').In('<follows>').Tag('step_2').All((err, res) => {
-    // res will be: {result:[{id:'</user/shortid/46Juzcyx>',step_0:'</user/shortid/46Juzcyx>',step_1:'</user/shortid/23TplPdS>',step_2:'</user/shortid/46Juzcyx>'},{id:'</user/shortid/hwX6aOr7>',step_0:'</user/shortid/46Juzcyx>',step_1:'</user/shortid/23TplPdS>',step_2:'</user/shortid/hwX6aOr7>'},{id:'</user/shortid/23TplPdS>',step_0:'</user/shortid/46Juzcyx>',step_1:'</user/shortid/BJg4Kj2HOe>',step_2:'</user/shortid/23TplPdS>'},{id:'</user/shortid/46Juzcyx>',step_0:'</user/shortid/46Juzcyx>',step_1:'</user/shortid/BJg4Kj2HOe>',step_2:'</user/shortid/46Juzcyx>'}]}
-  }).catch((err) => {
-    // Error ...
-  });
+  g.V('</user/shortid/46Juzcyx>').Tag('step_0').Out('<follows>').Tag('step_1')
+    .In('<follows>').Tag('step_2').All((err, res) => {
+      // res will be: {result:[{id:'</user/shortid/46Juzcyx>',step_0:'</user/shortid/46Juzcyx>',step_1:'</user/shortid/23TplPdS>',step_2:'</user/shortid/46Juzcyx>'},{id:'</user/shortid/hwX6aOr7>',step_0:'</user/shortid/46Juzcyx>',step_1:'</user/shortid/23TplPdS>',step_2:'</user/shortid/hwX6aOr7>'},{id:'</user/shortid/23TplPdS>',step_0:'</user/shortid/46Juzcyx>',step_1:'</user/shortid/BJg4Kj2HOe>',step_2:'</user/shortid/23TplPdS>'},{id:'</user/shortid/46Juzcyx>',step_0:'</user/shortid/46Juzcyx>',step_1:'</user/shortid/BJg4Kj2HOe>',step_2:'</user/shortid/46Juzcyx>'}]}
+    }).catch((err) => {
+      // Error ...
+    });
   ```
 
 ### path.Back(tag)
@@ -661,16 +668,22 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   g.V('</user/shortid/46Juzcyx>').Out('<follows>').Tag('myFollowees')
     .In('<follows>').Has('<gender>', 'F')
     .Back('myFollowees').All().then((res) => {
-      // res will be: {result:[{id:'</user/shortid/23TplPdS>',myFollowees:'</user/shortid/23TplPdS>'}]}
+      // res will be:
+      //   {result:[{id:'</user/shortid/23TplPdS>',myFollowees:'</user/shortid/23TplPdS>'}]}
       // Try without using 'Back' what will u get.
+    }).catch((err) => {
+      // Error ...
     });
 
   // Traverse back in queries and take another route for things that have matched so far.
   g.V('</user/shortid/46Juzcyx>').Out('<follows>').Tag('myFollowees')
-      .In('<follows>').Has('<gender>', 'F').Back('myFollowees')
-      .Out('<mobilePhone>').Tag('mobilePhone').All().then((res) => {
-        // res will be: {result:[{id:'_:l8',mobilePhone:'_:l8',myFollowees:'</user/shortid/23TplPdS>'}]}
-      });
+    .In('<follows>').Has('<gender>', 'F').Back('myFollowees')
+    .Out('<mobilePhone>').Tag('mobilePhone').All().then((res) => {
+      // res will be:
+      //   {result:[{id:'_:l8',mobilePhone:'_:l8',myFollowees:'</user/shortid/23TplPdS>'}]}
+    }).catch((err) => {
+      // Error ...
+    });
   ```
 
 
