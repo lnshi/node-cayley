@@ -686,6 +686,25 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     });
   ```
 
+### path.Save(predicate, tag)
+
+* Description: from the current node as the subject, save the object of all quads with predicate into tag, without traversal.
+
+* **predicate**: `required`, a string for a predicate node.
+
+* **tag**: a string for a tag key to store the object node.
+
+* Usage example:
+
+  ```javascript
+  g.V('</user/shortid/BJg4Kj2HOe>').Save('<follows>', 'target').All().then((res) => {
+    // res will be:
+    //   {result:[{id:'</user/shortid/BJg4Kj2HOe>',target:'</user/shortid/46Juzcyx>'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
+
 
 * path.Save(predicate, tag)
 * path.Intersect(query)
