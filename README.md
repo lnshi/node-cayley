@@ -645,8 +645,35 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+### path.Back(tag)
 
-* path.Back(tag)
+* Description: ff still valid, a path will now consider their vertex to be the same one as the previously tagged one, with the added constraint that it was valid all the way here, usually will be useful for the below two situations:
+  
+  * Access intermediate results.
+  * Traverse back in queries and take another route for things that have matched so far.
+
+* **tag**: `required`, a previous tag in the query to jump back to.
+
+* Usage example:
+
+  ```javascript
+  // Access intermediate results.
+  g.V('</user/shortid/46Juzcyx>').Out('<follows>').Tag('myFollowees')
+    .In('<follows>').Has('<gender>', 'F')
+    .Back('myFollowees').All().then((res) => {
+      // res will be: {result:[{id:'</user/shortid/23TplPdS>',myFollowees:'</user/shortid/23TplPdS>'}]}
+      // Try without using 'Back' what will u get.
+    });
+
+  // Traverse back in queries and take another route for things that have matched so far.
+  g.V('</user/shortid/46Juzcyx>').Out('<follows>').Tag('myFollowees')
+      .In('<follows>').Has('<gender>', 'F').Back('myFollowees')
+      .Out('<mobilePhone>').Tag('mobilePhone').All().then((res) => {
+        // res will be: {result:[{id:'_:l8',mobilePhone:'_:l8',myFollowees:'</user/shortid/23TplPdS>'}]}
+      });
+  ```
+
+
 * path.Save(predicate, tag)
 * path.Intersect(query)
 * path.Union(query)

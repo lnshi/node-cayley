@@ -620,17 +620,18 @@ describe('Cayley callback style Gizmo APIs', function() {
   });
 
   it('path.LabelContext([labelPath, ...], [tag, ...])', function(done) {
-    cayleyClient.g.V('</user/shortid/BJg4Kj2HOe>').LabelContext(['companyB', 'companyB'], ['label', 'extraTag']).In('<follows>').All((err, res) => {
-      if (err) {
-        done(err);
-      } else {
-        try {
-          assert.isNull(res.result);
-          done();
-        } catch (e) {
-          done(e);
+    cayleyClient.g.V('</user/shortid/BJg4Kj2HOe>').LabelContext(['companyB', 'companyB'], ['label', 'extraTag'])
+      .In('<follows>').All((err, res) => {
+        if (err) {
+          done(err);
+        } else {
+          try {
+            assert.isNull(res.result);
+            done();
+          } catch (e) {
+            done(e);
+          }
         }
-      }
     });
   });
 
@@ -773,33 +774,67 @@ describe('Cayley callback style Gizmo APIs', function() {
   });
 
   it('path.Tag([tag, ...])', function(done) {
-    cayleyClient.g.V('</user/shortid/46Juzcyx>').Tag(['step_0', 'extraTag']).Out('<follows>').Tag('step_1').In('<follows>').Tag('step_2').All((err, res) => {
-      if (err) {
-        done(err);
-      } else {
-        try {
-          assert.isArray(res.result);
-          done();
-        } catch (e) {
-          done(e);
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Tag(['step_0', 'extraTag']).Out('<follows>').Tag('step_1')
+      .In('<follows>').Tag('step_2').All((err, res) => {
+        if (err) {
+          done(err);
+        } else {
+          try {
+            assert.isArray(res.result);
+            done();
+          } catch (e) {
+            done(e);
+          }
         }
-      }
     });
   });
 
   it('path.As([tag, ...])', function(done) {
-    cayleyClient.g.V('</user/shortid/46Juzcyx>').Tag(['step_0', 'extraTag']).Out('<follows>').Tag('step_1').In('<follows>').Tag('step_2').All((err, res) => {
-      if (err) {
-        done(err);
-      } else {
-        try {
-          assert.isArray(res.result);
-          done();
-        } catch (e) {
-          done(e);
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Tag(['step_0', 'extraTag']).Out('<follows>').Tag('step_1')
+      .In('<follows>').Tag('step_2').All((err, res) => {
+        if (err) {
+          done(err);
+        } else {
+          try {
+            assert.isArray(res.result);
+            done();
+          } catch (e) {
+            done(e);
+          }
         }
-      }
     });
+  });
+
+  it('path.Back(tag), access intermediate results', function(done) {
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Out('<follows>').Tag('myFollowees')
+      .In('<follows>').Has('<gender>', 'F').Back('myFollowees').All((err, res) => {
+        if (err) {
+          done(err);
+        } else {
+          try {
+            assert.isArray(res.result);
+            done();
+          } catch (e) {
+            done(e);
+          }
+        }
+      });
+  });
+
+  it('path.Back(tag), take another route', function(done) {
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Out('<follows>').Tag('myFollowees')
+      .In('<follows>').Has('<gender>', 'F').Back('myFollowees').Out('<mobilePhone>').Tag('mobilePhone').All((err, res) => {
+        if (err) {
+          done(err);
+        } else {
+          try {
+            assert.isArray(res.result);
+            done();
+          } catch (e) {
+            done(e);
+          }
+        }
+      });
   });
 
   // it('query.GetLimit(size, callback)', function(done) {
