@@ -716,8 +716,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 * Usage example:
 
   ```javascript
-  const queryA = cayleyClient.g.V('</user/shortid/46Juzcyx>').Out('<follows>');
-  const queryB = cayleyClient.g.V('</user/shortid/hwX6aOr7>').Out('<follows>');
+  const queryA = g.V('</user/shortid/46Juzcyx>').Out('<follows>');
+  const queryB = g.V('</user/shortid/hwX6aOr7>').Out('<follows>');
 
   queryA.Intersect(queryB).All().then((res) => {
     // res will be: { result: [ { id: '</user/shortid/23TplPdS>' } ] }
@@ -726,9 +726,41 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+### path.Union(query)
+
+* Alias: `path.Or`
+
+* Description:
+
+  * Given two queries, returns the combined paths of the two queries.
+
+  * Notice that it's per-path, not per-node.
+
+  * Once again, if multiple paths reach the same destination, they might have different ways of getting there, you can use the `path.Tag([tag])` API to track that.
+
+* **query**: `required`, another query path, the result sets of which will form a union.
+
+* Usage example:
+
+  ```javascript
+  // Query the user who has female followers.
+  const queryA = g.V().Tag('user').In('<follows>').Has('<gender>', 'F').Back('user');
+
+  // Quer the user whose mobile phone number is verified.
+  const queryB = g.V().Tag('user').Out('<mobilePhone>')
+                  .Out('<isVerified>').Tag('mobileNoVerified').Is('true');
+
+  // Union above two querys.
+  queryA.Union(queryB).All().then((res) => {
+    // res will be:
+    //   {result:[{id:'</user/shortid/23TplPdS>'},{id:'</user/shortid/46Juzcyx>'},{id:'true',mobileNoVerified:'true',user:'</user/shortid/hwX6aOr7>'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
 
 
-* path.Union(query)
+
 * path.Except(query)
 * path.Follow(morphism)
 * path.FollowR(morphism)

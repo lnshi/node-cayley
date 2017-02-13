@@ -886,6 +886,40 @@ describe('Cayley callback style Gizmo APIs', function() {
     });
   });
 
+  it('path.Union(query)', function(done) {
+    const queryA = cayleyClient.g.V().Tag('user').In('<follows>').Has('<gender>', 'F').Back('user');
+    const queryB = cayleyClient.g.V().Tag('user').Out('<mobilePhone>').Out('<isVerified>').Tag('mobileNoVerified').Is('true');
+    queryA.Union(queryB).All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('path.Or(query)', function(done) {
+    const queryA = cayleyClient.g.V().Tag('user').In('<follows>').Has('<gender>', 'F').Back('user');
+    const queryB = cayleyClient.g.V().Tag('user').Out('<mobilePhone>').Out('<isVerified>').Tag('mobileNoVerified').Is('true');
+    queryA.Or(queryB).All((err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
   // it('query.GetLimit(size, callback)', function(done) {
   //   cayleyClient.g.type('query').V().GetLimit(1, function(err, res) {
   //     if (err) {
