@@ -705,9 +705,29 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+### path.Intersect(query)
 
-* path.Save(predicate, tag)
-* path.Intersect(query)
+* Alias: `path.And`
+
+* Description: filters all paths by the result of another query path (efficiently computed). This is essentially a join where, at the stage of each path, a node is shared.
+
+* **query**: `required`, another query path, the result sets of which will be intersected.
+
+* Usage example:
+
+  ```javascript
+  const queryA = cayleyClient.g.V('</user/shortid/46Juzcyx>').Out('<follows>');
+  const queryB = cayleyClient.g.V('</user/shortid/hwX6aOr7>').Out('<follows>');
+
+  queryA.Intersect(queryB).All().then((res) => {
+    // res will be: { result: [ { id: '</user/shortid/23TplPdS>' } ] }
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
+
+
+
 * path.Union(query)
 * path.Except(query)
 * path.Follow(morphism)
