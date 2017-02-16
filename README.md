@@ -787,9 +787,18 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+### path.Follow(morphism)
+
+* Description: 
+
+  * With `graph.Morphism` we can prepare a path for later reuse. `Follow` is the way that's accomplished. Applies the path chain on the morphism object to the current path.
+
+  * Starts as if at the g.M() and follows through the morphism path.
+
+* Usage example: refer to above `graph.Morphism()` doc.
 
 
-* path.Follow(morphism)
+
 * path.FollowR(morphism)
 
 ### Query Objects(finals)
