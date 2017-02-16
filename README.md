@@ -797,9 +797,26 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 * Usage example: refer to above `graph.Morphism()` doc.
 
+### path.FollowR(morphism)
 
+* Description:
 
-* path.FollowR(morphism)
+  * Same as `Follow` but follows the chain in the reverse direction. Flips "In" and "Out" where appropriate, the net result being a virtual predicate followed in the reverse direction.
+
+  * Starts at the end of the morphism and follows it backwards (with appropriate flipped directions) to the g.M() location.
+
+* Usage example:
+
+  ```javascript
+  const willBeReversedQuery = g.M().Out('<follows>');
+  
+  g.V('</user/shortid/23TplPdS>').FollowR(willBeReversedQuery).All().then((res) => {
+    // res will be:
+    //   {result:[{id:'</user/shortid/46Juzcyx>'},{id:'</user/shortid/hwX6aOr7>'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
 
 ### Query Objects(finals)
 
