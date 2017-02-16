@@ -759,9 +759,36 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+### path.Except(query)
+
+* Alias: `path.Difference`
+
+* Description:
+
+  * Removes all paths which match query from path.
+
+  * In a set-theoretic sense, this is (A - B).
+
+  * While `g.V().Except(path)` to achieve `U - B = !B` is supported, it's often very slow.
+
+* **query**: `required`, another query path, the result sets of which will be intersected and negated.
+
+* Usage example:
+
+  ```javascript
+  const queryA = g.V('</user/shortid/23TplPdS>').In('<follows>');
+  const queryB = g.V('</user/shortid/23TplPdS>').In('<follows>').Has('<gender>', 'M');
+
+  // Query all followers of '</user/shortid/23TplPdS>', except the male one.
+  queryA.Except(queryB).All().then((res) => {
+    // res will be: { result: [ { id: '</user/shortid/hwX6aOr7>' } ] }
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
 
 
-* path.Except(query)
+
 * path.Follow(morphism)
 * path.FollowR(morphism)
 
