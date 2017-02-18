@@ -937,6 +937,178 @@ describe('Cayley callback style Gizmo APIs', function() {
     });
   });
 
+  it('query.GetLimit(size, callback)', function(done) {
+    cayleyClient.g.V().GetLimit(1, function(err, res) {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          expect(res.result).to.have.length.most(1);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('query.ToArray(gizmoFunc, callback)', function(done) {
+    const popularQuery = cayleyClient.g.M().Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).ToArray(function(data) {
+      for (var item in data) {
+        g.Emit(data[item]);
+      }
+    }, (err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('query.TagArray(gizmoFunc, callback)', function(done) {
+    const popularQuery = cayleyClient.g.M().Out('<follows>').In('<follows>').Has('<gender>', 'F').Out('<mobilePhone>').Tag('mobilePhone');
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).TagArray(function(data) {
+      for (var item in data) {
+        g.Emit(data[item]);
+      }
+    }, (err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('query.ToValue(gizmoFunc, callback)', function(done) {
+    const popularQuery = cayleyClient.g.M().Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).ToValue(function(data) {
+      g.Emit(data);
+    }, (err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('query.TagValue(gizmoFunc, callback)', function(done) {
+    const popularQuery = cayleyClient.g.M().Out('<follows>').In('<follows>').Has('<gender>', 'F').Out('<mobilePhone>').Tag('mobilePhone');
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).TagValue(function(data) {
+      g.Emit(data);
+    }, (err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('query.ForEach(gizmoFunc, callback)', function(done) {
+    const popularQuery = cayleyClient.g.M().Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).ForEach(function(data) {
+      for (var item in data) {
+        g.Emit(data[item]);
+      }
+    }, (err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('query.ForEach(limit, gizmoFunc, callback)', function(done) {
+    const popularQuery = cayleyClient.g.M().Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).ForEach(1, function(data) {
+      for (var item in data) {
+        g.Emit(data[item]);
+      }
+    }, (err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('query.Map(gizmoFunc, callback)', function(done) {
+    const popularQuery = cayleyClient.g.M().Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).Map(function(data) {
+      for (var item in data) {
+        g.Emit(data[item]);
+      }
+    }, (err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
+  it('query.Map(limit, gizmoFunc, callback)', function(done) {
+    const popularQuery = cayleyClient.g.M().Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).Map(1, function(data) {
+      for (var item in data) {
+        g.Emit(data[item]);
+      }
+    }, (err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        try {
+          assert.isArray(res.result);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }
+    });
+  });
+
 });
 
 

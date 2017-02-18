@@ -22,12 +22,12 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 
 > **Note:**
 
-> All the code examples in this README guidebook are based on the test data here: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), which can be visualized as the below graph in cayley:
+> All the code examples in this README guidebook are based on the N-Quads test data here: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), which can be visualized as the below graph in cayley:
 
 ```
-_:A standards for the value:  _:BN@</user/shortid/23TplPdS>.<mobilePhone>
-_:B standards for the value:  _:BN@</user/shortid/46Juzcyx>.<mobilePhone>
-_:C standards for the value:  _:BN@</user/shortid/hwX6aOr7>.<mobilePhone>
+_:A  standards for the value:  _:BN@</user/shortid/23TplPdS>.<mobilePhone>
+_:B  standards for the value:  _:BN@</user/shortid/46Juzcyx>.<mobilePhone>
+_:C  standards for the value:  _:BN@</user/shortid/hwX6aOr7>.<mobilePhone>
 ```
 
 <img src="https://github.com/lnshi/node-cayley/blob/master/test/data/friend_circle_with_label.nq_0_visualized.png" />
@@ -154,7 +154,7 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ## HTTP APIs
 
-`promisify: true`, default, the lib will provide all APIs in bluebird Promise style, or else all APIs will be provided in callback style, for both styles usages examples can be found in the lib [test folder](./test).
+> Depends on your `promisify` setting, this lib will provide `bluebird Promise style` or `callback style` API, for both styles, usages examples can be found in the lib [test folder](./test).
 
 ### write(data, callback)
 
@@ -339,6 +339,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 > Both `.Morphism()/.M()` and `.Vertex()/.V()` create `Path` object, which provides the following traversal methods.
 
 > Note: that `.Vertex()/.V()` returns a `Query` object, which is a subclass of `Path` object.
+
+> Depends on your `promisify` setting, this lib will provide `bluebird Promise style` or `callback style` API, for both styles, usages examples can be found in the lib [test folder](./test).
 
 ### path.Out([predicatePath], [tag])
 
@@ -787,50 +789,205 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
-### Query Objects(finals)
+## Gizmo APIs → Query Object
 
-**Subclass of `Path Object`**
+> Subclass of `Path Object`.
 
-**Depends on your `promisify` setting provide `callback style` or `bluebird Promise style` API.**
+> Only `.Vertex()/V()` objects -- that is, queries that have somewhere to start -- can be turned into queries. To actually execute the queries, an output step must be applied.
 
-<a href="https://github.com/cayleygraph/cayley/blob/master/docs/GremlinAPI.md" target="_blank">**For the following APIs which belong to the `Query Object` please refer to the upstream project cayley doc by following this link.**</a>:
+> Depends on your `promisify` setting, this lib will provide `bluebird Promise style` or `callback style` API, for both styles, usages examples can be found in the lib [test folder](./test).
 
-* query.All(callback)
-* query.GetLimit(size, callback)
-* query.ToArray(callback)
-* query.ToValue(callback)
-* query.TagArray(callback)
-* query.TagValue(callback)
-* query.ForEach(gremlinCallback, callback)
-* query.ForEach(limit, gremlinCallback, callback)
+**Note:**
 
-**!!!Note:**
-For above seven APIs which belong to `Query Object`, the parameter:
+For the below seven APIs which belong to `Query Object`, the parameter:
 
-  * `callback` is meaning to provide a way for you receiving the error and response body when you choose the **callback style APIs**, just like demonstrate in above **Basic usages examples**:
+  * `callback` means to provide you a way to receive the error and response when you choose the **callback style APIs**:
 
-    ```
-    g.V().All((err, resBody) => {
-      // ...
+    ```javascript
+    g.V().All((err, res) => {
+      // Deal with the 'err' and 'res' here.
     })
     ```
-    , which gremlin doesn't need it.
-    If you set the `promisify` to `true`, then just:
+    , which cayley/gizmo doesn't need it. If you set the `promisify` to `true`, then just:
 
-    ```
-    g.V().All().then((resBody) => {
-      // ...
+    ```javascript
+    g.V().All().then((res) => {
+      // Deal with the 'res' here.
     }).catch((err) => {
-      // ...
+      // Deal with the 'err' here.
     });
     ```
 
-  * `gremlinCallback` is a javascript function which is really needed by Gremlin/Cayley, try to understand the design here, the 'gremlinCallback' should satisfy the following conditions:
+  * `gizmoFunc` is a javascript function which is really needed by cayley/gizmo, try to understand the design here, the 'gizmoFunc' should satisfy the following conditions:
+  
     1. No any reference to anything outside of this function, only pure js code.
       * Coz this function will be stringified and committed to cayley server, and then get executed there.
-      * ES6 'arrow function' and other advanced features whether can be supported haven't been tested.
+      * ES6 'arrow function' and other advanced features cannot be used.
       
     2. Can use the APIs exposed by this lib belong to 'Path' object.
+
+  * Anyway, for each API, you always have lots of wroking well examples can follow, you can find them in this README guidebook or [test folder](./test).
+
+### query.All(callback)
+
+* Description: executes the query and adds the results, with all tags, as a string-to-string (tag to node) map in the output set, one for each path that a traversal could take.
+
+### query.GetLimit(size, callback)
+
+* Description: same as all, but limited to the first `size` unique nodes at the end of the path, and each of their possible traversals.
+
+* **size**, `required`, `integer`, an integer value on the first `size` paths to return.
+
+* Usage example:
+
+  ```javascript
+  g.V().GetLimit(1).then((res) => {
+    // res will be random.
+    // One possible res is: { result: [ { id: '+6586720011' } ] }
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
+
+### query.ToArray(gizmoFunc, callback)
+
+* Description: executes a query and returns the results as array at the end of the query path.
+
+* **gizmoFunc**:
+
+* Usage example:
+
+  ```javascript
+  const popularQuery = g.M().Out('<follows>').In('<follows>')
+                        .Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
+
+  // Compare with the examples in above 'graph.Morphism()' for better understanding
+  // what this API is designed for.
+  g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).ToArray(function(data) {
+    for (var item in data) {
+      g.Emit(data[item]);
+    }
+  }).then((res) => {
+    // res will be:
+    //   {result:['xxx.l30@xxx.com','_:C']}
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
+
+### query.TagArray(gizmoFunc, callback)
+
+* Description:
+
+  * Like `.ToArray` above, but instead of a list of top-level strings, returns an Array of tag-to-string dictionaries.
+
+  * Much like `.All` would, except this will be happening inside the Javascript environment.
+
+* **gizmoFunc**:
+
+* Usage example:
+
+  ```javascript
+  const popularQuery = g.M().Out('<follows>').In('<follows>')
+                        .Has('<gender>', 'F').Out('<mobilePhone>').Tag('mobilePhone');
+                        
+  g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).TagArray(function(data) {
+    for (var item in data) {
+        g.Emit(data[item]);
+      }
+  }).then((res) => {
+    // res will be:
+    //   {result:[{id:'_:C',mobilePhone:'_:C'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
+
+### query.ToValue(gizmoFunc, callback)
+
+* Description: like `.ToArray` above, but limited to one result node -- a string. Like `.Limit(1)`.
+
+  > Totally cannot get the design point here: like `limit(1)`? cut the results? why?
+
+* **gizmoFunc**: 
+
+* Usage example:
+
+  ```javascript
+  const popularQuery = g.M().Out('<follows>').In('<follows>')
+                        .Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
+
+  g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).ToArray(function(data) {
+    g.Emit(data);
+  }).then((res) => {
+    // res will be:
+    //   { result: [ 'xxx.l30@xxx.com' ] }
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
+
+### query.TagValue(gizmoFunc, callback)
+
+* Description: like `.TagArray` above, but limited to one result node -- a string. Like `.Limit(1)`. Returns a tag-to-string map.
+
+  > Totally cannot get the design point here: like `limit(1)`? cut the results? why?
+
+* **gizmoFunc**: 
+
+* Usage example:
+
+  ```javascript
+  const popularQuery = g.M().Out('<follows>').In('<follows>')
+                        .Has('<gender>', 'F').Out('<mobilePhone>').Tag('mobilePhone');
+
+  g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).TagValue(function(data) {
+    g.Emit(data);
+  }).then((res) => {
+    // res will be:
+    //   {result:[{id:'_:C',mobilePhone:'_:C'}]}
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
+
+### query.ForEach(limit, gizmoFunc, callback)
+
+* Alias: `query.Map`
+
+* Description: for each tag-to-string result retrieved, as in the `All` case, calls `gizmoFunc(data)` where `data` is the tag-to-string map.
+
+* **limit**: `optional`, `integer`, an integer value on the first limit paths to process.
+
+* **gizmoFunc**: 
+
+* Usage example:
+
+  ```javascript
+  const popularQuery = g.M().Out('<follows>').In('<follows>')
+                        .Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
+
+  g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).ForEach(function(data) {
+    for (var item in data) {
+      g.Emit(data[item]);
+    }
+  }).then((res) => {
+    // res will be:
+    //   {result:['xxx.l30@xxx.com','_:C']}
+  }).catch((err) => {
+    // Error ...
+  });
+
+  g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).ForEach(1, function(data) {
+    for (var item in data) {
+      g.Emit(data[item]);
+    }
+  }).then((res) => {
+    // res will be: { result: [ 'xxx.l30@xxx.com' ] }
+  }).catch((err) => {
+    // Error ...
+  });
+  ```
 
 ## Additional Resources
 
