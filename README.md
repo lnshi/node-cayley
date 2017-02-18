@@ -334,6 +334,14 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     });
     ```
 
+### graph.Emit(data)
+
+> 
+
+* Description: adds data programmatically to the JSON result list. Can be any JSON type.
+
+* **data**: `required`, a Javascript object that can be serialized to JSON.
+
 ## Gizmo APIs → Path Object
 
 > Both `.Morphism()/.M()` and `.Vertex()/.V()` create `Path` object, which provides the following traversal methods.
@@ -801,14 +809,14 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 For the below seven APIs which belong to `Query Object`, the parameter:
 
-  * `callback` means to provide you a way to receive the error and response when you choose the **callback style APIs**:
+  * **callback**: means to provide you a way to receive the error and response when you choose the **callback style APIs**:
 
     ```javascript
     g.V().All((err, res) => {
       // Deal with the 'err' and 'res' here.
     })
     ```
-    , which cayley/gizmo doesn't need it. If you set the `promisify` to `true`, then just:
+    , which Cayley/Gizmo doesn't need it. If you set the `promisify` to `true`, then just:
 
     ```javascript
     g.V().All().then((res) => {
@@ -818,13 +826,17 @@ For the below seven APIs which belong to `Query Object`, the parameter:
     });
     ```
 
-  * `gizmoFunc` is a javascript function which is really needed by cayley/gizmo, try to understand the design here, the 'gizmoFunc' should satisfy the following conditions:
+  * **gizmoFunc**: is a javascript function which will be serialized and submitted to Cayley/Gizmo server, and then get executed there by the Gizmo JS engine, try to understand the design here, the **gizmoFunc** should satisfy the following restrictions:
   
     1. No any reference to anything outside of this function, only pure js code.
-      * Coz this function will be stringified and committed to cayley server, and then get executed there.
+
+      * Coz this function will be serialized and submitted to Cayley/Gizmo server, and then get executed there by the Gizmo JS engine.
+
       * ES6 'arrow function' and other advanced features cannot be used.
       
-    2. Can use the APIs exposed by this lib belong to 'Path' object.
+    2. Can use any API exposed by this lib belong to 'Path' object.
+
+    3. Can use the `g.Emit(data)` API.
 
   * Anyway, for each API, you always have lots of wroking well examples can follow, you can find them in this README guidebook or [test folder](./test).
 
@@ -853,7 +865,17 @@ For the below seven APIs which belong to `Query Object`, the parameter:
 
 * Description: executes a query and returns the results as array at the end of the query path.
 
-* **gizmoFunc**:
+* **gizmoFunc**: a javascript function which will be serialized and submitted to Cayley/Gizmo server, and then get executed there by the Gizmo JS engine, need to satisfy the below restrictions:
+
+  1. No any reference to anything outside of this function, only pure js code.
+
+    * Coz this function will be serialized and submitted to Cayley/Gizmo server, and then get executed there by the Gizmo JS engine.
+
+    * ES6 'arrow function' and other advanced features cannot be used.
+    
+  2. Can use any API exposed by this lib belong to 'Path' object.
+
+  3. Can use the `g.Emit(data)` API.
 
 * Usage example:
 
@@ -883,7 +905,17 @@ For the below seven APIs which belong to `Query Object`, the parameter:
 
   * Much like `.All` would, except this will be happening inside the Javascript environment.
 
-* **gizmoFunc**:
+* **gizmoFunc**: a javascript function which will be serialized and submitted to Cayley/Gizmo server, and then get executed there by the Gizmo JS engine, need to satisfy the below restrictions:
+
+  1. No any reference to anything outside of this function, only pure js code.
+
+    * Coz this function will be serialized and submitted to Cayley/Gizmo server, and then get executed there by the Gizmo JS engine.
+
+    * ES6 'arrow function' and other advanced features cannot be used.
+    
+  2. Can use any API exposed by this lib belong to 'Path' object.
+
+  3. Can use the `g.Emit(data)` API.
 
 * Usage example:
 
@@ -909,7 +941,17 @@ For the below seven APIs which belong to `Query Object`, the parameter:
 
   > Totally cannot get the design point here: like `limit(1)`? cut the results? why?
 
-* **gizmoFunc**: 
+* **gizmoFunc**: a javascript function which will be serialized and submitted to Cayley/Gizmo server, and then get executed there by the Gizmo JS engine, need to satisfy the below restrictions:
+
+  1. No any reference to anything outside of this function, only pure js code.
+
+    * Coz this function will be serialized and submitted to Cayley/Gizmo server, and then get executed there by the Gizmo JS engine.
+
+    * ES6 'arrow function' and other advanced features cannot be used.
+    
+  2. Can use any API exposed by this lib belong to 'Path' object.
+
+  3. Can use the `g.Emit(data)` API.
 
 * Usage example:
 
@@ -933,7 +975,17 @@ For the below seven APIs which belong to `Query Object`, the parameter:
 
   > Totally cannot get the design point here: like `limit(1)`? cut the results? why?
 
-* **gizmoFunc**: 
+* **gizmoFunc**: a javascript function which will be serialized and submitted to Cayley/Gizmo server, and then get executed there by the Gizmo JS engine, need to satisfy the below restrictions:
+
+  1. No any reference to anything outside of this function, only pure js code.
+
+    * Coz this function will be serialized and submitted to Cayley/Gizmo server, and then get executed there by the Gizmo JS engine.
+
+    * ES6 'arrow function' and other advanced features cannot be used.
+    
+  2. Can use any API exposed by this lib belong to 'Path' object.
+
+  3. Can use the `g.Emit(data)` API.
 
 * Usage example:
 
@@ -959,7 +1011,17 @@ For the below seven APIs which belong to `Query Object`, the parameter:
 
 * **limit**: `optional`, `integer`, an integer value on the first limit paths to process.
 
-* **gizmoFunc**: 
+* **gizmoFunc**: a javascript function which will be serialized and submitted to Cayley/Gizmo server, and then get executed there by the Gizmo JS engine, need to satisfy the below restrictions:
+
+  1. No any reference to anything outside of this function, only pure js code.
+
+    * Coz this function will be serialized and submitted to Cayley/Gizmo server, and then get executed there by the Gizmo JS engine.
+
+    * ES6 'arrow function' and other advanced features cannot be used.
+    
+  2. Can use any API exposed by this lib belong to 'Path' object.
+
+  3. Can use the `g.Emit(data)` API.
 
 * Usage example:
 
