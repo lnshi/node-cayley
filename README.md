@@ -30,7 +30,7 @@ _:B standards for the value:  _:BN@</user/shortid/46Juzcyx>.<mobilePhone>
 _:C standards for the value:  _:BN@</user/shortid/hwX6aOr7>.<mobilePhone>
 ```
 
-<img src="https://github.com/lnshi/node-cayley/blob/master/test/data/friend_circle_with_label.nq_1_visualized.png" />
+<img src="https://github.com/lnshi/node-cayley/blob/master/test/data/friend_circle_with_label.nq_0_visualized.png" />
 
 ## Basic usages examples
 
