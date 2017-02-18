@@ -81,6 +81,8 @@ _:C  standards for the value:  _:BN@</user/shortid/hwX6aOr7>.<mobilePhone>
 
 ## Basic usages examples
 
+**[⇪ Catalog](#catalog)**
+
 ```
 npm install node-cayley --save
 ```
@@ -122,6 +124,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 **[⇪ Catalog](#catalog)**
 
 ## Configuration
+
+**[⇪ Catalog](#catalog)**
 
   * Options
 
@@ -178,6 +182,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ## Default random client selection strategy
 
+**[⇪ Catalog](#catalog)**
+
   * If single cayley host is provided, the lib will return one single client directly.
 
   * If multiple cayley hosts are provided, the lib will return a clients array plus a default random client selection strategy which is named as `pickRandomly`, you can just use it as:
@@ -209,7 +215,11 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 > Depends on your `promisify` setting, this lib will provide `bluebird Promise style` or `callback style` API, for both styles, usages examples can be found in the lib [test folder](./test).
 
+**[⇪ Catalog](#catalog)**
+
 ### write(data, callback)
+
+**[⇪ Catalog](#catalog)**
 
 * Description: write your JSON data into cayley as N-Quads data transparently.
 
@@ -247,6 +257,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ### read(callback)
 
+**[⇪ Catalog](#catalog)**
+
 * Description: read N-Quads data from cayley, the lib will transparently convert the data to JSON.
   > Note: response not in JSON yet, will add the functionality soon.
 
@@ -265,6 +277,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 **[⇪ Catalog](#catalog)**
 
 ### delete(data, callback)
+
+**[⇪ Catalog](#catalog)**
 
 * Description: delete the corresponding N-Quads data which are represented by this JSON data from cayley transparently.
 
@@ -312,6 +326,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ### graph.type(type)
 
+**[⇪ Catalog](#catalog)**
+
 * Description: set type: either 'query' or 'shape', and then return a new `graph` object, will decide the query finally goes to `/query/gizmo` or '/shape/gizmo'.
 
 * **type**: either `query` or `shape`.
@@ -338,6 +354,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ### graph.Vertex([nodeId])
 
+**[⇪ Catalog](#catalog)**
+
 * Alias: `V`
 
 * Description: starts a query path at the given vertex/vertices, no ids means 'all vertices', return `Query Object`.
@@ -363,6 +381,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 **[⇪ Catalog](#catalog)**
 
 ### graph.Morphism()
+
+**[⇪ Catalog](#catalog)**
 
 * Alias: `M`
 
@@ -419,7 +439,11 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 > Depends on your `promisify` setting, this lib will provide `bluebird Promise style` or `callback style` API, for both styles, usages examples can be found in the lib [test folder](./test).
 
+**[⇪ Catalog](#catalog)**
+
 ### path.Out([predicatePath], [tag])
+
+**[⇪ Catalog](#catalog)**
 
 * Description: `Out()` is the work-a-day way to get between nodes, in the forward direction. Starting with the nodes in path on the subject, follow the quads with predicates defined by **predicatePath** to their objects.
 
@@ -469,6 +493,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ### path.In([predicatePath], [tag])
 
+**[⇪ Catalog](#catalog)**
+
 * Description: same as `Out()`, but in the other direction. Starting with the nodes in path on the object, follow the quads with predicates defined by **predicatePath** to their subjects.
 
 * **predicatePath**: `optional`, one of:
@@ -497,6 +523,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 **[⇪ Catalog](#catalog)**
 
 ### path.Both([predicatePath], [tag])
+
+**[⇪ Catalog](#catalog)**
 
 * Description: same as `In()` and `Out()`, but follow the predicate in either direction(into and out) from the node.
 
@@ -530,6 +558,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ### path.Is([node])
 
+**[⇪ Catalog](#catalog)**
+
 * Description: filter all paths to ones, which at this point, are on the given node.
 
 * **node**: `required`, a single string represents a node or an array of string represents a node array.
@@ -556,6 +586,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ### path.Has(predicatePath, node)
 
+**[⇪ Catalog](#catalog)**
+
 * Description: 
 
   * Filter all paths which are, at this point, on the subject for the given predicate and object, but do not follow the path, merely filter the possible paths.
@@ -578,6 +610,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 **[⇪ Catalog](#catalog)**
 
 ### path.LabelContext([labelPath], [tag])
+
+**[⇪ Catalog](#catalog)**
 
 > Note: the subgraph label of the N-Quads item should always be set to the same value with the the node which it is pointing out from.
 
@@ -619,6 +653,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ### path.Limit(limit)
 
+**[⇪ Catalog](#catalog)**
+
 * Description: limits a number of nodes for current path.
 
 * **limit**: `required`, `Integer`, a number of nodes to limit results to.
@@ -636,6 +672,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 **[⇪ Catalog](#catalog)**
 
 ### path.Skip(offset)
+
+**[⇪ Catalog](#catalog)**
 
 * Description: skips a number of nodes for current path.
 
@@ -664,6 +702,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ### path.InPredicates()
 
+**[⇪ Catalog](#catalog)**
+
 * Description: get the list of predicates that are pointing into a node.
 
 * Usage examples:
@@ -686,6 +726,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ### path.OutPredicates()
 
+**[⇪ Catalog](#catalog)**
+
 * Description: get the list of predicates that are pointing out from a node.
 
 * Usage example:
@@ -701,6 +743,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 **[⇪ Catalog](#catalog)**
 
 ### path.Tag([tag])
+
+**[⇪ Catalog](#catalog)**
 
 * Alias: `path.As`
 
@@ -723,6 +767,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 **[⇪ Catalog](#catalog)**
 
 ### path.Back(tag)
+
+**[⇪ Catalog](#catalog)**
 
 * Description: ff still valid, a path will now consider their vertex to be the same one as the previously tagged one, with the added constraint that it was valid all the way here, usually will be useful for the below two situations:
   
@@ -760,6 +806,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ### path.Save(predicate, tag)
 
+**[⇪ Catalog](#catalog)**
+
 * Description: from the current node as the subject, save the object of all quads with predicate into tag, without traversal.
 
 * **predicate**: `required`, a string for a predicate node.
@@ -780,6 +828,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 **[⇪ Catalog](#catalog)**
 
 ### path.Intersect(query)
+
+**[⇪ Catalog](#catalog)**
 
 * Alias: `path.And`
 
@@ -803,6 +853,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 **[⇪ Catalog](#catalog)**
 
 ### path.Union(query)
+
+**[⇪ Catalog](#catalog)**
 
 * Alias: `path.Or`
 
@@ -839,6 +891,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ### path.Except(query)
 
+**[⇪ Catalog](#catalog)**
+
 * Alias: `path.Difference`
 
 * Description:
@@ -869,6 +923,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
 ### path.Follow(morphism)
 
+**[⇪ Catalog](#catalog)**
+
 * Description: 
 
   * With `graph.Morphism` we can prepare a path for later reuse. `Follow` is the way that's accomplished. Applies the path chain on the morphism object to the current path.
@@ -880,6 +936,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 **[⇪ Catalog](#catalog)**
 
 ### path.FollowR(morphism)
+
+**[⇪ Catalog](#catalog)**
 
 * Description:
 
@@ -976,6 +1034,8 @@ For the below seven APIs which belong to `Query Object`, the parameter:
 
 ### query.ToArray(gizmoFunc, callback)
 
+**[⇪ Catalog](#catalog)**
+
 * Description: executes a query and returns the results as array at the end of the query path.
 
 * **gizmoFunc**: a javascript function which will be serialized and submitted to Cayley/Gizmo server, and then get executed there by the Gizmo JS engine, need to satisfy the below restrictions:
@@ -1013,6 +1073,8 @@ For the below seven APIs which belong to `Query Object`, the parameter:
 **[⇪ Catalog](#catalog)**
 
 ### query.TagArray(gizmoFunc, callback)
+
+**[⇪ Catalog](#catalog)**
 
 * Description:
 
@@ -1054,6 +1116,8 @@ For the below seven APIs which belong to `Query Object`, the parameter:
 
 ### query.ToValue(gizmoFunc, callback)
 
+**[⇪ Catalog](#catalog)**
+
 * Description: like `.ToArray` above, but limited to one result node -- a string. Like `.Limit(1)`.
 
   > Totally cannot get the design point here: like `limit(1)`? cut the results? why?
@@ -1090,6 +1154,8 @@ For the below seven APIs which belong to `Query Object`, the parameter:
 
 ### query.TagValue(gizmoFunc, callback)
 
+**[⇪ Catalog](#catalog)**
+
 * Description: like `.TagArray` above, but limited to one result node -- a string. Like `.Limit(1)`. Returns a tag-to-string map.
 
   > Totally cannot get the design point here: like `limit(1)`? cut the results? why?
@@ -1125,6 +1191,8 @@ For the below seven APIs which belong to `Query Object`, the parameter:
 **[⇪ Catalog](#catalog)**
 
 ### query.ForEach(limit, gizmoFunc, callback)
+
+**[⇪ Catalog](#catalog)**
 
 * Alias: `query.Map`
 
