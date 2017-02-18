@@ -4,31 +4,15 @@ const path = require('path');
 
 const {cayleyClient, assert, expect, should} = require('./initialize')(false);
 
+const testData = require('../data/friend_circle_with_label.nq.equivalent_json');
+
 describe('Cayley callback style HTTP APIs', function() {
 
-  it('/v2/write & /v2/read & /v2/delete', function(done) {
+  it('/v1/write & /v2/read & /v1/delete', function(done) {
     /*
-     * Test API: /v2/write
+     * Test API: '/v1/write'.
      */
-    cayleyClient.write([
-      {
-        primaryKey: '</user/shortid/23TplPLs>',
-        label: 'companyA',
-
-        userId: '23TplPLs',
-        userSetId: 'XXX_L2',
-        realName: 'XXX_L3',
-        displayName: 'XXX_L4',
-        gender: 'M',
-        email: 'xxx.l6@xxx.com',
-        isEmailVerified: false,
-        mobilePhone: {
-          isVerified: false,
-          alpha3CountryCode: 'SGP',
-          mobilePhoneNoWithCountryCallingCode: '+6586720011'
-        }
-      }
-    ], function(err, writeResBody) {
+    cayleyClient.write(testData, function(err, writeResBody) {
       if (err) {
         done(err);
       } else {
@@ -37,7 +21,7 @@ describe('Cayley callback style HTTP APIs', function() {
           expect(writeResBody.result).to.include('Successfully');
 
           /*
-           * Test API: /v2/read
+           * Test API: '/v2/read'.
            */
           cayleyClient.read(function(err, readResBody) {
             if (err) {
@@ -45,39 +29,35 @@ describe('Cayley callback style HTTP APIs', function() {
             } else {
               try {
                 assert.isArray(readResBody);
-                assert.notEqual(readResBody.length, 0);
+                assert.equal(readResBody.length, 42);
 
                 /*
-                 * Test API: /v2/delete
-                 * Delete the tested inserted data.
+                 * Test API: '/v1/delete'.
+                 *   Delete the tested inserted data.
                  */
-                cayleyClient.delete([
-                  {
-                    primaryKey: '</user/shortid/23TplPLs>',
-                    label: 'companyA',
-
-                    userId: '23TplPLs',
-                    userSetId: 'XXX_L2',
-                    realName: 'XXX_L3',
-                    displayName: 'XXX_L4',
-                    gender: 'M',
-                    email: 'xxx.l6@xxx.com',
-                    isEmailVerified: false,
-                    mobilePhone: {
-                      isVerified: false,
-                      alpha3CountryCode: 'SGP',
-                      mobilePhoneNoWithCountryCallingCode: '+6586720011'
-                    }
-                  }
-                ], function(err, deleteResBody) {
+                cayleyClient.delete(testData, function(err, deleteResBody) {
                   if (err) {
                     done(err);
                   } else {
                     try {
                       expect(deleteResBody.result).to.be.a('string');
                       expect(deleteResBody.result).to.include('Successfully');
-                      expect(deleteResBody.count).to.equal(writeResBody.count);
-                      done();
+
+                      /*
+                       * Use '/v2/read' API to verify.
+                       */
+                      cayleyClient.read(function(err, readResBody) {
+                        if (err) {
+                          done(err);
+                        } else {
+                          try {
+                            assert.isNull(readResBody);
+                            done();
+                          } catch (e) {
+                            done(e);
+                          }
+                        }
+                      });
                     } catch (e) {
                       done(e);
                     }
@@ -102,7 +82,7 @@ describe('Cayley callback style HTTP APIs', function() {
   it("'Write' with 'label', but 'delete' without providing 'label', expect deletion to be failed.", function(done) {
 
     /*
-     * Write data with 'label'.
+     * '/v1/write' data with 'label'.
      */
     cayleyClient.write([
       {
@@ -110,11 +90,6 @@ describe('Cayley callback style HTTP APIs', function() {
         label: 'companyA',
 
         userId: '23TplPLs',
-        userSetId: 'XXX_L2',
-        realName: 'XXX_L3',
-        displayName: 'XXX_L4',
-        gender: 'M',
-        email: 'xxx.l6@xxx.com',
         isEmailVerified: false,
         mobilePhone: {
           isVerified: false,
@@ -131,18 +106,13 @@ describe('Cayley callback style HTTP APIs', function() {
           expect(writeResBody.result).to.include('Successfully');
 
           /*
-           * But try to delete data without providing 'label', expect deletion to be failed.
+           * But try to use '/v1/delete' to delete data without providing 'label', expect deletion to be failed.
            */
           cayleyClient.delete([
             {
               primaryKey: '</user/shortid/23TplPLs>',
 
               userId: '23TplPLs',
-              userSetId: 'XXX_L2',
-              realName: 'XXX_L3',
-              displayName: 'XXX_L4',
-              gender: 'M',
-              email: 'xxx.l6@xxx.com',
               isEmailVerified: false,
               mobilePhone: {
                 isVerified: false,
@@ -154,40 +124,65 @@ describe('Cayley callback style HTTP APIs', function() {
             if (err) {
               done(err);
             } else {
-              expect(wronglyDeleteResBody).to.have.property('error');
-              expect(wronglyDeleteResBody.error).to.be.a('string');
-              expect(wronglyDeleteResBody.error).to.include('not exist');
+
+              // After checked the MongoDB, cayley deleted nothing, but still returned: { result: 'Successfully deleted 11 quads.' }
+              // So we use the '/v2/read' API to check.
 
               /*
-               * Delete the inserted data correctly.
+               * Check with '/v2/read'.
                */
-              cayleyClient.delete([
-                {
-                  primaryKey: '</user/shortid/23TplPLs>',
-                  label: 'companyA',
-
-                  userId: '23TplPLs',
-                  userSetId: 'XXX_L2',
-                  realName: 'XXX_L3',
-                  displayName: 'XXX_L4',
-                  gender: 'M',
-                  email: 'xxx.l6@xxx.com',
-                  isEmailVerified: false,
-                  mobilePhone: {
-                    isVerified: false,
-                    alpha3CountryCode: 'SGP',
-                    mobilePhoneNoWithCountryCallingCode: '+6586720011'
-                  }
-                }
-              ], function(err, correctlyDeleteResBody) {
+              cayleyClient.read(function(err, readResBody) {
                 if (err) {
                   done(err);
                 } else {
                   try {
-                    expect(correctlyDeleteResBody.result).to.be.a('string');
-                    expect(correctlyDeleteResBody.result).to.include('Successfully');
-                    expect(correctlyDeleteResBody.count).to.equal(writeResBody.count);
-                    done();
+                    assert.isArray(readResBody);
+                    assert.equal(readResBody.length, 6);
+
+                    /*
+                     * Delete the inserted data correctly with '/v1/delete'.
+                     */
+                    cayleyClient.delete([
+                      {
+                        primaryKey: '</user/shortid/23TplPLs>',
+                        label: 'companyA',
+
+                        userId: '23TplPLs',
+                        isEmailVerified: false,
+                        mobilePhone: {
+                          isVerified: false,
+                          alpha3CountryCode: 'SGP',
+                          mobilePhoneNoWithCountryCallingCode: '+6586720011'
+                        }
+                      }
+                    ], function(err, correctlyDeleteResBody) {
+                      if (err) {
+                        done(err);
+                      } else {
+                        try {
+                          expect(correctlyDeleteResBody.result).to.be.a('string');
+                          expect(correctlyDeleteResBody.result).to.include('Successfully');
+
+                          /*
+                           * Use '/v2/read' to verify.
+                           */
+                          cayleyClient.read(function(err, readResBody) {
+                            if (err) {
+                              done(err);
+                            } else {
+                              try {
+                                assert.isNull(readResBody);
+                                done();
+                              } catch (e) {
+                                done(e);
+                              }
+                            }
+                          });
+                        } catch (e) {
+                          done(e);
+                        }
+                      }
+                    });
                   } catch (e) {
                     done(e);
                   }
@@ -205,65 +200,37 @@ describe('Cayley callback style HTTP APIs', function() {
 
 });
 
-describe('Cayley callback style HTTP APIs', function() {
-
-  it('/v1/write/file/nquad', function(done) {
-    cayleyClient.writeFile(
-      path.resolve(__dirname, '../data/test_api_writeFile_purpose.nq'),
-      function(err, res) {
-        if (err) {
-          done(err);
-        } else {
-          try {
-            expect(res.result).to.be.a('string');
-            expect(res.result).to.include('Successfully');
-
-            /*
-             * Delete the inserted data correctly.
-             */
-            cayleyClient.deleteV1([
-              {
-                primaryKey: '</user/shortid/23TplPLs>',
-                label: 'companyA',
-
-                userId: '23TplPLs',
-                mobilePhone: {
-                  isVerified: false,
-                  alpha3CountryCode: 'SGP',
-                  mobilePhoneNoWithCountryCallingCode: '+6586720011'
-                }
-              }
-            ], function(err, deleteResBody) {
-              if (err) {
-                done(err);
-              } else {
-                try {
-                  expect(deleteResBody.result).to.be.a('string');
-                  expect(deleteResBody.result).to.include('Successfully');
-                  done();
-                } catch (e) {
-                  done(e);
-                }
-              }
-            });
-          } catch (e) {
-            done(e);
-          }
-        }
-      }
-    );
-  });
-
-});
-
 describe('Cayley callback style Gizmo APIs', function() {
 
   before(function(done) {
-    cayleyClient.writeFile(path.resolve(__dirname, '../data/friend_circle_with_label.nq'), (err, res) => {
+    cayleyClient.write(testData, (err, res) => {
       if (err) {
         return done(err);
       }
       done();
+    });
+  });
+
+  after(function(done) {
+    cayleyClient.delete(testData, (err, res) => {
+      if (err) {
+        done(err);
+      } else {
+        /*
+         * Use '/v2/read' to verify the test cases didn't pollute the user db.
+         */
+        cayleyClient.read(function(err, readResBody) {
+          if (err) {
+            done(err);
+          } else {
+            if (readResBody) {
+              done(new Error('Your db got polluted by this test, please report this issue!!!'));
+            } else {
+              done();
+            }
+          }
+        });
+      }
     });
   });
 
@@ -969,157 +936,6 @@ describe('Cayley callback style Gizmo APIs', function() {
       }
     });
   });
-
-  // it('query.GetLimit(size, callback)', function(done) {
-  //   cayleyClient.g.type('query').V().GetLimit(1, function(err, res) {
-  //     if (err) {
-  //       done(err);
-  //     } else {
-  //       try {
-  //         assert.isArray(res.result);
-  //         expect(res.result).to.have.length.most(1);
-  //         done();
-  //       } catch (e) {
-  //         done(e);
-  //       }
-  //     }
-  //   });
-  // });
-
-  // it('query.ToArray(callback)', function(done) {
-  //   cayleyClient.g.type('query').V("</user/shortid/23TplPLs>").Tag("userId").In("<follows>").ToArray(function(data) {
-  //     for (var idx in data) {
-  //       g.Emit(data[idx]);
-  //     }
-  //   }, function(err, res) {
-  //     if (err) {
-  //       done(err);
-  //     } else {
-  //       try {
-  //         assert.isArray(res.result);
-  //         done();
-  //       } catch (e) {
-  //         done(e);
-  //       }
-  //     }
-  //   });
-  // });
-
-  // it('query.ToValue(callback)', function(done) {
-  //   cayleyClient.g.type('query').V("</user/shortid/23TplPLs>").Tag("userId").In("<follows>").ToValue(function(data) {
-  //     g.Emit(data);
-  //   }, function(err, res) {
-  //     console.log(res.result);
-  //     if (err) {
-  //       done(err);
-  //     } else {
-  //       try {
-  //         assert.isString(res.result, 'Refer to: https://github.com/cayleygraph/cayley/issues/171');
-  //         done();
-  //       } catch (e) {
-  //         done(e);
-  //       }
-  //     }
-  //   });
-  // });
-
-  // it('query.TagArray(callback)', function(done) {
-  //   cayleyClient.g.type('query').V("</user/shortid/23TplPLs>").Tag("userId").In("<follows>").TagArray(function(data) {
-  //     for (var idx in data) {
-  //       g.Emit(data[idx]);
-  //     }
-  //   }, function(err, res) {
-  //     console.log(res);
-  //     if (err) {
-  //       done(err);
-  //     } else {
-  //       try {
-  //         assert.isArray(res.result, 'Refer to: https://github.com/cayleygraph/cayley/issues/171');
-  //         done();
-  //       } catch (e) {
-  //         done(e);
-  //       }
-  //     }
-  //   });
-  // });
-
-  // it('query.TagValue(callback)', function(done) {
-  //   cayleyClient.g.type('query').V("</user/shortid/23TplPLs>").Tag("userId").In("<follows>").TagValue(function(data) {
-  //     for (var idx in data) {
-  //       g.Emit(data[idx]);
-  //     }
-  //   }, function(err, res) {
-  //     console.log(res);
-  //     if (err) {
-  //       done(err);
-  //     } else {
-  //       try {
-  //         assert.isString(res.result, 'Refer to: https://github.com/cayleygraph/cayley/issues/171');
-  //         done();
-  //       } catch (e) {
-  //         done(e);
-  //       }
-  //     }
-  //   });
-  // });
-
-  
-  //  * Watch: try to understand the design here, the 'gizmoCallback' should satisfy the following conditions:
-  //  *   1. No any reference to anything outside of this function, only pure js code.
-  //  *     - Coz this function will be stringified and committed to cayley server, and then get executed there.
-  //  *     - ES6 'arrow function' and other advanced features whether can be supported haven't been tested.
-  //  *   2. Can use the APIs exposed by this lib belong to 'Path' object.
-   
-  // it("Missed 'gizmoCallback' function in 'query.ForEach(gizmoCallback, callback)'", function() {
-  //   assert.throws(function() {
-  //     pickRandomly(pickRandomly(cayleyInstancePools)).g.type('query')
-  //       .V("</user/shortid/23TplPLs>").In().ForEach(function(err, res) {});
-  //   });
-  // });
-
-  // it('query.ForEach(gizmoCallback, callback)', function(done) {
-  //   pickRandomly(pickRandomly(cayleyInstancePools)).g.type('query')
-  //     .V("</user/shortid/23TplPLs>").In().ForEach(function(data) {
-  //       g.Emit(data);
-  //     }, function(err, res) {
-  //       if (err) {
-  //         done(err);
-  //       } else {
-  //         try {
-  //           assert.isArray(res.result);
-  //           done();
-  //         } catch (e) {
-  //           done(e);
-  //         }
-  //       }
-  //     });
-  // });
-
-  // it("Missed 'gizmoCallback' function in 'query.ForEach(limit, gizmoCallback, callback)'", function() {
-  //   assert.throws(function() {
-  //     pickRandomly(pickRandomly(cayleyInstancePools)).g.type('query')
-  //       .V("</user/shortid/23TplPLs>").In().ForEach(1, function(err, res) {});
-  //   });
-  // });
-
-  // it('query.ForEach(limit, gizmoCallback, callback)', function(done) {
-  //   pickRandomly(pickRandomly(cayleyInstancePools)).g.type('query')
-  //     .V("</user/shortid/23TplPLs>").In().ForEach(1, function(data) {
-  //       g.Emit(data);
-  //     }, function(err, res) {
-  //       if (err) {
-  //         done(err);
-  //       } else {
-  //         try {
-  //           assert.isArray(res.result);
-  //           expect(res.result).to.have.length.most(1, 'https://github.com/cayleygraph/cayley/issues/518');
-  //           done();
-  //         } catch (e) {
-  //           done(e);
-  //         }
-  //       }
-  //     });
-  // });
 
 });
 

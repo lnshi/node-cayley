@@ -200,24 +200,6 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
-### writeFile(pathOfNQuadsFile, callback)
-
-* Description: write your N-Quads data file into cayley.
-
-* **pathOfNQuadsFile**: path of your N-Quads data file.
-
-* **callback(err, res)**
-
-* Usage example:
-
-  ```javascript
-  client.writeFile(path.resolve(__dirname, './test/data/test_purpose.nq')).then((res) => {
-    // Successfully wrote to cayley.
-  }).catch((err) => {
-    // Error ...
-  });
-  ```
-
 ### delete(data, callback)
 
 * Description: delete the corresponding N-Quads data which are represented by this JSON data from cayley transparently.

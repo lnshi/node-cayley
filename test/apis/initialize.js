@@ -18,7 +18,6 @@ describe('Cayley client(Pool) initialization', function() {
     assert.isObject(cayleyClient.g);
     assert.isFunction(cayleyClient.read);
     assert.isFunction(cayleyClient.write);
-    assert.isFunction(cayleyClient.writeFile);
     assert.isFunction(cayleyClient.delete);
   };
 
