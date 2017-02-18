@@ -5,10 +5,10 @@
 </user/shortid/23TplPdS> <gender> "M" "companyA" .
 </user/shortid/23TplPdS> <email> "xxx.l6@xxx.com" "companyA" .
 </user/shortid/23TplPdS> <isEmailVerified> "true" "companyA" .
-</user/shortid/23TplPdS> <mobilePhone> _:l8 "companyA" .
-_:l8 <isVerified> "false" "companyA" .
-_:l8 <alpha3CountryCode> "SGP" "companyA" .
-_:l8 <mobilePhoneNoWithCountryCallingCode> "+6586720011" "companyA" .
+</user/shortid/23TplPdS> <mobilePhone> _:BN@</user/shortid/23TplPdS>.<mobilePhone> "companyA" .
+_:BN@</user/shortid/23TplPdS>.<mobilePhone> <isVerified> "false" "companyA" .
+_:BN@</user/shortid/23TplPdS>.<mobilePhone> <alpha3CountryCode> "SGP" "companyA" .
+_:BN@</user/shortid/23TplPdS>.<mobilePhone> <mobilePhoneNoWithCountryCallingCode> "+6586720011" "companyA" .
 
 </user/shortid/46Juzcyx> <userId> "46Juzcyx" "companyA" .
 </user/shortid/46Juzcyx> <userSetId> "XXX_L14" "companyA" .
@@ -17,10 +17,10 @@ _:l8 <mobilePhoneNoWithCountryCallingCode> "+6586720011" "companyA" .
 </user/shortid/46Juzcyx> <gender> "M" "companyA" .
 </user/shortid/46Juzcyx> <email> "xxx.l18@xxx.com" "companyA" .
 </user/shortid/46Juzcyx> <isEmailVerified> "false" "companyA" .
-</user/shortid/46Juzcyx> <mobilePhone> _:l20 "companyA" .
-_:l20 <isVerified> "false" "companyA" .
-_:l20 <alpha3CountryCode> "SGP" "companyA" .
-_:l20 <mobilePhoneNoWithCountryCallingCode> "+6586720021" "companyA" .
+</user/shortid/46Juzcyx> <mobilePhone> _:BN@</user/shortid/46Juzcyx>.<mobilePhone> "companyA" .
+_:BN@</user/shortid/46Juzcyx>.<mobilePhone> <isVerified> "false" "companyA" .
+_:BN@</user/shortid/46Juzcyx>.<mobilePhone> <alpha3CountryCode> "SGP" "companyA" .
+_:BN@</user/shortid/46Juzcyx>.<mobilePhone> <mobilePhoneNoWithCountryCallingCode> "+6586720021" "companyA" .
 
 </user/shortid/hwX6aOr7> <userId> "hwX6aOr7" "companyA" .
 </user/shortid/hwX6aOr7> <userSetId> "XXX_L26" "companyA" .
@@ -29,10 +29,10 @@ _:l20 <mobilePhoneNoWithCountryCallingCode> "+6586720021" "companyA" .
 </user/shortid/hwX6aOr7> <gender> "F" "companyA" .
 </user/shortid/hwX6aOr7> <email> "xxx.l30@xxx.com" "companyA" .
 </user/shortid/hwX6aOr7> <isEmailVerified> "true" "companyA" .
-</user/shortid/hwX6aOr7> <mobilePhone> _:l32 "companyA" .
-_:l32 <isVerified> "true" "companyA" .
-_:l32 <alpha3CountryCode> "SGP" "companyA" .
-_:l32 <mobilePhoneNoWithCountryCallingCode> "+6586720033" "companyA" .
+</user/shortid/hwX6aOr7> <mobilePhone> _:BN@</user/shortid/hwX6aOr7>.<mobilePhone> "companyA" .
+_:BN@</user/shortid/hwX6aOr7>.<mobilePhone> <isVerified> "true" "companyA" .
+_:BN@</user/shortid/hwX6aOr7>.<mobilePhone> <alpha3CountryCode> "SGP" "companyA" .
+_:BN@</user/shortid/hwX6aOr7>.<mobilePhone> <mobilePhoneNoWithCountryCallingCode> "+6586720033" "companyA" .
 
 </user/shortid/BJg4Kj2HOe> <userId> "BJg4Kj2HOe" "companyB" .
 </user/shortid/BJg4Kj2HOe> <realName> "XXX_L38" "companyB" .

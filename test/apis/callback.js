@@ -451,7 +451,7 @@ describe('Cayley callback style Gizmo APIs', function() {
   });
 
   it('path.Both([predicatePath], [tags])', function(done) {
-    cayleyClient.g.V('</user/shortid/46Juzcyx>').Both('<follows>', 'predicate').All((err, res) => {
+    cayleyClient.g.V('</user/shortid/BJg4Kj2HOe>').Both('<follows>', 'predicate').All((err, res) => {
       if (err) {
         done(err);
       } else {
@@ -557,7 +557,7 @@ describe('Cayley callback style Gizmo APIs', function() {
   });
 
   it('path.LabelContext(labelPath, tag)', function(done) {
-    cayleyClient.g.V('</user/shortid/BJg4Kj2HOe>').LabelContext('companyA', 'label').In('<follows>').All((err, res) => {
+    cayleyClient.g.V('</user/shortid/46Juzcyx>').LabelContext('companyA', 'label').In('<follows>').All((err, res) => {
       if (err) {
         done(err);
       } else {

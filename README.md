@@ -24,7 +24,13 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 
 > All the code examples in this README guidebook are based on the test data here: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq), which can be visualized as the below graph in cayley:
 
-<img src="https://github.com/lnshi/node-cayley/blob/master/test/data/friend_circle_with_label.nq_0_visualized.png" />
+```
+_:A standards for the value:  _:BN@</user/shortid/23TplPdS>.<mobilePhone>
+_:B standards for the value:  _:BN@</user/shortid/46Juzcyx>.<mobilePhone>
+_:C standards for the value:  _:BN@</user/shortid/hwX6aOr7>.<mobilePhone>
+```
+
+<img src="https://github.com/lnshi/node-cayley/blob/master/test/data/friend_circle_with_label.nq_1_visualized.png" />
 
 ## Basic usages examples
 
@@ -59,7 +65,8 @@ const popularQuery = g.M().Out('<follows>').In('<follows>')
                       .Has('<gender>', 'F').Out(['<email>', '<mobilePhone>']);
 
 g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
-  // res will be: {result:[{id:'xxx.l30@xxx.com'},{id:'_:l32'}]}
+  // res will be:
+  //   {result:[{id:'_:C'},{id:'xxx.l30@xxx.com'}]}
 }).catch((err) => {
   // Error ...
 });
@@ -304,7 +311,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     g.V('</user/shortid/46Juzcyx>')
       .Out('<follows>').In('<follows>').Has('<gender>', 'F').Out(['<email>', '<mobilePhone>'])
       .All().then((res) => {
-        // res will be: {result:[{id:'xxx.l30@xxx.com'},{id:'_:l32'}]}
+        // res will be:
+        //   {result:[{id:'_:C'},{id:'xxx.l30@xxx.com'}]}
       }).catch((err) => {
         // Error ...
       });
@@ -319,7 +327,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
     g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
       // res will be exactly same with above query.
-      // res will be: {result:[{id:'xxx.l30@xxx.com'},{id:'_:l32'}]}
+      // res will be:
+      //   {result:[{id:'_:C'},{id:'xxx.l30@xxx.com'}]}
     }).catch((err) => {
       // Error ...
     });
@@ -361,26 +370,20 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   // As you can see the below result, that indicates: 
   //   every 'predicatePath' just own all the 'tags' you passed in.
   g.V('</user/shortid/46Juzcyx>').Out('<follows>', ['predicate', 'ifExtraTag?']).All().then((res) => {
-    // res will be: {result:[{id:'</user/shortid/23TplPdS>','ifExtraTag?':'<follows>',predicate:'<follows>'}]}
-  }).catch((err) => {
-    // Error ...
-  });
-
-  g.V('</user/shortid/46Juzcyx>').Out(['<follows>', '<userId>'], ['predicate', 'extraTag']).All().then((res) => {
-    // res will be: {result:[{extraTag:'<follows>',id:'</user/shortid/23TplPdS>',predicate:'<follows>'},{extraTag:'<userId>',id:'46Juzcyx',predicate:'<userId>'}]}
+    // res will be:
+    //   {result:[{id:'</user/shortid/23TplPdS>','ifExtraTag?':'<follows>',predicate:'<follows>'}]}
   }).catch((err) => {
     // Error ...
   });
 
   // Haven't found out one very useful use case here, I mean by passing in a query.
-  g.V('</user/shortid/46Juzcyx>').Out(
-    g.V(['<userId>', '<userSetId>']),
-    'predicate'
-  ).All().then((res) => {
-    // res will be: {result:[{id:'46Juzcyx',predicate:'<userId>'},{id:'XXX_L14',predicate:'<userSetId>'}]}
-  }).catch((err) => {
-    // Error ...
-  });
+  g.V('</user/shortid/46Juzcyx>').Out(g.V(['<userId>', '<userSetId>']), 'predicate')
+    .All().then((res) => {
+      // res will be:
+      //   {result:[{id:'46Juzcyx',predicate:'<userId>'},{id:'XXX_L14',predicate:'<userSetId>'}]}
+    }).catch((err) => {
+      // Error ...
+    });
   ```
 
 ### path.In([predicatePath], [tag])
@@ -408,28 +411,13 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   }).catch((err) => {
     // Error ...
   });
-
-  g.V('false').In(['<isEmailVerified>', '<isVerified>'], ['predicate', 'extraTag']).All().then((res) => {
-    // res will be: {result:[{extraTag:'<isEmailVerified>',id:'</user/shortid/46Juzcyx>',predicate:'<isEmailVerified>'},{extraTag:'<isVerified>',id:'_:l8',predicate:'<isVerified>'},{extraTag:'<isVerified>',id:'_:l20',predicate:'<isVerified>'}]}
-  }).catch((err) => {
-    // Error ...
-  });
-
-  g.V('false').In(
-    g.V(['<isEmailVerified>', '<isVerified>']),
-    'predicate'
-  ).All().then((res) => {
-    // res will be: {result:[{extraTag:'<isEmailVerified>',id:'</user/shortid/46Juzcyx>',predicate:'<isEmailVerified>'},{extraTag:'<isVerified>',id:'_:l8',predicate:'<isVerified>'},{extraTag:'<isVerified>',id:'_:l20',predicate:'<isVerified>'}]}
-  }).catch((err) => {
-    // Error ...
-  });
   ```
 
 ### path.Both([predicatePath], [tag])
 
-> Note: less efficient, for the moment, as it's implemented with an Or, but useful where necessary.
-
 * Description: same as `In()` and `Out()`, but follow the predicate in either direction(into and out) from the node.
+
+> Note: less efficient, for the moment, as it's implemented with an Or, but useful where necessary.
 
 * **predicatePath**: `optional`, one of:
 
@@ -447,10 +435,9 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 * Usage examples:
 
   ```javascript
-  g.V('</user/shortid/46Juzcyx>').Both('<follows>', 'predicate').All().then((res) => {
-    // It seems 'tags' doesn't work properly for 'Both'.
-    //   see here: https://github.com/cayleygraph/cayley/issues/532
-    // res will be: {result:[{id:'</user/shortid/23TplPdS>'}]}
+  g.V('</user/shortid/BJg4Kj2HOe>').Both('<follows>', 'predicate').All().then((res) => {
+    // res will be:
+    //   {result:[{id:'</user/shortid/23TplPdS>',predicate:'<follows>'},{id:'</user/shortid/46Juzcyx>',predicate:'<follows>'},{id:'</user/shortid/46Juzcyx>',predicate:'<follows>'}]}
   }).catch((err) => {
     // Error ...
   });
@@ -523,10 +510,9 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 * Usage examples:
 
   ```javascript
-  g.V('</user/shortid/BJg4Kj2HOe>').LabelContext('companyA', 'label').In('<follows>')
+  g.V('</user/shortid/46Juzcyx>').LabelContext('companyA', 'label').In('<follows>')
     .All().then((res) => {
-      // res will be:
-      //   {result:[{id:'</user/shortid/23TplPdS>',label:'companyA'},{id:'</user/shortid/46Juzcyx>',label:'companyA'}]}
+      // res will be: { result: [ { id: '</user/shortid/23TplPdS>', label: 'companyA' } ] }
     }).catch((err) => {
       // Error ...
     });
@@ -567,14 +553,15 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   ```javascript
   // Skip 0.
   g.V().Has('<alpha3CountryCode>', 'SGP').Skip(0).All().then((res) => {
-    // res will be: {result:[{id:'_:l8'},{id:'_:l20'},{id:'_:l32'}]}
+    // res will be:
+    //   {result:[{id:'_:A'},{id:'_:B'},{id:'_:C'}]}
   }).catch((err) => {
     // Error ...
   });
 
   // Skip 2.
   g.V().Has('<alpha3CountryCode>', 'SGP').Skip(2).All().then((res) => {
-    // res will be: {result:[{id:'_:l32'}]}
+    // res will be: { result: [ { id: '_:C' } ] }
   }).catch((err) => {
     // Error ...
   });
@@ -662,7 +649,7 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     .In('<follows>').Has('<gender>', 'F').Back('myFollowees')
     .Out('<mobilePhone>').Tag('mobilePhone').All().then((res) => {
       // res will be:
-      //   {result:[{id:'_:l8',mobilePhone:'_:l8',myFollowees:'</user/shortid/23TplPdS>'}]}
+      //   {result:[{id:'_:A',mobilePhone:'_:A',myFollowees:'</user/shortid/23TplPdS>'}]}
     }).catch((err) => {
       // Error ...
     });
