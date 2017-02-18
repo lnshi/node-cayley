@@ -12,7 +12,7 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 * Transparent bidirectional JSON <-> N-Quads data formatting handling.
 * Travis CI.
 * Fully covered mocha + chai test cases.
-* Clearly designed entry-level N-Quads data: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq) for getting you in.
+* Clearly designed entry-level N-Quads data: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq) and [equivalent JSON](./test/data/friend_circle_with_label.nq.equivalent_json.js) for getting you in.
 
 # Documentation
 
