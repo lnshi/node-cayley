@@ -14,10 +14,6 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 * Fully covered mocha + chai test cases.
 * Clearly designed entry-level N-Quads data: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq) and [equivalent JSON](./test/data/friend_circle_with_label.nq.equivalent_json.js) for getting you in.
 
-# Documentation
-
-## Table of Contents
-
 ## Visualized graph
 
 > **Note:**
@@ -31,6 +27,55 @@ _:C  standards for the value:  _:BN@</user/shortid/hwX6aOr7>.<mobilePhone>
 ```
 
 <img src="https://github.com/lnshi/node-cayley/blob/master/test/data/friend_circle_with_label.nq_0_visualized.png" />
+
+**[⟱ Catalog](#catalog)**
+
+# Documentation
+
+## Catalog
+
+* [Visualized graph](#visualized-graph)
+* [Basic usages examples](#basic-usages-examples)
+* [Configuration](#configuration)
+* [Default random client selection strategy](#default-random-client-selection-strategy)
+* [HTTP APIs](#http-apis)
+   * [write(data, callback)](#writedata-callback)
+   * [read(callback)](#readcallback)
+   * [delete(data, callback)](#deletedata-callback)
+* [Gizmo APIs → graph object](#gizmo-apis--graph-object)
+   * [graph object](#graph-object)
+   * [graph.type(type)](#graphtypetype)
+   * [graph.Vertex([nodeId])](#graphvertexnodeid)
+   * [graph.Morphism()](#graphmorphism)
+   * [graph.Emit(data)](#graphemitdata)
+* [Gizmo APIs → Path Object](#gizmo-apis--path-object)
+   * [path.Out([predicatePath], [tag])](#pathoutpredicatepath-tag)
+   * [path.In([predicatePath], [tag])](#pathinpredicatepath-tag)
+   * [path.Both([predicatePath], [tag])](#pathbothpredicatepath-tag)
+   * [path.Is([node])](#pathisnode)
+   * [path.Has(predicatePath, node)](#pathhaspredicatepath-node)
+   * [path.LabelContext([labelPath], [tag])](#pathlabelcontextlabelpath-tag)
+   * [path.Limit(limit)](#pathlimitlimit)
+   * [path.Skip(offset)](#pathskipoffset)
+   * [path.InPredicates()](#pathinpredicates)
+   * [path.OutPredicates()](#pathoutpredicates)
+   * [path.Tag([tag])](#pathtagtag)
+   * [path.Back(tag)](#pathbacktag)
+   * [path.Save(predicate, tag)](#pathsavepredicate-tag)
+   * [path.Intersect(query)](#pathintersectquery)
+   * [path.Union(query)](#pathunionquery)
+   * [path.Except(query)](#pathexceptquery)
+   * [path.Follow(morphism)](#pathfollowmorphism)
+   * [path.FollowR(morphism)](#pathfollowrmorphism)
+* [Gizmo APIs → Query Object](#gizmo-apis--query-object)
+   * [query.All(callback)](#queryallcallback)
+   * [query.GetLimit(size, callback)](#querygetlimitsize-callback)
+   * [query.ToArray(gizmoFunc, callback)](#querytoarraygizmofunc-callback)
+   * [query.TagArray(gizmoFunc, callback)](#querytagarraygizmofunc-callback)
+   * [query.ToValue(gizmoFunc, callback)](#querytovaluegizmofunc-callback)
+   * [query.TagValue(gizmoFunc, callback)](#querytagvaluegizmofunc-callback)
+   * [query.ForEach(limit, gizmoFunc, callback)](#queryforeachlimit-gizmofunc-callback)
+* [Additional Resources](#additional-resources)
 
 ## Basic usages examples
 
@@ -71,6 +116,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   // Error ...
 });
 ```
+
+**[⇪ Catalog](#catalog)**
 
 ## Configuration
 
@@ -125,6 +172,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     g.V().All().then((res) => {/* Your data in JSON. */}).catch((err) => {});
     ```
 
+**[⇪ Catalog](#catalog)**
+
 ## Default random client selection strategy
 
   * If single cayley host is provided, the lib will return one single client directly.
@@ -151,6 +200,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
     client.delete(jsonObjArr).then((res) => {/* ... */}).catch((err) => {});
     ```
+
+**[⇪ Catalog](#catalog)**
 
 ## HTTP APIs
 
@@ -190,6 +241,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ### read(callback)
 
 * Description: read N-Quads data from cayley, the lib will transparently convert the data to JSON.
@@ -206,6 +259,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     // Error ...
   });
   ```
+
+**[⇪ Catalog](#catalog)**
 
 ### delete(data, callback)
 
@@ -237,6 +292,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ## Gizmo APIs → graph object
 
 ### graph object
@@ -248,6 +305,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   > const g = client.g;
 
 * This is the only special object in the environment, generates the query objects. Under the hood, they're simple objects that get compiled to a Go iterator tree when executed.
+
+**[⇪ Catalog](#catalog)**
 
 ### graph.type(type)
 
@@ -273,6 +332,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ### graph.Vertex([nodeId])
 
 * Alias: `V`
@@ -296,6 +357,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     // Error ...
   });
   ```
+
+**[⇪ Catalog](#catalog)**
 
 ### graph.Morphism()
 
@@ -334,13 +397,17 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     });
     ```
 
+**[⇪ Catalog](#catalog)**
+
 ### graph.Emit(data)
 
-> 
+> Only can be used in the below [gizmoFunc](#gizmo-apis--query-object).
 
 * Description: adds data programmatically to the JSON result list. Can be any JSON type.
 
 * **data**: `required`, a Javascript object that can be serialized to JSON.
+
+**[⇪ Catalog](#catalog)**
 
 ## Gizmo APIs → Path Object
 
@@ -396,6 +463,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ### path.In([predicatePath], [tag])
 
 * Description: same as `Out()`, but in the other direction. Starting with the nodes in path on the object, follow the quads with predicates defined by **predicatePath** to their subjects.
@@ -422,6 +491,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     // Error ...
   });
   ```
+
+**[⇪ Catalog](#catalog)**
 
 ### path.Both([predicatePath], [tag])
 
@@ -453,6 +524,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ### path.Is([node])
 
 * Description: filter all paths to ones, which at this point, are on the given node.
@@ -477,6 +550,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ### path.Has(predicatePath, node)
 
 * Description: 
@@ -497,6 +572,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     // Error ...
   });
   ```
+
+**[⇪ Catalog](#catalog)**
 
 ### path.LabelContext([labelPath], [tag])
 
@@ -536,6 +613,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ### path.Limit(limit)
 
 * Description: limits a number of nodes for current path.
@@ -551,6 +630,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     // Error ...
   });
   ```
+
+**[⇪ Catalog](#catalog)**
 
 ### path.Skip(offset)
 
@@ -577,6 +658,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ### path.InPredicates()
 
 * Description: get the list of predicates that are pointing into a node.
@@ -597,6 +680,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ### path.OutPredicates()
 
 * Description: get the list of predicates that are pointing out from a node.
@@ -610,6 +695,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     // Error ...
   });
   ```
+
+**[⇪ Catalog](#catalog)**
 
 ### path.Tag([tag])
 
@@ -630,6 +717,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
       // Error ...
     });
   ```
+
+**[⇪ Catalog](#catalog)**
 
 ### path.Back(tag)
 
@@ -665,6 +754,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ### path.Save(predicate, tag)
 
 * Description: from the current node as the subject, save the object of all quads with predicate into tag, without traversal.
@@ -683,6 +774,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     // Error ...
   });
   ```
+
+**[⇪ Catalog](#catalog)**
 
 ### path.Intersect(query)
 
@@ -704,6 +797,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
     // Error ...
   });
   ```
+
+**[⇪ Catalog](#catalog)**
 
 ### path.Union(query)
 
@@ -738,6 +833,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ### path.Except(query)
 
 * Alias: `path.Difference`
@@ -766,6 +863,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ### path.Follow(morphism)
 
 * Description: 
@@ -774,7 +873,9 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
   * Starts as if at the g.M() and follows through the morphism path.
 
-* Usage example: refer to above `graph.Morphism()` doc.
+* Usage example: refer to above [graph.Morphism()](#graphmorphism) doc.
+
+**[⇪ Catalog](#catalog)**
 
 ### path.FollowR(morphism)
 
@@ -797,6 +898,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
   });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ## Gizmo APIs → Query Object
 
 > Subclass of `Path Object`.
@@ -804,6 +907,8 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 > Only `.Vertex()/V()` objects -- that is, queries that have somewhere to start -- can be turned into queries. To actually execute the queries, an output step must be applied.
 
 > Depends on your `promisify` setting, this lib will provide `bluebird Promise style` or `callback style` API, for both styles, usages examples can be found in the lib [test folder](./test).
+
+**[⇪ Catalog](#catalog)**
 
 **Note:**
 
@@ -836,13 +941,17 @@ For the below seven APIs which belong to `Query Object`, the parameter:
       
     2. Can use any API exposed by this lib belong to 'Path' object.
 
-    3. Can use the `g.Emit(data)` API.
+    3. Can use above [graph.Emit(data)](#graphemitdata) API.
 
   * Anyway, for each API, you always have lots of wroking well examples can follow, you can find them in this README guidebook or [test folder](./test).
+
+**[⇪ Catalog](#catalog)**
 
 ### query.All(callback)
 
 * Description: executes the query and adds the results, with all tags, as a string-to-string (tag to node) map in the output set, one for each path that a traversal could take.
+
+**[⇪ Catalog](#catalog)**
 
 ### query.GetLimit(size, callback)
 
@@ -861,6 +970,8 @@ For the below seven APIs which belong to `Query Object`, the parameter:
   });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ### query.ToArray(gizmoFunc, callback)
 
 * Description: executes a query and returns the results as array at the end of the query path.
@@ -875,7 +986,7 @@ For the below seven APIs which belong to `Query Object`, the parameter:
     
   2. Can use any API exposed by this lib belong to 'Path' object.
 
-  3. Can use the `g.Emit(data)` API.
+  3. Can use above [graph.Emit(data)](#graphemitdata) API.
 
 * Usage example:
 
@@ -897,6 +1008,8 @@ For the below seven APIs which belong to `Query Object`, the parameter:
   });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ### query.TagArray(gizmoFunc, callback)
 
 * Description:
@@ -915,7 +1028,7 @@ For the below seven APIs which belong to `Query Object`, the parameter:
     
   2. Can use any API exposed by this lib belong to 'Path' object.
 
-  3. Can use the `g.Emit(data)` API.
+  3. Can use above [graph.Emit(data)](#graphemitdata) API.
 
 * Usage example:
 
@@ -935,6 +1048,8 @@ For the below seven APIs which belong to `Query Object`, the parameter:
   });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ### query.ToValue(gizmoFunc, callback)
 
 * Description: like `.ToArray` above, but limited to one result node -- a string. Like `.Limit(1)`.
@@ -951,7 +1066,7 @@ For the below seven APIs which belong to `Query Object`, the parameter:
     
   2. Can use any API exposed by this lib belong to 'Path' object.
 
-  3. Can use the `g.Emit(data)` API.
+  3. Can use above [graph.Emit(data)](#graphemitdata) API.
 
 * Usage example:
 
@@ -969,6 +1084,8 @@ For the below seven APIs which belong to `Query Object`, the parameter:
   });
   ```
 
+**[⇪ Catalog](#catalog)**
+
 ### query.TagValue(gizmoFunc, callback)
 
 * Description: like `.TagArray` above, but limited to one result node -- a string. Like `.Limit(1)`. Returns a tag-to-string map.
@@ -985,7 +1102,7 @@ For the below seven APIs which belong to `Query Object`, the parameter:
     
   2. Can use any API exposed by this lib belong to 'Path' object.
 
-  3. Can use the `g.Emit(data)` API.
+  3. Can use above [graph.Emit(data)](#graphemitdata) API.
 
 * Usage example:
 
@@ -1002,6 +1119,8 @@ For the below seven APIs which belong to `Query Object`, the parameter:
     // Error ...
   });
   ```
+
+**[⇪ Catalog](#catalog)**
 
 ### query.ForEach(limit, gizmoFunc, callback)
 
@@ -1021,7 +1140,7 @@ For the below seven APIs which belong to `Query Object`, the parameter:
     
   2. Can use any API exposed by this lib belong to 'Path' object.
 
-  3. Can use the `g.Emit(data)` API.
+  3. Can use above [graph.Emit(data)](#graphemitdata) API.
 
 * Usage example:
 
@@ -1050,6 +1169,8 @@ For the below seven APIs which belong to `Query Object`, the parameter:
     // Error ...
   });
   ```
+
+**[⇪ Catalog](#catalog)**
 
 ## Additional Resources
 
