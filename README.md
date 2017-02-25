@@ -14,6 +14,10 @@ This is a Node.js client for open-source graph database [cayley](https://github.
 * Fully covered mocha + chai test cases.
 * Clearly designed entry-level N-Quads data: [friend_circle_with_label.nq](./test/data/friend_circle_with_label.nq) and [equivalent JSON](./test/data/friend_circle_with_label.nq.equivalent_json.js) for getting you in.
 
+## Todo list
+
+* [JSON-LD](http://json-ld.org/) support.
+
 ## Visualized graph
 
 > **Note:**
@@ -26,11 +30,11 @@ _:B  standards for the value:  _:BN@</user/shortid/46Juzcyx>.<mobilePhone>
 _:C  standards for the value:  _:BN@</user/shortid/hwX6aOr7>.<mobilePhone>
 ```
 
-**[⟱ Catalog](#catalog)**
+**[⇩ Catalog](#catalog)**
 
 <img src="https://github.com/lnshi/node-cayley/blob/master/test/data/friend_circle_with_label.nq_0_visualized.png" />
 
-**[⟱ Catalog](#catalog)**
+**[⇩ Catalog](#catalog)**
 
 # Documentation
 
@@ -41,42 +45,42 @@ _:C  standards for the value:  _:BN@</user/shortid/hwX6aOr7>.<mobilePhone>
 * [Configuration](#configuration)
 * [Default random client selection strategy](#default-random-client-selection-strategy)
 * [HTTP APIs](#http-apis)
-   * [write(data, callback)](#writedata-callback)
-   * [read(callback)](#readcallback)
-   * [delete(data, callback)](#deletedata-callback)
+  * [write(data, callback)](#writedata-callback)
+  * [read(callback)](#readcallback)
+  * [delete(data, callback)](#deletedata-callback)
 * [Gizmo APIs → graph object](#gizmo-apis--graph-object)
-   * [graph object](#graph-object)
-   * [graph.type(type)](#graphtypetype)
-   * [graph.Vertex([nodeId])](#graphvertexnodeid)
-   * [graph.Morphism()](#graphmorphism)
-   * [graph.Emit(data)](#graphemitdata)
+  * [graph object](#graph-object)
+  * [graph.type(type)](#graphtypetype)
+  * [graph.Vertex([nodeId])](#graphvertexnodeid)
+  * [graph.Morphism()](#graphmorphism)
+  * [graph.Emit(data)](#graphemitdata)
 * [Gizmo APIs → Path Object](#gizmo-apis--path-object)
-   * [path.Out([predicatePath], [tag])](#pathoutpredicatepath-tag)
-   * [path.In([predicatePath], [tag])](#pathinpredicatepath-tag)
-   * [path.Both([predicatePath], [tag])](#pathbothpredicatepath-tag)
-   * [path.Is([node])](#pathisnode)
-   * [path.Has(predicatePath, node)](#pathhaspredicatepath-node)
-   * [path.LabelContext([labelPath], [tag])](#pathlabelcontextlabelpath-tag)
-   * [path.Limit(limit)](#pathlimitlimit)
-   * [path.Skip(offset)](#pathskipoffset)
-   * [path.InPredicates()](#pathinpredicates)
-   * [path.OutPredicates()](#pathoutpredicates)
-   * [path.Tag([tag])](#pathtagtag)
-   * [path.Back(tag)](#pathbacktag)
-   * [path.Save(predicate, tag)](#pathsavepredicate-tag)
-   * [path.Intersect(query)](#pathintersectquery)
-   * [path.Union(query)](#pathunionquery)
-   * [path.Except(query)](#pathexceptquery)
-   * [path.Follow(morphism)](#pathfollowmorphism)
-   * [path.FollowR(morphism)](#pathfollowrmorphism)
+  * [path.Out([predicatePath], [tag])](#pathoutpredicatepath-tag)
+  * [path.In([predicatePath], [tag])](#pathinpredicatepath-tag)
+  * [path.Both([predicatePath], [tag])](#pathbothpredicatepath-tag)
+  * [path.Is([node])](#pathisnode)
+  * [path.Has(predicatePath, node)](#pathhaspredicatepath-node)
+  * [path.LabelContext([labelPath], [tag])](#pathlabelcontextlabelpath-tag)
+  * [path.Limit(limit)](#pathlimitlimit)
+  * [path.Skip(offset)](#pathskipoffset)
+  * [path.InPredicates()](#pathinpredicates)
+  * [path.OutPredicates()](#pathoutpredicates)
+  * [path.Tag([tag])](#pathtagtag)
+  * [path.Back(tag)](#pathbacktag)
+  * [path.Save(predicate, tag)](#pathsavepredicate-tag)
+  * [path.Intersect(query)](#pathintersectquery)
+  * [path.Union(query)](#pathunionquery)
+  * [path.Except(query)](#pathexceptquery)
+  * [path.Follow(morphism)](#pathfollowmorphism)
+  * [path.FollowR(morphism)](#pathfollowrmorphism)
 * [Gizmo APIs → Query Object](#gizmo-apis--query-object)
-   * [query.All(callback)](#queryallcallback)
-   * [query.GetLimit(size, callback)](#querygetlimitsize-callback)
-   * [query.ToArray(gizmoFunc, callback)](#querytoarraygizmofunc-callback)
-   * [query.TagArray(gizmoFunc, callback)](#querytagarraygizmofunc-callback)
-   * [query.ToValue(gizmoFunc, callback)](#querytovaluegizmofunc-callback)
-   * [query.TagValue(gizmoFunc, callback)](#querytagvaluegizmofunc-callback)
-   * [query.ForEach(limit, gizmoFunc, callback)](#queryforeachlimit-gizmofunc-callback)
+  * [query.All(callback)](#queryallcallback)
+  * [query.GetLimit(size, callback)](#querygetlimitsize-callback)
+  * [query.ToArray(gizmoFunc, callback)](#querytoarraygizmofunc-callback)
+  * [query.TagArray(gizmoFunc, callback)](#querytagarraygizmofunc-callback)
+  * [query.ToValue(gizmoFunc, callback)](#querytovaluegizmofunc-callback)
+  * [query.TagValue(gizmoFunc, callback)](#querytagvaluegizmofunc-callback)
+  * [query.ForEach(limit, gizmoFunc, callback)](#queryforeachlimit-gizmofunc-callback)
 * [Additional Resources](#additional-resources)
 
 ## Basic usages examples
@@ -1242,7 +1246,7 @@ For the below seven APIs which belong to `Query Object`, the parameter:
 
 **[⇪ Catalog](#catalog)**
 
-## Additional Resources
+## Additional resources
 
 <a href="https://github.com/lnshi/node-cayley/blob/master/ADDITIONAL_RESOURCES.md" target="_blank">See here.</a>
 
