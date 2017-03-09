@@ -1,4 +1,4 @@
-# node-cayley [![Build Status](https://travis-ci.org/lnshi/node-cayley.svg?branch=master)](https://travis-ci.org/lnshi/node-cayley) [![npm version](https://badge.fury.io/js/node-cayley.svg)](https://badge.fury.io/js/node-cayley)
+# node-cayley [![Build Status](https://travis-ci.org/lnshi/node-cayley.svg?branch=master)](https://travis-ci.org/lnshi/node-cayley) [![Coverage Status](https://coveralls.io/repos/github/lnshi/node-cayley/badge.svg?branch=master)](https://coveralls.io/github/lnshi/node-cayley?branch=master) [![npm version](https://badge.fury.io/js/node-cayley.svg)](https://badge.fury.io/js/node-cayley)
 
 This is a Node.js client for open-source graph database [cayley](https://github.com/cayleygraph/cayley).
 
