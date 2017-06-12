@@ -26,7 +26,7 @@
   2. Then at the same level as directory `cayley_config` run:
 
     ```
-    docker run -v $PWD/cayley_config/:/data -p 64210:64210 -d quay.io/cayleygraph/cayley
+    docker run -v $PWD/cayley_config/:/data -p 64210:64210 -d quay.io/cayleygraph/cayley:v0.6.1
     ```
     Then you have cayley server running at `localhost:64210`, and data will be stored in MongoDB which is specified by `db_path`.
 
