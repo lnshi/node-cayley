@@ -6,7 +6,7 @@ services:
     image: mongo
 
   cayley:
-    image: quay.io/cayleygraph/cayley
+    image: quay.io/cayleygraph/cayley:v0.6.1
     volumes:
       - ./cayley_config:/data
     ports:
