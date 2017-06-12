@@ -4,7 +4,7 @@
   "description": "Node.js client for open-source graph database cayley(https://github.com/cayleygraph/cayley).",
   "main": "./index.js",
   "scripts": {
-    "test": "./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha --check-leaks --sort ./test/index.js",
+    "test": "./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha -- --check-leaks --timeout 10000 --sort ./test/index.js",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "homepage": "https://github.com/lnshi/node-cayley",
