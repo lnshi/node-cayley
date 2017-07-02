@@ -133,7 +133,7 @@ g.V('</user/shortid/46Juzcyx>').Follow(popularQuery).All().then((res) => {
 
   * Options
 
-    * promisify: `boolean`, default to true, set true to use bluebird style APIs, false to use callback style APIs.
+    * promisify: `boolean`, default to false, set true to use bluebird style APIs, false to use callback style APIs.
 
     * logLevel: `integer`, set log level, this lib use logger winston and npm log levels(winston.config.npm.levels).
 
