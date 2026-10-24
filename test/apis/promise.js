@@ -397,6 +397,18 @@ describe('Cayley bluebird Promise style Gizmo APIs', function() {
     });
   });
 
+  it('path.SaveInPredicates(predicate, tag)', function() {
+    return cayleyClient.g.V('</user/shortid/BJg4Kj2HOe>').SaveInPredicates('target').All().then((res) => {
+      assert.isArray(res.result);
+    });
+  });
+
+  it('path.SaveOutPredicates(predicate, tag)', function() {
+    return cayleyClient.g.V('</user/shortid/BJg4Kj2HOe>').SaveOutPredicates('target').All().then((res) => {
+      assert.isArray(res.result);
+    });
+  });
+
   it('path.Intersect(query)', function() {
     const queryA = cayleyClient.g.V('</user/shortid/46Juzcyx>').Out('<follows>');
     const queryB = cayleyClient.g.V('</user/shortid/hwX6aOr7>').Out('<follows>');
@@ -449,6 +461,20 @@ describe('Cayley bluebird Promise style Gizmo APIs', function() {
     const willBeReversedQuery = cayleyClient.g.M().Out('<follows>');
     return cayleyClient.g.V('</user/shortid/23TplPdS>').FollowR(willBeReversedQuery).All().then((res) => {
       assert.isArray(res.result);
+    });
+  });
+
+  it('path.V().Count()', function() {
+    return cayleyClient.g.V().Count().then((res) => {
+	    console.log("Res", JSON.stringify(res,null,2))
+      expect(res).to.eq(1)
+    })
+  })
+
+  it('path.V().Unique()', function() {
+    return cayleyClient.g.V().Unique().All().then((res) => {
+      assert.isArray(res.result);
+      expect(res.result).to.have.length.gt(1);
     });
   });
 
